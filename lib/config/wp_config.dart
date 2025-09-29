@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class WPConfig {
   /// The Name of your app
-  static const String appName = 'newspro';
+  static const String appName = 'Rpsp';
 
   /// The url of your app, should not inclued any '/' slash or any 'https://' or 'http://'
   /// Otherwise it may break the compaitbility, And your website must be
   /// a wordpress website.
-  static const String url = 'newpro.abdulnomin.com';
+  static const String url = 'rpsp.adventistasumn.org';
 
   /// Your onesignal id
   static const String oneSignalId = '9640bb7f-addb-4b15-87ea-8ea8981aa0d9';
