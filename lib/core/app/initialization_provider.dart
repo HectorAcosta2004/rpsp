@@ -19,7 +19,7 @@ import '../repositories/others/onboarding_local.dart';
 import '../repositories/others/post_style_local.dart';
 import '../repositories/others/search_local.dart';
 
-// Enum to represent app state
+// Enum para representar el estado de la app
 enum AppState {
   introNotDone,
   consentNotDone,
@@ -28,7 +28,7 @@ enum AppState {
   initializing,
 }
 
-// For storing initialization status
+// Estado de inicialización
 class InitializationState {
   final bool isCriticalInitComplete;
   final bool isLazyInitComplete;
@@ -52,8 +52,7 @@ class InitializationState {
     StackTrace? stackTrace,
   }) {
     return InitializationState(
-      isCriticalInitComplete:
-          isCriticalInitComplete ?? this.isCriticalInitComplete,
+      isCriticalInitComplete: isCriticalInitComplete ?? this.isCriticalInitComplete,
       isLazyInitComplete: isLazyInitComplete ?? this.isLazyInitComplete,
       currentAppState: currentAppState ?? this.currentAppState,
       error: error ?? this.error,
@@ -62,7 +61,7 @@ class InitializationState {
   }
 }
 
-// Arguments needed for initialization
+// Argumentos para inicialización
 class InitializationArgument {
   final NewsProConfig config;
   final BuildContext context;
@@ -73,13 +72,13 @@ class InitializationArgument {
   });
 }
 
-// Main provider for tracking initialization state
+// Provider principal de inicialización
 final appInitializationProvider =
     StateNotifierProvider<AppInitializer, InitializationState>((ref) {
   return AppInitializer(ref);
 });
 
-// Provider to expose just the AppState for UI consumers
+// Provider que expone solo el AppState para la UI
 final appStateProvider = Provider<AsyncValue<AppState>>((ref) {
   final initState = ref.watch(appInitializationProvider);
 
@@ -94,34 +93,38 @@ final appStateProvider = Provider<AsyncValue<AppState>>((ref) {
   return AsyncValue.data(initState.currentAppState);
 });
 
-// The actual initializer that manages the initialization process
+// Clase que maneja la inicialización
 class AppInitializer extends StateNotifier<InitializationState> {
   final Ref ref;
 
   AppInitializer(this.ref) : super(const InitializationState());
 
-  // Initialize with config and context when available
+  // Inicialización principal
   Future<void> initialize(InitializationArgument arg) async {
     if (state.isCriticalInitComplete) return;
 
     try {
+      // Inicialización crítica
       await _performCriticalInitialization(arg);
 
-      // Determine app state based on config and onboarding status
+      // Determinar estado de la app (login, onboarding o home)
       final appState = await _determineAppState(arg.config);
 
-      // Update state with critical init complete and app state
+      // Actualizar estado con inicialización crítica completa
       state = state.copyWith(
         isCriticalInitComplete: true,
         currentAppState: appState,
       );
 
-      // Start lazy initialization in the background
-      _performLazyInitialization(arg).then((_) {
+      // Inicialización lazy en segundo plano
+      _performLazyInitialization(arg).then((_) async {
         state = state.copyWith(isLazyInitComplete: true);
+
+        // Revalidar estado tras lazy init
+        final updatedAppState = await _determineAppState(arg.config);
+        state = state.copyWith(currentAppState: updatedAppState);
       }).catchError((e, st) {
         Log.error('Lazy initialization error: $e');
-        // We don't fail the app for lazy init errors
       });
     } catch (e, st) {
       Log.fatal(error: e, stackTrace: st);
@@ -132,62 +135,50 @@ class AppInitializer extends StateNotifier<InitializationState> {
     }
   }
 
-  // Critical initialization - required before app can be shown
-  Future<void> _performCriticalInitialization(
-      InitializationArgument arg) async {
+  // Inicialización crítica
+  Future<void> _performCriticalInitialization(InitializationArgument arg) async {
     Log.info('Starting critical initialization');
 
-    // Open essential boxes
+    // Abrir cajas esenciales
     await Hive.openBox('settingsBox');
     await Hive.openBox<NotificationModel>('notifications');
 
-    // Initialize connectivity monitoring
+    // Conectividad
     ref.read(connectivityProvider);
 
-    // Initialize notifications
-    await NotificationHandler.init(arg.context);
+    // Inicializar notificaciones
+    await NotificationHandler.init(arg.context, ref);
 
-    // Initialize onboarding repository
+    // Repositorios esenciales
     await OnboardingRepository().init();
-
-    // Initialize post style repository
     await PostStyleRepository().init();
 
-    // Initialize auth controller
+    // Controlador de autenticación
     await ref.read(authController.notifier).init();
 
     Log.info('Critical initialization complete');
   }
 
-  // Lazy initialization - can happen after app is shown
+  // Inicialización lazy
   Future<void> _performLazyInitialization(InitializationArgument arg) async {
     Log.info('Starting lazy initialization');
 
-    // Initialize Firebase
     if (Firebase.apps.isEmpty) {
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
     }
 
-    // Initialize authentication
     await ref.read(authRepositoryProvider).init();
-
-    // Initialize search repository
     await SearchLocalRepo().init();
-
-    // Initialize local notifications
     ref.read(localNotificationProvider);
-
-    // Set locale messages
     AppLocales.setLocaleMessages();
-
-    // Initialize app links
     ref.read(applinkNotifierProvider(arg.context));
 
     Log.info('Lazy initialization complete');
   }
 
+  // Determinar estado de la app
   Future<AppState> _determineAppState(NewsProConfig? config) async {
     Log.info('Determining app state');
 
@@ -196,15 +187,17 @@ class AppInitializer extends StateNotifier<InitializationState> {
     final isOnboardingDone = onboarding.isIntroDone();
     final isLoggedIn = ref.read(authController) is AuthLoggedIn;
 
-    Log.info('Onboarding Enabled: $onboardingEnabled');
-    Log.info('Onboarding Done: $isOnboardingDone');
-    Log.info('Logged In: $isLoggedIn');
-
+    // Mostrar onboarding si está habilitado y no se completó
     if (onboardingEnabled && !isOnboardingDone) {
       return AppState.introNotDone;
     }
 
-    // Onboarding is either disabled or completed, check auth state
-    return isLoggedIn ? AppState.loggedIn : AppState.loggedOut;
+    // Forzar mostrar login/registro si no hay sesión activa
+    if (!isLoggedIn) {
+      return AppState.loggedOut;
+    }
+
+    // Usuario logueado
+    return AppState.loggedIn;
   }
 }

@@ -12,59 +12,20 @@ import 'offline_post_repository.dart';
 final postRepoProvider = Provider<PostRepository>((ref) {
   final dio = ref.read(dioProvider);
   final offlineRepo = ref.read(offlinePostRepoProvider);
-  final repo = PostRepository(dio, offlineRepo);
-  return repo;
+  return PostRepository(dio, offlineRepo);
 });
 
 abstract class PostRepoAbstract {
-  /// Get All Posts [Paginated]
-  Future<List<ArticleModel>> getAllPost({
-    required int pageNumber,
-    int perPage = 10,
-  });
-
-  /// Get Post By Category
-  Future<List<ArticleModel>> getPostByCategory({
-    required int pageNumber,
-    required int categoryID,
-    int perPage = 10,
-  });
-
-  Future<List<ArticleModel>> getPostByTag({
-    required int pageNumber,
-    required int tagID,
-    int perPage = 10,
-  });
-
-  Future<List<ArticleModel>> getPostByAuthor({
-    required int pageNumber,
-    required int authorID,
-    int perPage = 10,
-  });
-
-  /// Get Post
+  Future<List<ArticleModel>> getAllPost({required int pageNumber, int perPage = 10});
+  Future<List<ArticleModel>> getPostByCategory({required int pageNumber, required int categoryID, int perPage = 10});
+  Future<List<ArticleModel>> getPostByTag({required int pageNumber, required int tagID, int perPage = 10});
+  Future<List<ArticleModel>> getPostByAuthor({required int pageNumber, required int authorID, int perPage = 10});
   Future<ArticleModel?> getPost({required int postID});
-
-  /// Get Popular Posts
-  ///
-  /// [isPlugin] This is because sometimes the popular post plugin returns an empty
-  /// array or you wanna just add a feature post by yourself, which
-  /// in this case this is required
   Future<List<ArticleModel>> getPopularPosts({int perPage = 10});
-
-  /// Get these posts
   Future<List<ArticleModel>> getThesePosts({required List<int> ids});
-
-  /// Search Posts
   Future<List<ArticleModel>> searchPost({required String keyword});
-
-  /// Get Post From Slug
   Future<ArticleModel?> getPostFromUrl({required String requestedURL});
-
-  /// Get Post by Slug
   Future<List<ArticleModel>> getPostsBySlug({required String slug});
-
-  /// Report a post
   Future<bool> reportPost({
     required int postID,
     required String postTitle,
@@ -74,315 +35,149 @@ abstract class PostRepoAbstract {
   });
 }
 
-/// [PostRepository] that is responsible for posts getting
-/// It is an implementation from the above abstract class
 class PostRepository extends PostRepoAbstract {
-  PostRepository(
-    this.dio,
-    this.offlineRepo,
-  );
+  PostRepository(this.dio, this.offlineRepo);
 
   final Dio dio;
   final OfflinePostRepository offlineRepo;
 
   final String baseUrl = 'https://${WPConfig.url}/wp-json/wp/v2/posts';
 
-  /* <---- Get All Posts -----> */
+  /// Helper: parse safely response.data as list
+  List<dynamic> _parseResponseData(dynamic data) {
+    if (data is List) {
+      return data;
+    } else if (data is Map<String, dynamic> && data['data'] is List) {
+      return data['data'] as List;
+    } else {
+      return [];
+    }
+  }
+
   @override
-  Future<List<ArticleModel>> getAllPost({
-    required int pageNumber,
-    int perPage = 10,
-  }) async {
-    final String url = '$baseUrl?page=$pageNumber&per_page=$perPage';
+  Future<List<ArticleModel>> getAllPost({required int pageNumber, int perPage = 10}) async {
+    final url = '$baseUrl?page=$pageNumber&per_page=$perPage';
     final List<ArticleModel> articles = [];
 
     try {
       final response = await dio.get(url);
-
       if (response.statusCode == 200 || response.statusCode == 304) {
-        final List posts = response.data as List;
-
+        final posts = _parseResponseData(response.data);
         for (final post in posts) {
           try {
-            final article = ArticleModel.fromMap(post);
-            articles.add(article);
-          } catch (parseError) {
-            Log.error('Failed to parse article: $parseError');
-            Log.error('Problematic article data: $post');
-            // Continue processing other articles
-            continue;
+            articles.add(ArticleModel.fromMap(post));
+          } catch (e) {
+            Log.error('Failed to parse article: $e');
           }
         }
-      } else {
-        Log.error('Unexpected response status code: ${response.statusCode}');
       }
-
-      // Auto-save first 10 posts for offline reading (only on first page)
       if (pageNumber == 1 && articles.isNotEmpty) {
         _autoSavePostsForOffline(articles.take(10).toList());
       }
-
       return articles;
-    } catch (networkError) {
-      debugPrint('Network error while fetching articles: $networkError');
-      return articles;
+    } catch (e) {
+      debugPrint('Network error: $e');
+      return [];
     }
   }
 
-  /// Auto-save posts for offline reading
   Future<void> _autoSavePostsForOffline(List<ArticleModel> posts) async {
-    try {
-      for (final post in posts) {
-        // Check if post is already saved offline
-        final isAlreadySaved = await offlineRepo.isPostSaved(post.id);
-        if (!isAlreadySaved) {
-          await offlineRepo.savePost(post);
-          Log.info('Auto-saved post for offline reading: ${post.title}');
-        }
+    for (final post in posts) {
+      if (!await offlineRepo.isPostSaved(post.id)) {
+        await offlineRepo.savePost(post);
+        Log.info('Saved post offline: ${post.title}');
       }
-    } catch (e) {
-      Log.error('Failed to auto-save posts for offline reading: $e');
     }
   }
 
-  /* <---- Get Post By Category -----> */
   @override
-  Future<List<ArticleModel>> getPostByCategory({
-    required int pageNumber,
-    required int categoryID,
-    int perPage = 10,
-  }) async {
-    String url =
-        '$baseUrl?categories=$categoryID&page=$pageNumber&per_page=$perPage';
-    List<ArticleModel> articles = [];
+  Future<List<ArticleModel>> getPostByCategory({required int pageNumber, required int categoryID, int perPage = 10}) async {
+    final url = '$baseUrl?categories=$categoryID&page=$pageNumber&per_page=$perPage';
     try {
       final response = await dio.get(url);
-      if (response.statusCode == 200) {
-        final posts = response.data as List;
-        articles = posts.map((e) => ArticleModel.fromMap(e)).toList();
-        return articles;
-      } else if (response.statusCode == 304) {
-        final posts = response.data as List;
-        articles = posts.map(((e) => ArticleModel.fromMap(e))).toList();
-        return articles;
-      } else {
-        debugPrint('Response Status code: ${response.statusCode}');
-        return articles;
-      }
+      final posts = _parseResponseData(response.data);
+      return posts.map((e) => ArticleModel.fromMap(e)).toList();
     } catch (e) {
-      // Fluttertoast.showToast(msg: e.toString());
       debugPrint(e.toString());
       return [];
     }
   }
 
   @override
-  Future<List<ArticleModel>> getPostByTag({
-    required int pageNumber,
-    required int tagID,
-    int perPage = 10,
-  }) async {
-    String url = '$baseUrl?tags=$tagID&page=$pageNumber&per_page=$perPage';
-    List<ArticleModel> articles = [];
+  Future<List<ArticleModel>> getPostByTag({required int pageNumber, required int tagID, int perPage = 10}) async {
+    final url = '$baseUrl?tags=$tagID&page=$pageNumber&per_page=$perPage';
     try {
       final response = await dio.get(url);
-      if (response.statusCode == 200) {
-        final posts = response.data as List;
-        articles = posts.map((e) => ArticleModel.fromMap(e)).toList();
-        return articles;
-      } else if (response.statusCode == 304) {
-        final posts = response.data as List;
-        articles = posts.map(((e) => ArticleModel.fromMap(e))).toList();
-        return articles;
-      } else {
-        debugPrint('Response Status code: ${response.statusCode}');
-        return articles;
-      }
+      final posts = _parseResponseData(response.data);
+      return posts.map((e) => ArticleModel.fromMap(e)).toList();
     } catch (e) {
-      // Fluttertoast.showToast(msg: e.toString());
       debugPrint(e.toString());
       return [];
     }
   }
 
-  /// Get post by Author
   @override
-  Future<List<ArticleModel>> getPostByAuthor({
-    required int pageNumber,
-    required int authorID,
-    int perPage = 10,
-  }) async {
-    String url =
-        '$baseUrl?page=$pageNumber&author=$authorID&status=publish&per_page=$perPage';
-    debugPrint('Url: $url');
-    List<ArticleModel> articles = [];
+  Future<List<ArticleModel>> getPostByAuthor({required int pageNumber, required int authorID, int perPage = 10}) async {
+    final url = '$baseUrl?page=$pageNumber&author=$authorID&status=publish&per_page=$perPage';
     try {
       final response = await dio.get(url);
-      if (response.statusCode == 200) {
-        final posts = response.data as List;
-        articles = posts.map((e) => ArticleModel.fromMap(e)).toList();
-        return articles;
-      } else if (response.statusCode == 304) {
-        final posts = response.data as List;
-        articles = posts.map(((e) => ArticleModel.fromMap(e))).toList();
-        return articles;
-      } else {
-        debugPrint('Response code is ${response.statusCode}');
-      }
+      final posts = _parseResponseData(response.data);
+      return posts.map((e) => ArticleModel.fromMap(e)).toList();
+    } catch (e) {
+      debugPrint(e.toString());
+      return [];
+    }
+  }
+
+  @override
+  Future<List<ArticleModel>> getThesePosts({required List<int> ids, int page = 1}) async {
+    final postsQuery = ids.join(',');
+    final url = '$baseUrl?include=$postsQuery&page=$page&orderby=include';
+    try {
+      final response = await dio.get(url);
+      final posts = _parseResponseData(response.data);
+      return posts.map((e) => ArticleModel.fromMap(e)).toList();
+    } catch (e) {
+      debugPrint(e.toString());
+      return [];
+    }
+  }
+
+  @override
+  Future<List<ArticleModel>> getPopularPosts({int perPage = 10}) async {
+    final url = 'https://${WPConfig.url}/wp-json/wordpress-popular-posts/v1/popular-posts?limit=$perPage';
+    try {
+      final response = await dio.get(url);
+      final posts = _parseResponseData(response.data);
+      var articles = posts.map((e) => ArticleModel.fromMap(e)).toList();
+      if (articles.isEmpty) articles = await getAllPost(pageNumber: 1);
       return articles;
     } catch (e) {
-      // Fluttertoast.showToast(msg: e.toString());
       debugPrint(e.toString());
-      return articles;
+      return await getAllPost(pageNumber: 1);
     }
   }
 
-  @override
-  Future<List<ArticleModel>> getThesePosts({
-    required List<int> ids,
-    int page = 1,
-  }) async {
-    final posts = ids.join(',');
-    String url = '$baseUrl?include=$posts&page=$page&orderby=include';
-    List<ArticleModel> articles = [];
-    try {
-      final response = await dio.get(url);
-      if (response.statusCode == 200) {
-        final posts = response.data as List;
-        articles = posts.map((e) => ArticleModel.fromMap(e)).toList();
-        return articles;
-      } else if (response.statusCode == 304) {
-        final posts = response.data as List;
-        articles = posts.map(((e) => ArticleModel.fromMap(e))).toList();
-        return articles;
-      } else {
-        debugPrint('Response code is ${response.statusCode}');
-        debugPrint('Page number is $page');
-        return articles;
-      }
-    } catch (e) {
-      // Fluttertoast.showToast(msg: e.toString());
-      debugPrint(e.toString());
-      return articles;
-    }
-  }
-
-  /* <---- Get Popular Posts -----> */
-  @override
-  Future<List<ArticleModel>> getPopularPosts({
-    int featureCategory = 1,
-    int perPage = 10,
-  }) async {
-    List<ArticleModel> articles = [];
-    String url =
-        'https://${WPConfig.url}/wp-json/wordpress-popular-posts/v1/popular-posts?limit=$perPage';
-    try {
-      final response = await dio.get(url);
-      if (response.statusCode == 200) {
-        final posts = response.data as List;
-        articles = posts.map(((e) => ArticleModel.fromMap(e))).toList();
-        if (articles.isEmpty) articles = await getAllPost(pageNumber: 1);
-        return articles;
-      } else if (response.statusCode == 404) {
-        final posts = response.data as List;
-        articles = posts.map(((e) => ArticleModel.fromMap(e))).toList();
-        if (articles.isEmpty) articles = await getAllPost(pageNumber: 1);
-        return articles;
-      } else if (response.statusCode == 304) {
-        final posts = response.data as List;
-        articles = posts.map(((e) => ArticleModel.fromMap(e))).toList();
-        if (articles.isEmpty) articles = await getAllPost(pageNumber: 1);
-        return articles;
-      } else {
-        debugPrint('Response Status code: ${response.statusCode}');
-        return articles;
-      }
-    } on Exception catch (e) {
-      // Fluttertoast.showToast(msg: e.toString());
-      debugPrint(e.toString());
-    }
-    return articles;
-  }
-
-  static Future<bool> addViewsToPost({required int postID}) async {
-    final url =
-        'https://${WPConfig.url}/wp-json/wordpress-popular-posts/v1/popular-posts?wpp_id=$postID';
-
-    try {
-      final response = await Dio().post(url);
-      if (response.statusCode == 201) {
-        // debugPrint('Post Views has been added $postID');
-        return true;
-      } else {
-        debugPrint(response.data);
-        return false;
-      }
-    } on Exception catch (e) {
-      // Fluttertoast.showToast(msg: e.toString());
-      debugPrint(e.toString());
-      return false;
-    }
-  }
-
-  /* <---- Get a Post -----> */
   @override
   Future<ArticleModel?> getPost({required int postID}) async {
-    String url = '$baseUrl/$postID';
-
+    final url = '$baseUrl/$postID';
     try {
       final response = await dio.get(url);
-      if (response.statusCode == 200) {
-        return ArticleModel.fromMap(response.data);
-      } else {
-        return null;
-      }
+      if (response.statusCode == 200) return ArticleModel.fromMap(response.data);
     } catch (e) {
-      // Fluttertoast.showToast(msg: e.toString());
       debugPrint(e.toString());
     }
     return null;
   }
 
-  static Future<ArticleModel?> getPostbyID({required int postID}) async {
-    const String mainUrl = 'https://${WPConfig.url}/wp-json/wp/v2/posts';
-    String url = '$mainUrl/$postID';
-
-    try {
-      final response = await Dio().get(url);
-      if (response.statusCode == 200) {
-        return ArticleModel.fromMap(response.data);
-      } else {
-        return null;
-      }
-    } catch (e) {
-      // Fluttertoast.showToast(msg: e.toString());
-      debugPrint(e.toString());
-    }
-    return null;
-  }
-
-  /* <---- Search a post -----> */
   @override
   Future<List<ArticleModel>> searchPost({required String keyword}) async {
-    String url = '$baseUrl?search=$keyword';
-    List<ArticleModel> articles = [];
-
+    final url = '$baseUrl?search=$keyword';
     try {
       final response = await dio.get(url);
-      if (response.statusCode == 200) {
-        final posts = response.data as List;
-        articles = posts.map(((e) => ArticleModel.fromMap(e))).toList();
-        return articles;
-      } else if (response.statusCode == 304) {
-        final posts = response.data as List;
-        articles = posts.map(((e) => ArticleModel.fromMap(e))).toList();
-        return articles;
-      } else {
-        debugPrint('Response Status code: ${response.statusCode}');
-        return articles;
-      }
+      final posts = _parseResponseData(response.data);
+      return posts.map((e) => ArticleModel.fromMap(e)).toList();
     } catch (e) {
-      // Fluttertoast.showToast(msg: e.toString());
       debugPrint(e.toString());
       return [];
     }
@@ -391,54 +186,26 @@ class PostRepository extends PostRepoAbstract {
   @override
   Future<ArticleModel?> getPostFromUrl({required String requestedURL}) async {
     final theUrl = Uri.parse(requestedURL);
-    final host = theUrl.host;
-    // String stripVersion = theUrl.path.replaceAll(RegExp(r'[^\w\s]+'), ' ');
-    // debugPrint('Stripped Version: ${stripVersion.trim()}');
-    String postParameter = theUrl.path;
     int postID = int.tryParse(theUrl.pathSegments[1]) ?? 0;
-
-    if (host == WPConfig.url) {
-      ArticleModel? article;
+    if (theUrl.host == WPConfig.url) {
       if (WPConfig.usingPlainFormatLink) {
-        final articles = await getPostsBySlug(
-          slug: postParameter,
-        );
-        article = articles.isNotEmpty ? articles.first : null;
+        final articles = await getPostsBySlug(slug: theUrl.path);
+        return articles.isNotEmpty ? articles.first : null;
       } else {
-        article = await getPost(postID: postID);
-        debugPrint('Getting post with $postID');
+        return await getPost(postID: postID);
       }
-      return article;
-    } else {
-      debugPrint('This is not our app content');
     }
     return null;
   }
 
   @override
-  Future<List<ArticleModel>> getPostsBySlug({
-    required String slug,
-  }) async {
-    String url = 'https://${WPConfig.url}/wp-json/wp/v2/posts?slug=$slug';
-
-    List<ArticleModel> articles = [];
-
+  Future<List<ArticleModel>> getPostsBySlug({required String slug}) async {
+    final url = '$baseUrl?slug=$slug';
     try {
       final response = await dio.get(url);
-      if (response.statusCode == 200) {
-        final posts = response.data as List;
-        articles = posts.map(((e) => ArticleModel.fromMap(e))).toList();
-        return articles;
-      } else if (response.statusCode == 304) {
-        final posts = response.data as List;
-        articles = posts.map(((e) => ArticleModel.fromMap(e))).toList();
-        return articles;
-      } else {
-        debugPrint('Response Status code: ${response.statusCode}');
-        return articles;
-      }
+      final posts = _parseResponseData(response.data);
+      return posts.map((e) => ArticleModel.fromMap(e)).toList();
     } catch (e) {
-      // Fluttertoast.showToast(msg: e.toString());
       debugPrint(e.toString());
       return [];
     }
@@ -452,26 +219,28 @@ class PostRepository extends PostRepoAbstract {
     required String userName,
     required String reportEmail,
   }) async {
-    final mail = '''Hello Admin, Hoping you are having a wonderful day.
-
-I noticed that this post contains some inappropriate content that goes against certain policy of this app, please review this as soon as possible.
+    final mail = '''Hello Admin,
 
 Post title: "$postTitle",
-Post id: $postID,
+Post id: $postID
 
-Thanks & Regards.
-$userName,
-From: $userEmail''';
-
+From: $userName <$userEmail>
+''';
     try {
-      await AppUtils.sendEmail(
-        email: reportEmail,
-        content: mail,
-        subject: 'Reporting Post $postID',
-      );
+      await AppUtils.sendEmail(email: reportEmail, content: mail, subject: 'Reporting Post $postID');
       return true;
-    } on Exception catch (e) {
-      // debugPrint(e.toString());
+    } catch (e) {
+      debugPrint(e.toString());
+      return false;
+    }
+  }
+
+  static Future<bool> addViewsToPost({required int postID}) async {
+    final url = 'https://${WPConfig.url}/wp-json/wordpress-popular-posts/v1/popular-posts?wpp_id=$postID';
+    try {
+      final response = await Dio().post(url);
+      return response.statusCode == 201;
+    } catch (e) {
       debugPrint(e.toString());
       return false;
     }

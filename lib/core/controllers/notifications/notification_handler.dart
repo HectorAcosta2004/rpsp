@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:news_pro/core/repositories/posts/post_repository.dart';
 import 'package:news_pro/core/routes/app_routes.dart';
@@ -9,42 +10,52 @@ import '../../logger/app_logger.dart';
 import '../../models/notification_model.dart';
 
 class NotificationHandler {
-  static Future<void> init(BuildContext context) async {
-    // Initialize OneSignal
+  /// Inicializa OneSignal y configura listeners
+  static Future<void> init(BuildContext context, Ref ref) async {
     OneSignal.initialize(WPConfig.oneSignalId);
 
-    // Handle notifications when app is in foreground
+    // Notificaciones en primer plano
     OneSignal.Notifications.addForegroundWillDisplayListener(
         (OSNotificationWillDisplayEvent event) async {
       final notification =
           NotificationModel.fromOSnotification(event.notification);
+
       if (!(await isNotificationSaved(notification.postId))) {
         await saveNotification(notification);
       }
-      handleNotificationClick(notification, context);
+
+      await handleNotificationClick(notification, context, ref);
+
       event.notification.display();
     });
 
-    // Handle notifications when app is opened from a notification
+    // Notificaciones al abrir la app desde una notificación
     OneSignal.Notifications.addClickListener(
         (OSNotificationClickEvent result) async {
       final data = result.notification.additionalData;
       if (data != null) {
         final notification =
             NotificationModel.fromOSnotification(result.notification);
+
         if (!(await isNotificationSaved(notification.postId))) {
           await saveNotification(notification);
         }
-        handleNotificationClick(notification, context);
+
+        await handleNotificationClick(notification, context, ref);
       }
     });
   }
 
+  /// Maneja el click en una notificación
   static Future<void> handleNotificationClick(
-      NotificationModel notification, BuildContext context) async {
+    NotificationModel notification,
+    BuildContext context,
+    Ref ref) async {
     if (notification.postId != 0) {
-      final post =
-          await PostRepository.getPostbyID(postID: notification.postId);
+      // Obtener el PostRepository usando Riverpod
+      final postRepo = ref.read(postRepoProvider);
+      final post = await postRepo.getPost(postID: notification.postId);
+
       if (post != null) {
         Navigator.pushNamed(context, AppRoutes.post, arguments: post);
       } else {
@@ -55,44 +66,50 @@ class NotificationHandler {
     }
   }
 
+  /// Guardar notificación en Hive
   static Future<void> saveNotification(NotificationModel notification) async {
     final box = Hive.box<NotificationModel>('notifications');
     await box.add(notification);
     Log.info('Notification saved: ${notification.id}');
   }
 
+  /// Verifica si la notificación ya existe en Hive
   static Future<bool> isNotificationSaved(int notificationId) async {
     final box = Hive.box<NotificationModel>('notifications');
-    final notifications = box.values;
-    return notifications
-        .any((notification) => notification.postId == notificationId);
+    return box.values.any((n) => n.postId == notificationId);
   }
 
+  /// Obtener todas las notificaciones
   static Future<List<NotificationModel>> getNotifications() async {
     final box = Hive.box<NotificationModel>('notifications');
     return box.values.toList();
   }
 
+  /// Eliminar una notificación
   static Future<void> deleteNotification(int notificationId) async {
     final box = Hive.box<NotificationModel>('notifications');
     final notifications = box.values;
     final notificationToDelete = notifications.firstWhere(
-      (notification) => notification.postId == notificationId,
+      (n) => n.postId == notificationId,
+      orElse: () => throw Exception('Notification not found'),
     );
     await notificationToDelete.delete();
     Log.info('Notification deleted: $notificationId');
   }
 
+  /// Limpiar todas las notificaciones
   static Future<void> clearAllNotifications() async {
     final box = Hive.box<NotificationModel>('notifications');
     await box.clear();
     Log.info('All notifications cleared');
   }
 
+  /// Deshabilitar notificaciones
   static Future<void> disableNotifications() async {
     OneSignal.User.pushSubscription.optOut();
   }
 
+  /// Habilitar notificaciones
   static Future<void> enableNotifications() async {
     OneSignal.User.pushSubscription.optIn();
   }

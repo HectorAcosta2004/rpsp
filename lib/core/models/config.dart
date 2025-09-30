@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:easy_ads_flutter/easy_ads_flutter.dart';
-
 import '../repositories/others/post_style_local.dart';
 
 class NewsProConfig {
@@ -58,7 +57,7 @@ class NewsProConfig {
   bool showPostViews;
 
   PostDetailStyle postDetailStyle;
-  bool hidePageStyle; // If true, the post detail style will be hidden
+  bool hidePageStyle;
 
   NewsProConfig({
     required this.mainTabName,
@@ -110,73 +109,94 @@ class NewsProConfig {
   });
 
   factory NewsProConfig.fromMap(Map<String, dynamic> map) {
+    int parseInt(dynamic value, [int defaultValue = 0]) {
+      if (value == null) return defaultValue;
+      return int.tryParse(value.toString()) ?? defaultValue;
+    }
+
+    List<int> parseIntList(dynamic value) {
+      if (value is List) return List<int>.from(value.map((e) => int.tryParse(e.toString()) ?? 0));
+      return [];
+    }
+
+    String parseString(dynamic value, [String defaultValue = '']) {
+      if (value == null) return defaultValue;
+      return value.toString();
+    }
+
+    bool parseBool(dynamic value, [bool defaultValue = false]) {
+      if (value == null) return defaultValue;
+      if (value is bool) return value;
+      if (value is String) return value.toLowerCase() == 'true';
+      if (value is int) return value != 0;
+      return defaultValue;
+    }
+
     return NewsProConfig(
-      mainTabName: map['mainTabName'] as String,
-      homeTopTabCategories: List<int>.from(map['homeTopTabCategories']),
-      blockedCategories: List<int>.from(map['blockedCategories']),
-      featuredPosts: List<int>.from(map['featuredPosts']),
-      automaticSlide: map['automaticSlide'] as bool,
-      showTopLogoInHome: map['showTopLogoInHome'] as bool,
-      privacyPolicyUrl: map['privacyPolicyUrl'] as String,
-      termsAndServicesUrl: map['termsAndServicesUrl'] as String,
-      cookieConsentText: map['cookieConsentText'] as String,
-      aboutPageUrl: map['aboutPageUrl'] as String,
-      facebookUrl: map['facebookUrl'] as String,
-      twitterUrl: map['twitterUrl'] as String,
-      telegramUrl: map['telegramUrl'] as String,
-      instagramUrl: map['instagramUrl'] as String,
-      tiktokUrl: map['tiktokUrl'] as String,
-      youtubeUrl: map['youtubeUrl'] as String,
-      whatsappUrl: map['whatsappUrl'] as String,
-      appShareLink: map['appShareLink'] as String,
-      appstoreAppID: map['appstoreAppID'] as String,
-      ownerName: map['ownerName'] as String,
-      ownerEmail: map['ownerEmail'] as String,
-      ownerPhone: map['ownerPhone'] as String,
-      ownerAddress: map['ownerAddress'] as String,
-      appDescription: map['appDescription'] as String,
-      reportEmail: map['reportEmail'] as String,
-      isAdOn: map['isAdOn'] as bool,
-      isCustomAdOn: map['isCustomAdOn'] as bool,
-      interstialAdCount: int.parse(map['interstialAdCount']),
-      adIntervalinPost: int.parse(map['adIntervalinPost']),
-      customAdIntervalInPost: int.parse(map['customAdIntervalInPost']),
-      showDateInApp: map['showDateInApp'] as bool,
-      showAuthor: map['showAuthor'] as bool,
-      showTrendingPopularIcon: map['showTrendingPopularIcon'] as bool,
-      showComment: map['showComment'] as bool,
-      showViewOnWebsiteButton: map['showViewOnWebsiteButton'] as bool,
-      showReportButton: map['showReportButton'] as bool,
-      isSocialLoginEnabled: map['isSocialLoginEnabled'] as bool,
-      isLoginEnabled: map['isLoginEnabled'] as bool,
-      onboardingEnabled: map['onboardingEnabled'] as bool,
-      multiLanguageEnabled: map['multiLanguageEnabled'] as bool,
-      showCookieConsent: map['showCookieConsent'] as bool,
-      showAuthorsInExplorePage: map['showAuthorsInExplorePage'] as bool,
-      showPostViews: map['showPostViews'] as bool,
-      adnetwork: showAdFrom(map['showAdOnlyFrom']),
-      postDetailStyle: getPostDetailStyle(map['page_style'] as String),
-      hidePageStyle: map['hide_page_style'] as bool,
+      mainTabName: parseString(map['mainTabName'], 'Home'),
+      homeTopTabCategories: parseIntList(map['homeTopTabCategories']),
+      blockedCategories: parseIntList(map['blockedCategories']),
+      featuredPosts: parseIntList(map['featuredPosts']),
+      automaticSlide: parseBool(map['automaticSlide'], true),
+      showTopLogoInHome: parseBool(map['showTopLogoInHome'], true),
+      privacyPolicyUrl: parseString(map['privacyPolicyUrl']),
+      termsAndServicesUrl: parseString(map['termsAndServicesUrl']),
+      cookieConsentText: parseString(map['cookieConsentText']),
+      showCookieConsent: parseBool(map['showCookieConsent']),
+      aboutPageUrl: parseString(map['aboutPageUrl']),
+      facebookUrl: parseString(map['facebookUrl']),
+      twitterUrl: parseString(map['twitterUrl']),
+      telegramUrl: parseString(map['telegramUrl']),
+      instagramUrl: parseString(map['instagramUrl']),
+      tiktokUrl: parseString(map['tiktokUrl']),
+      youtubeUrl: parseString(map['youtubeUrl']),
+      whatsappUrl: parseString(map['whatsappUrl']),
+      appShareLink: parseString(map['appShareLink']),
+      appstoreAppID: parseString(map['appstoreAppID']),
+      ownerName: parseString(map['ownerName']),
+      ownerEmail: parseString(map['ownerEmail']),
+      ownerPhone: parseString(map['ownerPhone']),
+      ownerAddress: parseString(map['ownerAddress']),
+      appDescription: parseString(map['appDescription']),
+      reportEmail: parseString(map['reportEmail']),
+      isAdOn: parseBool(map['isAdOn'], true),
+      isCustomAdOn: parseBool(map['isCustomAdOn'], false),
+      interstialAdCount: parseInt(map['interstialAdCount'], 3),
+      adIntervalinPost: parseInt(map['adIntervalinPost'], 5),
+      customAdIntervalInPost: parseInt(map['customAdIntervalInPost'], 5),
+      showDateInApp: parseBool(map['showDateInApp'], true),
+      showAuthor: parseBool(map['showAuthor'], true),
+      showTrendingPopularIcon: parseBool(map['showTrendingPopularIcon'], true),
+      showComment: parseBool(map['showComment'], true),
+      showViewOnWebsiteButton: parseBool(map['showViewOnWebsiteButton'], true),
+      showReportButton: parseBool(map['showReportButton'], true),
+      isSocialLoginEnabled: parseBool(map['isSocialLoginEnabled'], true),
+      isLoginEnabled: parseBool(map['isLoginEnabled'], true),
+      onboardingEnabled: parseBool(map['onboardingEnabled'], true),
+      multiLanguageEnabled: parseBool(map['multiLanguageEnabled'], false),
+      showAuthorsInExplorePage: parseBool(map['showAuthorsInExplorePage'], true),
+      showPostViews: parseBool(map['showPostViews'], true),
+      adnetwork: showAdFrom(parseString(map['showAdOnlyFrom'])),
+      postDetailStyle: getPostDetailStyle(parseString(map['page_style'], 'classic')),
+      hidePageStyle: parseBool(map['hide_page_style']),
     );
   }
 
   static List<AdNetwork> showAdFrom(String? data) {
-    if (data == null || data == '') {
-      return [
-        AdNetwork.admob,
-        AdNetwork.unity,
-        AdNetwork.appLovin,
-      ];
-    } else if (data == 'admob') {
-      return [AdNetwork.admob];
-    } else if (data == 'facebook') {
-      return [AdNetwork.any];
-    } else if (data == 'unity') {
-      return [AdNetwork.unity];
-    } else if (data == 'applovin') {
-      return [AdNetwork.appLovin];
-    } else {
-      return [AdNetwork.any];
+    if (data == null || data.isEmpty) {
+      return [AdNetwork.admob, AdNetwork.unity, AdNetwork.appLovin];
+    }
+    switch (data.toLowerCase()) {
+      case 'admob':
+        return [AdNetwork.admob];
+      case 'facebook':
+        return [AdNetwork.any];
+      case 'unity':
+        return [AdNetwork.unity];
+      case 'applovin':
+        return [AdNetwork.appLovin];
+      default:
+        return [AdNetwork.any];
     }
   }
 
