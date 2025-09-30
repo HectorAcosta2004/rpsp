@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:firebase_core/firebase_core.dart'; // <- Firebase
 
 import 'config/wp_config.dart';
 import 'core/localization/app_locales.dart';
@@ -20,13 +21,25 @@ import 'views/others/update_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Inicialización segura de Firebase
+  try {
+    await Firebase.initializeApp();
+    print('✅ Firebase inicializado correctamente');
+  } catch (e) {
+    print('❌ Error al inicializar Firebase: $e');
+  }
+
   await AppUtils.setDisplayToHighRefreshRate();
   await EasyLocalization.ensureInitialized();
+
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
-  // Initialize Hive storage
+
+  // Inicializar almacenamiento Hive
   Directory appDocDir = await getApplicationDocumentsDirectory();
   await Hive.initFlutter(appDocDir.path);
   Hive.registerAdapter(NotificationModelAdapter());
+
   runApp(
     UpdatePage(
       child: ProviderScope(

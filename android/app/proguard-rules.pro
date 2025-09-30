@@ -1,22 +1,53 @@
+# ================================
+# Flutter
+# ================================
+-keep class io.flutter.app.** { *; }
+-keep class io.flutter.plugins.** { *; }
+-keep class io.flutter.embedding.** { *; }
+
+# ================================
+# Firebase & Google Play Services
+# ================================
+-keep class com.google.firebase.** { *; }
+-dontwarn com.google.firebase.**
+
+-keep class com.google.android.gms.** { *; }
+-dontwarn com.google.android.gms.**
+
+# Firebase Messaging
+-keep class com.google.firebase.messaging.** { *; }
+-dontwarn com.google.firebase.messaging.**
+
+# Firestore
+-keep class com.google.firestore.** { *; }
+-dontwarn com.google.firestore.**
+
+# Analytics
+-keep class com.google.android.gms.measurement.** { *; }
+-dontwarn com.google.android.gms.measurement.**
+
+# ================================
+# Google Play Core / API Client
+# ================================
 -dontwarn com.google.android.play.core.splitcompat.SplitCompatApplication
--dontwarn com.google.android.play.core.splitinstall.SplitInstallException
--dontwarn com.google.android.play.core.splitinstall.SplitInstallManager
--dontwarn com.google.android.play.core.splitinstall.SplitInstallManagerFactory
--dontwarn com.google.android.play.core.splitinstall.SplitInstallRequest$Builder
--dontwarn com.google.android.play.core.splitinstall.SplitInstallRequest
--dontwarn com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
--dontwarn com.google.android.play.core.tasks.OnFailureListener
--dontwarn com.google.android.play.core.tasks.OnSuccessListener
--dontwarn com.google.android.play.core.tasks.Task
--dontwarn com.google.api.client.http.GenericUrl
--dontwarn com.google.api.client.http.HttpHeaders
--dontwarn com.google.api.client.http.HttpRequest
--dontwarn com.google.api.client.http.HttpRequestFactory
--dontwarn com.google.api.client.http.HttpResponse
--dontwarn com.google.api.client.http.HttpTransport
--dontwarn com.google.api.client.http.javanet.NetHttpTransport$Builder
--dontwarn com.google.api.client.http.javanet.NetHttpTransport
+-dontwarn com.google.android.play.core.splitinstall.**
+-dontwarn com.google.android.play.core.tasks.**
+-dontwarn com.google.api.client.http.**
 -dontwarn org.joda.time.Instant
+
+# ================================
 # Facebook Infer annotations
+# ================================
 -dontwarn com.facebook.infer.annotation.**
 -keep class com.facebook.infer.annotation.** { *; }
+
+# ================================
+# Kotlin coroutines (para evitar warnings)
+# ================================
+-dontwarn kotlinx.coroutines.**
+
+# ================================
+# Hive (serialización)
+# ================================
+-keep class ** extends io.flutter.plugins.** { *; }
+-keep class ** extends com.google.protobuf.GeneratedMessageLite { *; }
