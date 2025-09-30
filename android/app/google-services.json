@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:994617670866:android:c1b0a5a3e309496cc5c10b",
         "android_client_info": {
-          "package_name": "com.abdulmomin.newspro"
+          "package_name": "org.adventistas.umn.rpsp"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "994617670866-4phiil9flmnf1khppbod53n0mmu69ue9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.abdulmomin.newspro",
+            "package_name": "org.adventistas.umn.rpsp",
             "certificate_hash": "4c78bd3ea02ae290279502860c05e6b2e02d210b"
           }
         },
@@ -25,7 +25,7 @@
           "client_id": "994617670866-7e31lf8pi97huslm0d3usespdm0lv2q1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.abdulmomin.newspro",
+            "package_name": "org.adventistas.umn.rpsp",
             "certificate_hash": "643782bed9876c32e680fd8271e49e2f3f364bfe"
           }
         },
@@ -33,7 +33,7 @@
           "client_id": "994617670866-co8ji72c2u0nmqtkne5nv77mhujnm7ra.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.abdulmomin.newspro",
+            "package_name": "org.adventistas.umn.rpsp",
             "certificate_hash": "a8ef7e8081675028d38d9b5675f09ba493e9ba17"
           }
         },
@@ -41,7 +41,7 @@
           "client_id": "994617670866-onn1i1b0q1ra6cu9ie1jtkd5do4qsuc2.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.abdulmomin.newspro",
+            "package_name": "org.adventistas.umn.rpsp",
             "certificate_hash": "f02c3dda03f2da709b22e57b5c829cc0937132af"
           }
         },

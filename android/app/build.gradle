@@ -48,7 +48,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.abdulmomin.newspro"
+        applicationId "org.adventistas.umn.rpsp"
         minSdkVersion 25
         targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()
@@ -70,7 +70,7 @@ android {
         proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    namespace 'com.abdulmomin.newspro'
+    namespace 'org.adventistas.umn.rpsp'
 }
 
 flutter {
