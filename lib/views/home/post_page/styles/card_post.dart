@@ -4,12 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:news_pro/core/components/ad_widgets.dart';
 import 'package:news_pro/core/utils/extensions.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../../config/wp_config.dart';
-import '../../../../core/ads/ad_state_provider.dart';
 import '../../../../core/components/article_category_row.dart';
 import '../../../../core/components/mini_player.dart';
 import '../../../../core/constants/constants.dart';
@@ -198,8 +196,7 @@ class CardPost extends StatelessWidget {
                     ),
                   ),
 
-                  const NativeAdWidget(),
-                  Card(
+                              Card(
                     margin: const EdgeInsets.all(16),
                     elevation: 4,
                     shadowColor: isDark ? Colors.black54 : Colors.black26,
@@ -211,7 +208,7 @@ class CardPost extends StatelessWidget {
                       currentArticleID: article.id,
                     ),
                   ),
-                  const BannerAdWidget(),
+                
                   Padding(
                     padding: const EdgeInsets.all(AppDefaults.padding),
                     child: SizedBox(
@@ -270,7 +267,7 @@ class _CardSaveButton extends ConsumerWidget {
           ? null
           : () async {
               if (auth is AuthLoggedIn) {
-                ref.read(loadInterstitalAd(context))?.call();
+                
                 if (isSaved) {
                   await controller.removePostFromSaved(article.id);
                   Fluttertoast.showToast(msg: 'article_removed_message'.tr());

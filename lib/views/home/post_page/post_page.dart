@@ -21,21 +21,7 @@ class PostPage extends HookConsumerWidget {
   });
   final ArticleModel article;
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(loadInterstitalAd(context))?.call();
-    final isVideoPost = ArticleModel.isVideoArticle(article);
-    final selectedStyle = ref.watch(postStyleControllerProvider);
-    
-    AnalyticsController.logPostView(article);
-    PostRepository.addViewsToPost(postID: article.id);
-    
-    if (isVideoPost) {
-      return VideoPost(article: article);
-    } else {
-      return _buildPostWithStyle(selectedStyle);
-    }
-  }
+  
   
   Widget _buildPostWithStyle(PostDetailStyle style) {
     switch (style) {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+// FIX: La ruta del paquete 'rpsp' se ha cambiado de nuevo a 'news_pro' según la solicitud.
+// Si el nombre de su paquete sigue siendo 'rpsp', deberá reemplazar 'news_pro' por 'rpsp' en todo el proyecto.
 import 'package:news_pro/core/controllers/internet/internet_state_provider.dart';
 import '../../core/app/initialization_provider.dart';
 import '../../core/logger/app_logger.dart';
@@ -20,6 +22,7 @@ class LoadingAppPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // connectivityProvider e InternetState ahora deberían estar disponibles
     final internetAvailable = ref.watch(connectivityProvider);
     ref.read(offlinePostRepoProvider).init();
 
@@ -70,11 +73,11 @@ class LoadingAppPage extends ConsumerWidget {
       WidgetRef ref, NewsProConfig config, BuildContext context) {
     // Start the initialization process
     ref.read(appInitializationProvider.notifier).initialize(
-          InitializationArgument(
-            config: config,
-            context: context,
-          ),
-        );
+      InitializationArgument(
+        config: config,
+        context: context,
+      ),
+    );
   }
 
   Widget _buildAppStateUI(AppState state, NewsProConfig config) {

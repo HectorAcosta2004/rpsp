@@ -3,7 +3,7 @@ import 'dart:ui';
 extension StringExtension on String? {
   // Check null string, return given value if null
   String validate({String value = ''}) {
-    if (this == null && this!.isEmpty) {
+    if (this == null || this!.isEmpty) {
       return value;
     } else {
       return this!;

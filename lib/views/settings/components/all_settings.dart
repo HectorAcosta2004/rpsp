@@ -29,7 +29,6 @@ class AllSettings extends StatelessWidget {
               child: child,
             ),
             children: [
-              const NativeAdWidget(),
               const UserSettings(),
               const GeneralSettings(),
               const OfflineSettings(),

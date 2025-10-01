@@ -97,14 +97,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.6+1"
-  applovin_max:
-    dependency: transitive
-    description:
-      name: applovin_max
-      sha256: "3155e197fbaca3ef0467d1519841fb06c134b02c4ef5021cb250b53939e810ac"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.5.0"
   archive:
     dependency: transitive
     description:
@@ -417,22 +409,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
-  easy_ads_flutter:
-    dependency: "direct main"
-    description:
-      name: easy_ads_flutter
-      sha256: "5f29da5b79f8de9e5efeaea3f789611b60a8e5bb34a09872f59d17416fbc4c10"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.8.0"
-  easy_audience_network:
-    dependency: transitive
-    description:
-      name: easy_audience_network
-      sha256: "5ce4be91e822470997b46c3817c041e2ee8dee36195a8804e209f39cf4cc59e0"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.7"
   easy_localization:
     dependency: "direct main"
     description:
@@ -885,14 +861,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.3+1"
-  google_mobile_ads:
-    dependency: "direct main"
-    description:
-      name: google_mobile_ads
-      sha256: "0d4a3744b5e8ed1b8be6a1b452d309f811688855a497c6113fc4400f922db603"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.3.1"
   google_nav_bar:
     dependency: "direct main"
     description:
@@ -1177,10 +1145,10 @@ packages:
     dependency: "direct main"
     description:
       name: logger
-      sha256: be4b23575aac7ebf01f225a241eb7f6b5641eeaf43c6a8613510fc2f8cf187d1
+      sha256: "55d6c23a6c15db14920e037fe7e0dc32e7cdaf3b64b4b25df2d541b5b6b81c0c"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.0"
+    version: "2.6.1"
   logging:
     dependency: transitive
     description:
@@ -1778,14 +1746,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.8"
-  unity_ads_plugin:
-    dependency: transitive
-    description:
-      name: unity_ads_plugin
-      sha256: d5e22e04bfca6a7fd42816f2392c2c1578991a934e13f579c198c827bd6d4b10
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.24"
   universal_html:
     dependency: transitive
     description:

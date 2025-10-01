@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:easy_ads_flutter/easy_ads_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:news_pro/core/components/components.dart';
@@ -88,12 +87,7 @@ class IOSTrackingPermissionWrapperState
     if (!Platform.isIOS) {
       return TrackingStatus.notSupported;
     } else if (Platform.isAndroid) {
-      final result = await ConsentManager.gatherGdprConsent();
-      if (result == true) {
-        return TrackingStatus.authorized;
-      } else {
-        return TrackingStatus.denied;
-      }
+      //final result = await ConsentManager.gatherGdprConsent();
     }
 
     if (widget.explainerDialog != null) {

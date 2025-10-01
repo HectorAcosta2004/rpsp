@@ -6,7 +6,7 @@ import 'package:news_pro/core/utils/extensions.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../../config/wp_config.dart';
-import '../../../../core/components/ad_widgets.dart';
+
 import '../../../../core/components/mini_player.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../../core/controllers/analytics/analytics_controller.dart';
@@ -36,7 +36,7 @@ class NormalPost extends StatelessWidget {
                 children: [
                   PostImageRenderer(article: article),
                   PostPageBody(article: article),
-                  const NativeAdWidget(),
+                 
                   Container(
                     color: Theme.of(context).cardColor,
                     child: MoreRelatedPost(
@@ -46,7 +46,7 @@ class NormalPost extends StatelessWidget {
                       currentArticleID: article.id,
                     ),
                   ),
-                  const BannerAdWidget(),
+                 
                   Padding(
                     padding: const EdgeInsets.all(AppDefaults.padding),
                     child: SizedBox(

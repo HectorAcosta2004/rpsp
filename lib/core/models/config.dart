@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:easy_ads_flutter/easy_ads_flutter.dart';
 import '../repositories/others/post_style_local.dart';
 
 class NewsProConfig {
@@ -39,7 +38,6 @@ class NewsProConfig {
   int interstialAdCount;
   int adIntervalinPost;
   int customAdIntervalInPost;
-  List<AdNetwork> adnetwork;
 
   bool showDateInApp;
   bool showAuthor;
@@ -91,7 +89,6 @@ class NewsProConfig {
     required this.interstialAdCount,
     required this.adIntervalinPost,
     required this.customAdIntervalInPost,
-    required this.adnetwork,
     required this.showDateInApp,
     required this.showAuthor,
     required this.showTrendingPopularIcon,
@@ -176,31 +173,13 @@ class NewsProConfig {
       multiLanguageEnabled: parseBool(map['multiLanguageEnabled'], false),
       showAuthorsInExplorePage: parseBool(map['showAuthorsInExplorePage'], true),
       showPostViews: parseBool(map['showPostViews'], true),
-      adnetwork: showAdFrom(parseString(map['showAdOnlyFrom'])),
       postDetailStyle: getPostDetailStyle(parseString(map['page_style'], 'classic')),
       hidePageStyle: parseBool(map['hide_page_style']),
     );
   }
 
-  static List<AdNetwork> showAdFrom(String? data) {
-    if (data == null || data.isEmpty) {
-      return [AdNetwork.admob, AdNetwork.unity, AdNetwork.appLovin];
-    }
-    switch (data.toLowerCase()) {
-      case 'admob':
-        return [AdNetwork.admob];
-      case 'facebook':
-        return [AdNetwork.any];
-      case 'unity':
-        return [AdNetwork.unity];
-      case 'applovin':
-        return [AdNetwork.appLovin];
-      default:
-        return [AdNetwork.any];
-    }
   }
-
-  static PostDetailStyle getPostDetailStyle(String style) {
+  PostDetailStyle getPostDetailStyle(String style) {
     switch (style.toLowerCase()) {
       case 'classic':
         return PostDetailStyle.classic;
@@ -216,4 +195,4 @@ class NewsProConfig {
         return PostDetailStyle.classic;
     }
   }
-}
+

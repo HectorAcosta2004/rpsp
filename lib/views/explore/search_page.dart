@@ -6,9 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:news_pro/core/components/mini_player.dart';
 
-import '../../core/ads/ad_state_provider.dart';
-import '../../core/components/ad_widgets.dart';
-import '../../core/components/wp_ad_widget.dart';
 import '../../core/constants/constants.dart';
 import '../../core/controllers/analytics/analytics_controller.dart';
 import '../../core/controllers/posts/search_post_controller.dart';
@@ -77,7 +74,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               : IconButton(
                   onPressed: () => setState(() {
                     _isOnHistory = true;
-                    ref.read(loadInterstitalAd(context))?.call();
+                
                   }),
                   icon: const Icon(IconlyLight.timeSquare),
                 )
@@ -98,14 +95,14 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                     child: widget,
                   ),
                   children: [
-                    const WPADWidget(isBannerOnly: true),
+                  
                     SearchTextFieldWithButton(
                       formKey: _formKey,
                       onSubmit: () => _search(),
                       controller: _query,
                     ),
                     const Divider(),
-                    const BannerAdWidget(),
+                   
 
                     /// Page Swtich Animation
                     PageTransitionSwitcher(
@@ -137,7 +134,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               ),
             ),
           ),
-          const MiniPlayer(isOnStack: true),
+        
         ],
       ),
     );

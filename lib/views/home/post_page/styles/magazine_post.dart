@@ -6,7 +6,6 @@ import 'package:news_pro/core/utils/extensions.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../../config/wp_config.dart';
-import '../../../../core/components/ad_widgets.dart';
 import '../../../../core/components/article_category_row.dart';
 import '../../../../core/components/mini_player.dart';
 import '../../../../core/constants/constants.dart';
@@ -121,7 +120,7 @@ class MagazinePost extends StatelessWidget {
                     ),
                   ),
 
-                  const NativeAdWidget(),
+                 
                   Container(
                     color: Theme.of(context).cardColor,
                     child: MoreRelatedPost(
@@ -131,7 +130,7 @@ class MagazinePost extends StatelessWidget {
                       currentArticleID: article.id,
                     ),
                   ),
-                  const BannerAdWidget(),
+                 
                   Padding(
                     padding: const EdgeInsets.all(AppDefaults.padding),
                     child: SizedBox(

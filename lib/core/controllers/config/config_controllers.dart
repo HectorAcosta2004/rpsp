@@ -1,7 +1,5 @@
-import 'package:easy_ads_flutter/easy_ads_flutter.dart'
-    show AdRequest, EasyAds, IAdIdManager, RequestConfiguration;
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:news_pro/core/ads/ad_id_provider.dart';
 import 'package:news_pro/core/logger/app_logger.dart';
 
 import '../../models/config.dart';
@@ -31,7 +29,6 @@ class NewsProConfigNotifier extends StateNotifier<AsyncValue<NewsProConfig>> {
       state = AsyncError(errorMessage, StackTrace.fromString(errorMessage));
     } else {
       if (data.isAdOn) {
-        await initializeAdNetworks();
       }
       state = AsyncData(data);
       return;
@@ -50,24 +47,5 @@ class NewsProConfigNotifier extends StateNotifier<AsyncValue<NewsProConfig>> {
     return data;
   }
 
-  Future<void> initializeAdNetworks() async {
-    try {
-      const IAdIdManager adIdManager = AppAdIdManager();
-      // Initialize the ad networks
-      await EasyAds.instance.initialize(
-        adIdManager,
-        adMobAdRequest: const AdRequest(),
-        // Set true if you want to show age restricted (age below 16 years) ads for applovin
-        isAgeRestrictedUserForApplovin: true,
-        // To enable Facebook Test mode ads
-        admobConfiguration: RequestConfiguration(testDeviceIds: [
-          '072D2F3992EF5B4493042ADC632CE39F',
-          '00008030-00163022226A802E',
-        ]),
-        enableLogger: false,
-      );
-    } on Exception catch (e) {
-      Log.error('Error initializing ad networks: $e');
-    }
-  }
+  
 }

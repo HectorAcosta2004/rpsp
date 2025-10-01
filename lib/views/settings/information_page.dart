@@ -96,7 +96,7 @@ class ContactPage extends ConsumerWidget {
             ),
           const Divider(),
           const Spacer(),
-          const MiniPlayer(isOnStack: false),
+          MiniPlayer(isOnStack: false),
         ],
       ),
     );

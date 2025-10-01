@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/controllers/config/config_controllers.dart';
 
 import '../../../core/components/animated_page_switcher.dart';
-import '../../../core/components/wp_ad_widget.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/controllers/auth/auth_controller.dart';
 import '../../../core/controllers/auth/auth_state.dart';
@@ -101,7 +100,6 @@ class _UserLoggedOut extends ConsumerWidget {
         Container(
           padding: const EdgeInsets.only(bottom: AppDefaults.padding),
           color: Theme.of(context).scaffoldBackgroundColor,
-          child: const WPADWidget(isBannerOnly: true),
         ),
       ],
     );
