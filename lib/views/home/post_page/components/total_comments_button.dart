@@ -32,7 +32,7 @@ class TotalCommentsButton extends ConsumerWidget {
               return ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(iconColor: Colors.white),
                 onPressed: () {
-                  ref.read(loadInterstitalAd(context))?.call();
+                 // ref.read(loadInterstitalAd(context))?.call();
                   Navigator.pushNamed(context, AppRoutes.comment,
                       arguments: article);
                 },

@@ -3,27 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:news_pro/core/components/components.dart';
 
-/// A widget wrapper that handles iOS App Tracking Transparency permissions.
-/// Wrap any widget with this to show the tracking permission dialog when
-/// the wrapped widget is displayed.
+/// Un widget wrapper que solía manejar los permisos de App Tracking Transparency de iOS.
+/// Se ha modificado para que simplemente devuelva el widget hijo, ya que la aplicación
+/// ya no utiliza servicios de publicidad que requieran este seguimiento.
 class IOSTrackingPermissionWrapper extends StatefulWidget {
-  /// The child widget to display after handling tracking permissions
+  /// El widget hijo a mostrar.
   final Widget child;
 
-  /// Custom widget to explain why tracking is needed before showing system dialog
+  /// Custom widget para explicar por qué se necesita el seguimiento (ahora no se usa).
   final Widget? explainerDialog;
 
-  /// Whether to show the permission request when this widget is displayed
+  /// Si solicitar el permiso al mostrar (ahora siempre falso).
   final bool requestOnDisplay;
 
-  /// Callback triggered after permission request completes
+  /// Callback disparado después de la solicitud (ahora siempre retorna 'notSupported').
   final Function(TrackingStatus status)? onPermissionComplete;
 
   const IOSTrackingPermissionWrapper({
     super.key,
     required this.child,
     this.explainerDialog,
-    this.requestOnDisplay = true,
+    this.requestOnDisplay = false, // Lo establecemos en falso por defecto
     this.onPermissionComplete,
   });
 
@@ -39,75 +39,32 @@ class IOSTrackingPermissionWrapperState
   @override
   void initState() {
     super.initState();
+    // Ya que no usamos ads, simplemente marcamos el permiso como manejado.
     if (widget.requestOnDisplay) {
       _handleTrackingPermission();
+    } else {
+      _permissionHandled = true;
     }
   }
 
   Future<void> _handleTrackingPermission() async {
-    // Only proceed on iOS
-    if (!Platform.isIOS) {
-      setState(() => _permissionHandled = true);
-      widget.onPermissionComplete?.call(TrackingStatus.notSupported);
-      return;
-    }
-
-    // Check current status
-    final currentStatus =
-        await AppTrackingTransparency.trackingAuthorizationStatus;
-
-    // If status is already determined, no need to request again
-    if (currentStatus != TrackingStatus.notDetermined) {
-      setState(() => _permissionHandled = true);
-      widget.onPermissionComplete?.call(currentStatus);
-      return;
-    }
-
-    // Show custom explainer dialog if provided
-    if (widget.explainerDialog != null) {
-      await showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) => widget.explainerDialog!,
-      );
-
-      // Wait for dialog animation to complete
-      await Future.delayed(const Duration(milliseconds: 200));
-    }
-
-    // Request tracking authorization
-    final status = await AppTrackingTransparency.requestTrackingAuthorization();
-
+    // Si no hay anuncios, simplemente marcamos el permiso como manejado
+    // y llamamos al callback con 'no soportado' ya que la funcionalidad no es necesaria.
     setState(() => _permissionHandled = true);
-    widget.onPermissionComplete?.call(status);
+    widget.onPermissionComplete?.call(TrackingStatus.notSupported);
   }
 
-  /// Manually request tracking permission
+  /// Manually request tracking permission (simplificado)
   Future<TrackingStatus> requestTracking() async {
-    if (!Platform.isIOS) {
-      return TrackingStatus.notSupported;
-    } else if (Platform.isAndroid) {
-      //final result = await ConsentManager.gatherGdprConsent();
-    }
-
-    if (widget.explainerDialog != null) {
-      await showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) => widget.explainerDialog!,
-      );
-      await Future.delayed(const Duration(milliseconds: 200));
-    }
-
-    final status = await AppTrackingTransparency.requestTrackingAuthorization();
-    widget.onPermissionComplete?.call(status);
-    return status;
+    widget.onPermissionComplete?.call(TrackingStatus.notSupported);
+    return TrackingStatus.notSupported;
   }
 
   @override
   Widget build(BuildContext context) {
-    // If we're still handling permissions and requestOnDisplay is true,
-    // show a loading indicator
+    // Ya que requestOnDisplay es falso, siempre mostrará el child directamente.
+    // Si _permissionHandled es falso y requestOnDisplay es true (lo cual es poco probable
+    // con la nueva lógica), se mantendrá la pantalla de carga.
     if (!_permissionHandled && widget.requestOnDisplay) {
       return Scaffold(
         body: Center(
@@ -116,36 +73,10 @@ class IOSTrackingPermissionWrapperState
       );
     }
 
-    // Otherwise, show the child widget
+    // De lo contrario, muestra el widget hijo.
     return widget.child;
   }
 }
 
-/// Default explainer dialog that follows Google's recommendations
-class DefaultTrackingExplainerDialog extends StatelessWidget {
-  final String title;
-  final String message;
-  final String buttonText;
-
-  const DefaultTrackingExplainerDialog({
-    super.key,
-    this.title = 'Personalized Ads',
-    this.message =
-        'We use this data to make your experience better by showing content that\'s relevant to you. This helps us keep our app free to use.',
-    this.buttonText = 'Continue',
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text(title),
-      content: Text(message),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text(buttonText),
-        ),
-      ],
-    );
-  }
-}
+// Eliminamos la clase 'DefaultTrackingExplainerDialog' ya que no hay anuncios
+// que justificar y el código principal de la plantilla no la usa por defecto.
