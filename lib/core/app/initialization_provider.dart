@@ -187,17 +187,18 @@ class AppInitializer extends StateNotifier<InitializationState> {
     final isOnboardingDone = onboarding.isIntroDone();
     final isLoggedIn = ref.read(authController) is AuthLoggedIn;
 
-    // Mostrar onboarding si está habilitado y no se completó
-    if (onboardingEnabled && !isOnboardingDone) {
-      return AppState.introNotDone;
-    }
-
-    // Forzar mostrar login/registro si no hay sesión activa
+    // 1. FORZAR mostrar login/registro si no hay sesión activa (Nueva Lógica)
     if (!isLoggedIn) {
       return AppState.loggedOut;
     }
 
-    // Usuario logueado
+    // 2. Mostrar onboarding si está habilitado y no se completó (Lógica secundaria)
+    if (onboardingEnabled && !isOnboardingDone) {
+      return AppState.introNotDone;
+    }
+
+
+    // 3. Usuario logueado (Lógica final, implica que se omitió Onboarding)
     return AppState.loggedIn;
   }
 }
