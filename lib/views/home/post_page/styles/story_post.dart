@@ -7,6 +7,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../../config/wp_config.dart';
+import '../../../../core/ads/ad_state_provider.dart';
+import '../../../../core/components/ad_widgets.dart';
 import '../../../../core/components/article_category_row.dart';
 import '../../../../core/components/mini_player.dart';
 import '../../../../core/constants/constants.dart';
@@ -278,14 +280,14 @@ class StoryPost extends StatelessWidget {
                     color: Theme.of(context).cardColor,
                     child: Column(
                       children: [
-                        
+                        const NativeAdWidget(),
                         MoreRelatedPost(
                           categoryID: article.categories.isNotEmpty
                               ? article.categories.first
                               : 0,
                           currentArticleID: article.id,
                         ),
-                       
+                        const BannerAdWidget(),
                         Padding(
                           padding: const EdgeInsets.all(AppDefaults.padding),
                           child: SizedBox(
@@ -589,7 +591,7 @@ class _StorySaveButton extends ConsumerWidget {
           ? null
           : () async {
               if (auth is AuthLoggedIn) {
-               
+                ref.read(loadInterstitalAd(context))?.call();
                 if (isSaved) {
                   await controller.removePostFromSaved(article.id);
                   Fluttertoast.showToast(msg: 'article_removed_message'.tr());

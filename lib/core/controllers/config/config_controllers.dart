@@ -28,6 +28,8 @@ class NewsProConfigNotifier extends StateNotifier<AsyncValue<NewsProConfig>> {
       const errorMessage = 'No configuration found';
       state = AsyncError(errorMessage, StackTrace.fromString(errorMessage));
     } else {
+      if (data.isAdOn) {
+      }
       state = AsyncData(data);
       return;
     }

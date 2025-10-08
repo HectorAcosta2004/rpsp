@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../core/ads/ad_state_provider.dart';
 import '../../../core/controllers/analytics/analytics_controller.dart';
 import '../../../core/controllers/ui/post_style_controller.dart';
 import '../../../core/models/article.dart';
@@ -18,9 +19,10 @@ class PostPage extends HookConsumerWidget {
     super.key,
     required this.article,
   });
-
   final ArticleModel article;
 
+  
+  
   Widget _buildPostWithStyle(PostDetailStyle style) {
     switch (style) {
       case PostDetailStyle.classic:
@@ -34,15 +36,5 @@ class PostPage extends HookConsumerWidget {
       case PostDetailStyle.story:
         return StoryPost(article: article);
     }
-  }
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // aquí puedes decidir el estilo dinámicamente con un provider, por ejemplo:
-    final style = ref.watch(postStyleControllerProvider);
-
-    return Scaffold(
-      body: _buildPostWithStyle(style),
-    );
   }
 }

@@ -106,82 +106,93 @@ class NewsProConfig {
   });
 
   factory NewsProConfig.fromMap(Map<String, dynamic> map) {
-  int parseInt(dynamic value, [int defaultValue = 0]) {
-    if (value == null) return defaultValue;
-    return int.tryParse(value.toString()) ?? defaultValue;
-  }
-
-  List<int> parseIntList(dynamic value) {
-    if (value is List) {
-      return List<int>.from(value.map((e) => int.tryParse(e.toString()) ?? 0));
+    int parseInt(dynamic value, [int defaultValue = 0]) {
+      if (value == null) return defaultValue;
+      return int.tryParse(value.toString()) ?? defaultValue;
     }
-    return [];
+
+    List<int> parseIntList(dynamic value) {
+      if (value is List) return List<int>.from(value.map((e) => int.tryParse(e.toString()) ?? 0));
+      return [];
+    }
+
+    String parseString(dynamic value, [String defaultValue = '']) {
+      if (value == null) return defaultValue;
+      return value.toString();
+    }
+
+    bool parseBool(dynamic value, [bool defaultValue = false]) {
+      if (value == null) return defaultValue;
+      if (value is bool) return value;
+      if (value is String) return value.toLowerCase() == 'true';
+      if (value is int) return value != 0;
+      return defaultValue;
+    }
+
+    return NewsProConfig(
+      mainTabName: parseString(map['mainTabName'], 'Home'),
+      homeTopTabCategories: parseIntList(map['homeTopTabCategories']),
+      blockedCategories: parseIntList(map['blockedCategories']),
+      featuredPosts: parseIntList(map['featuredPosts']),
+      automaticSlide: parseBool(map['automaticSlide'], true),
+      showTopLogoInHome: parseBool(map['showTopLogoInHome'], true),
+      privacyPolicyUrl: parseString(map['privacyPolicyUrl']),
+      termsAndServicesUrl: parseString(map['termsAndServicesUrl']),
+      cookieConsentText: parseString(map['cookieConsentText']),
+      showCookieConsent: parseBool(map['showCookieConsent']),
+      aboutPageUrl: parseString(map['aboutPageUrl']),
+      facebookUrl: parseString(map['facebookUrl']),
+      twitterUrl: parseString(map['twitterUrl']),
+      telegramUrl: parseString(map['telegramUrl']),
+      instagramUrl: parseString(map['instagramUrl']),
+      tiktokUrl: parseString(map['tiktokUrl']),
+      youtubeUrl: parseString(map['youtubeUrl']),
+      whatsappUrl: parseString(map['whatsappUrl']),
+      appShareLink: parseString(map['appShareLink']),
+      appstoreAppID: parseString(map['appstoreAppID']),
+      ownerName: parseString(map['ownerName']),
+      ownerEmail: parseString(map['ownerEmail']),
+      ownerPhone: parseString(map['ownerPhone']),
+      ownerAddress: parseString(map['ownerAddress']),
+      appDescription: parseString(map['appDescription']),
+      reportEmail: parseString(map['reportEmail']),
+      isAdOn: parseBool(map['isAdOn'], true),
+      isCustomAdOn: parseBool(map['isCustomAdOn'], false),
+      interstialAdCount: parseInt(map['interstialAdCount'], 3),
+      adIntervalinPost: parseInt(map['adIntervalinPost'], 5),
+      customAdIntervalInPost: parseInt(map['customAdIntervalInPost'], 5),
+      showDateInApp: parseBool(map['showDateInApp'], true),
+      showAuthor: parseBool(map['showAuthor'], true),
+      showTrendingPopularIcon: parseBool(map['showTrendingPopularIcon'], true),
+      showComment: parseBool(map['showComment'], true),
+      showViewOnWebsiteButton: parseBool(map['showViewOnWebsiteButton'], true),
+      showReportButton: parseBool(map['showReportButton'], true),
+      isSocialLoginEnabled: parseBool(map['isSocialLoginEnabled'], true),
+      isLoginEnabled: parseBool(map['isLoginEnabled'], true),
+      onboardingEnabled: parseBool(map['onboardingEnabled'], true),
+      multiLanguageEnabled: parseBool(map['multiLanguageEnabled'], false),
+      showAuthorsInExplorePage: parseBool(map['showAuthorsInExplorePage'], true),
+      showPostViews: parseBool(map['showPostViews'], true),
+      postDetailStyle: getPostDetailStyle(parseString(map['page_style'], 'classic')),
+      hidePageStyle: parseBool(map['hide_page_style']),
+    );
   }
 
-  String parseString(dynamic value, [String defaultValue = '']) {
-    if (value == null) return defaultValue;
-    return value.toString();
   }
-
-  bool parseBool(dynamic value, [bool defaultValue = false]) {
-    if (value == null) return defaultValue;
-    if (value is bool) return value;
-    if (value is String) return value.toLowerCase() == 'true';
-    if (value is int) return value != 0;
-    return defaultValue;
+  PostDetailStyle getPostDetailStyle(String style) {
+    switch (style.toLowerCase()) {
+      case 'classic':
+        return PostDetailStyle.classic;
+      case 'magazine':
+        return PostDetailStyle.magazine;
+      case 'minimal':
+        return PostDetailStyle.minimal;
+      case 'card':
+        return PostDetailStyle.card;
+      case 'story':
+        return PostDetailStyle.story;
+      default:
+        return PostDetailStyle.classic;
+    }
   }
-
-  return NewsProConfig(
-    mainTabName: parseString(map['mainTabName'], 'Home'),
-    homeTopTabCategories: parseIntList(map['homeTopTabCategories']),
-    blockedCategories: parseIntList(map['blockedCategories']),
-    featuredPosts: parseIntList(map['featuredPosts']),
-    automaticSlide: parseBool(map['automaticSlide']),
-    showTopLogoInHome: parseBool(map['showTopLogoInHome']),
-    privacyPolicyUrl: parseString(map['privacyPolicyUrl']),
-    termsAndServicesUrl: parseString(map['termsAndServicesUrl']),
-    cookieConsentText: parseString(map['cookieConsentText']),
-    showCookieConsent: parseBool(map['showCookieConsent']),
-    aboutPageUrl: parseString(map['aboutPageUrl']),
-    facebookUrl: parseString(map['facebookUrl']),
-    twitterUrl: parseString(map['twitterUrl']),
-    telegramUrl: parseString(map['telegramUrl']),
-    instagramUrl: parseString(map['instagramUrl']),
-    tiktokUrl: parseString(map['tiktokUrl']),
-    youtubeUrl: parseString(map['youtubeUrl']),
-    whatsappUrl: parseString(map['whatsappUrl']),
-    appShareLink: parseString(map['appShareLink']),
-    appstoreAppID: parseString(map['appstoreAppID']),
-    ownerName: parseString(map['ownerName']),
-    ownerEmail: parseString(map['ownerEmail']),
-    ownerPhone: parseString(map['ownerPhone']),
-    ownerAddress: parseString(map['ownerAddress']),
-    appDescription: parseString(map['appDescription']),
-    reportEmail: parseString(map['reportEmail']),
-    isAdOn: parseBool(map['isAdOn'], false),
-    isCustomAdOn: parseBool(map['isCustomAdOn']),
-    interstialAdCount: parseInt(map['interstialAdCount']),
-    adIntervalinPost: parseInt(map['adIntervalinPost']),
-    customAdIntervalInPost: parseInt(map['customAdIntervalInPost']),
-    showDateInApp: parseBool(map['showDateInApp']),
-    showAuthor: parseBool(map['showAuthor']),
-    showTrendingPopularIcon: parseBool(map['showTrendingPopularIcon']),
-    showComment: parseBool(map['showComment']),
-    showViewOnWebsiteButton: parseBool(map['showViewOnWebsiteButton']),
-    showReportButton: parseBool(map['showReportButton']),
-    isSocialLoginEnabled: parseBool(map['isSocialLoginEnabled']),
-    isLoginEnabled: parseBool(map['isLoginEnabled']),
-    onboardingEnabled: parseBool(map['onboardingEnabled']),
-    multiLanguageEnabled: parseBool(map['multiLanguageEnabled']),
-    showAuthorsInExplorePage: parseBool(map['showAuthorsInExplorePage']),
-    showPostViews: parseBool(map['showPostViews']),
-    postDetailStyle: PostDetailStyle.minimal, // valor por defecto si no lo tienes en el map
-    hidePageStyle: parseBool(map['hidePageStyle']),
-  );
-}
-
-
-
-  }
-  
 

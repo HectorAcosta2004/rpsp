@@ -27,7 +27,7 @@ class CommentButtonFloating extends ConsumerWidget {
         textDirection: Directionality.of(context),
         child: FloatingActionButton.extended(
           onPressed: () {
-           // ref.read(loadInterstitalAd(context))?.call();
+            ref.read(loadInterstitalAd(context))?.call();
             Navigator.pushNamed(context, AppRoutes.comment, arguments: article);
           },
           label: Text(
