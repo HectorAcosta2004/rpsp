@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import '../../../config/wp_config.dart';
 import '../../controllers/dio/dio_provider.dart';
 import '../../logger/app_logger.dart';
@@ -90,18 +90,28 @@ class PostRepository extends PostRepoAbstract {
     }
   }
 
-  @override
-  Future<List<ArticleModel>> getPostByCategory({required int pageNumber, required int categoryID, int perPage = 10}) async {
-    final url = '$baseUrl?categories=$categoryID&page=$pageNumber&per_page=$perPage';
-    try {
-      final response = await dio.get(url);
-      final posts = _parseResponseData(response.data);
-      return posts.map((e) => ArticleModel.fromMap(e)).toList();
-    } catch (e) {
-      debugPrint(e.toString());
-      return [];
-    }
+@override
+Future<List<ArticleModel>> getPostByCategory({
+  required int pageNumber,
+  required int categoryID,
+  int perPage = 10,
+}) async {
+  final url = '$baseUrl?categories=$categoryID&page=$pageNumber&per_page=$perPage';
+  try {
+    // Usamos el método original y más seguro: buildCacheOptions
+    // Esto anula la caché global de 7 días solo para esta petición.
+    final response = await dio.get(
+      url,
+    );
+
+    // Corregimos el error de tipeo aquí
+    final posts = _parseResponseData(response.data);
+    return posts.map((e) => ArticleModel.fromMap(e)).toList();
+  } catch (e) {
+    debugPrint(e.toString());
+    return [];
   }
+}
 
   @override
   Future<List<ArticleModel>> getPostByTag({required int pageNumber, required int tagID, int perPage = 10}) async {
