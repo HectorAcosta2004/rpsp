@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/components/headline_with_row.dart';
-import '../../../../core/components/list_view_responsive.dart';
+
 import '../../../../core/constants/constants.dart';
 import '../../../../core/controllers/posts/more_post_controller.dart';
 import '../../home_page/components/loading_posts_responsive.dart';
@@ -37,15 +37,6 @@ class MoreRelatedPost extends ConsumerWidget {
                     alignment: Alignment.centerLeft,
                     child: HeadlineRow(headline: 'more_related_posts')),
                 AppSizedBox.h16,
-                ResponsiveListView(
-                  data: updatedList,
-                  handleScrollWithIndex: (v) {},
-                  isMainPage: true,
-                  isInSliver: false,
-                  shrinkWrap: true,
-                  padding: EdgeInsets.zero,
-                  isDisabledScroll: true,
-                ),
               ],
             ),
           );

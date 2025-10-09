@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
-import '../../../../core/components/list_view_responsive.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../../core/controllers/posts/post_pagination_class.dart';
 import '../../../../core/controllers/posts/recent_posts_controller.dart';
@@ -59,11 +58,6 @@ class RecentPostList extends StatelessWidget {
         horizontal: AppDefaults.padding,
         vertical: AppDefaults.padding / 2,
       ),
-      sliver: ResponsiveListView(
-        data: _recentPosts.posts,
-        handleScrollWithIndex: _notifer.handleScrollWithIndex,
-        isMainPage: true,
-      ),
-    );
+      );
   }
 }

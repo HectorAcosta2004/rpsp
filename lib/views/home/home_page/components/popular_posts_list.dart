@@ -42,11 +42,6 @@ class PopularPostsList extends StatelessWidget {
         horizontal: AppDefaults.padding,
         vertical: AppDefaults.padding / 2,
       ),
-      sliver: ResponsiveListView(
-        data: articles,
-        handleScrollWithIndex: (v) {},
-        isMainPage: true,
-      ),
     );
   }
 }

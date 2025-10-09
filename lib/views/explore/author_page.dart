@@ -78,20 +78,6 @@ class _PostRenderer extends ConsumerWidget {
     } else {
       return Column(
         children: [
-          Expanded(
-            child: RefreshIndicator(
-              onRefresh: controller.onRefresh,
-              child: ResponsiveListView(
-                data: authorPost.posts,
-                handleScrollWithIndex: controller.handleScrollWithIndex,
-                isInSliver: false,
-                padding: const EdgeInsets.only(
-                  right: AppDefaults.margin,
-                  left: AppDefaults.margin,
-                ),
-              ),
-            ),
-          ),
           if (authorPost.isPaginationLoading)
             const Padding(padding: EdgeInsets.all(16.0), child: AppLoader()),
         ],

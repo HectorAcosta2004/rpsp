@@ -99,11 +99,6 @@ class CategoryPostListView extends StatelessWidget {
           left: AppDefaults.padding,
           right: AppDefaults.padding,
         ),
-        sliver: ResponsiveListView(
-          data: data,
-          handleScrollWithIndex: handlePagination,
-          isMainPage: true,
-        ),
       ),
     );
   }

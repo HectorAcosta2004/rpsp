@@ -140,7 +140,7 @@ class MinimalPost extends StatelessWidget {
                     ),
                   ),
 
-                  const NativeAdWidget(),
+              //    const NativeAdWidget(),
                   Container(
                     color: Theme.of(context).cardColor,
                     child: MoreRelatedPost(
@@ -150,7 +150,7 @@ class MinimalPost extends StatelessWidget {
                       currentArticleID: article.id,
                     ),
                   ),
-                  const BannerAdWidget(),
+                 // const BannerAdWidget(),
                   Padding(
                     padding: const EdgeInsets.all(AppDefaults.padding),
                     child: SizedBox(

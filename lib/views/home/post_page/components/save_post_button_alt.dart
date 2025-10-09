@@ -32,7 +32,7 @@ class SavePostButtonAlternative extends ConsumerWidget {
 
     void onTap() async {
       if (isLoggedIn) {
-        ref.read(loadInterstitalAd(context))?.call();
+        //ref.read(loadInterstitalAd(context))?.call();
         if (isSaved) {
           await controller.removePostFromSaved(article.id);
           Fluttertoast.showToast(msg: 'article_removed_message'.tr());

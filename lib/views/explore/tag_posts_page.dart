@@ -99,10 +99,6 @@ class _TagsArticles extends ConsumerWidget {
         children: [
           SliverPadding(
             padding: const EdgeInsets.all(AppDefaults.padding),
-            sliver: ResponsiveListView(
-              data: paginationController.posts,
-              handleScrollWithIndex: controller.handleScrollWithIndex,
-            ),
           ),
           if (paginationController.isPaginationLoading)
             const SliverToBoxAdapter(

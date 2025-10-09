@@ -64,7 +64,7 @@ class VideoPost extends StatelessWidget {
                         currentArticleID: article.id,
                       ),
                     ),
-                    const BannerAdWidget(),
+                 //   const BannerAdWidget(),
                     Padding(
                       padding: EdgeInsets.only(
                         left: 16,

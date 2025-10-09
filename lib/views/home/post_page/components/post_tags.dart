@@ -35,7 +35,7 @@ class ArticleTags extends ConsumerWidget {
                     AppRoutes.tag,
                     arguments: data.value[index],
                   );
-                  ref.read(loadInterstitalAd(context))?.call();
+                 // ref.read(loadInterstitalAd(context))?.call();
                 },
                 borderRadius: AppDefaults.borderRadius,
                 child: Chip(

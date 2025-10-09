@@ -3,10 +3,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/ads/ad_state_provider.dart';
 import '../../../core/controllers/analytics/analytics_controller.dart';
-import '../../../core/controllers/ui/post_style_controller.dart';
+import '../../../core/controllers/ui/post_style_controller.dart'; 
 import '../../../core/models/article.dart';
 import '../../../core/repositories/others/post_style_local.dart';
 import '../../../core/repositories/posts/post_repository.dart';
+import '../../../core/utils/extensions.dart';
 import 'components/video_post.dart';
 import 'styles/card_post.dart';
 import 'styles/classic_post.dart';
@@ -21,8 +22,15 @@ class PostPage extends HookConsumerWidget {
   });
   final ArticleModel article;
 
-  
-  
+  @override // Implementación requerida para HookConsumerWidget
+  Widget build(BuildContext context, WidgetRef ref) {
+    // CORRECCIÓN: Se cambia 'postStyleController' por el nombre correcto del proveedor:
+    // 'postStyleControllerProvider'.
+    final currentStyle = ref.watch(postStyleControllerProvider);
+        // Devuelve el widget de publicación correcto según el estilo
+    return _buildPostWithStyle(currentStyle);
+  }
+
   Widget _buildPostWithStyle(PostDetailStyle style) {
     switch (style) {
       case PostDetailStyle.classic:
@@ -35,6 +43,17 @@ class PostPage extends HookConsumerWidget {
         return CardPost(article: article);
       case PostDetailStyle.story:
         return StoryPost(article: article);
+      default:
+        return ClassicPost(article: article);
     }
   }
+}
+
+class ArticlePageArguments {
+  final ArticleModel article;
+  final bool initialArticleLoaded;
+  ArticlePageArguments({
+    required this.article,
+    this.initialArticleLoaded = false,
+  });
 }

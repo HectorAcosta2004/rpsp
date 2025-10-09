@@ -26,13 +26,7 @@ class SearchedArticleList extends StatelessWidget {
             ? const SearchedListEmpty()
             : Padding(
                 padding: const EdgeInsets.all(AppDefaults.padding),
-                child: ResponsiveListView(
-                  data: _searchedList,
-                  handleScrollWithIndex: (v) {},
-                  isInSliver: false,
-                  shrinkWrap: true,
-                  isDisabledScroll: true,
-                ),
+
               );
   }
 }

@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sliver_tools/sliver_tools.dart';
-
 import '../../core/components/app_loader.dart';
 import '../../core/components/app_shimmer.dart';
 import '../../core/components/list_view_responsive.dart';
 import '../../core/components/mini_player.dart';
-import '../../core/components/wp_ad_widget.dart';
 import '../../core/constants/constants.dart';
 import '../../core/controllers/category/categories_controller.dart';
 import '../../core/controllers/category/sub_categories_controller.dart';
@@ -87,7 +85,7 @@ class CategoryPage extends StatelessWidget {
                   ),
                 ),
                 SubCategories(categoryId: arguments.category.id),
-                const SliverToBoxAdapter(child: WPADWidget(isBannerOnly: true)),
+                //const SliverToBoxAdapter(child: WPADWidget(isBannerOnly: true)),
                 CategoriesArticles(
                   arguments: CategoryPostsArguments(
                     categoryId: arguments.category.id,
@@ -278,10 +276,6 @@ class CategoriesArticlesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverPadding(
       padding: const EdgeInsets.all(AppDefaults.padding),
-      sliver: ResponsiveListView(
-        data: _paginationController.posts,
-        handleScrollWithIndex: _controller.handleScrollWithIndex,
-      ),
     );
   }
 }

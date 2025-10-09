@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:news_pro/core/constants/app_colors.dart';
-
 import '../../../../core/ads/ad_state_provider.dart';
 import '../../../../core/controllers/config/config_controllers.dart';
 import '../../../../core/models/article.dart';
@@ -27,7 +26,7 @@ class CommentButtonFloating extends ConsumerWidget {
         textDirection: Directionality.of(context),
         child: FloatingActionButton.extended(
           onPressed: () {
-            ref.read(loadInterstitalAd(context))?.call();
+           // ref.read(loadInterstitalAd(context))?.call();
             Navigator.pushNamed(context, AppRoutes.comment, arguments: article);
           },
           label: Text(
