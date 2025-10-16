@@ -22,14 +22,14 @@ class UserSettings extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authProvider = ref.watch(authController);
-    final isLoginEnabled =
-        ref.watch(configProvider).value?.isLoginEnabled ?? false;
+    // final isLoginEnabled =
+    //     ref.watch(configProvider).value?.isLoginEnabled ?? false;
 
-    if (isLoginEnabled) {
-      return TransitionWidget(child: handleAuthState(authProvider));
-    } else {
-      return const SizedBox();
-    }
+    // --- CORRECCIÓN ---
+    // Eliminamos la condición 'if (isLoginEnabled)' y siempre mostramos la interfaz de autenticación.
+    // Esto fuerza a que los botones de "Login" aparezcan.
+    return TransitionWidget(child: handleAuthState(authProvider));
+    // --- FIN DE LA CORRECCIÓN ---
   }
 
   Widget handleAuthState(AuthState authProvider) {
