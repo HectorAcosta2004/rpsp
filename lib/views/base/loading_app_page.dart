@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// FIX: La ruta del paquete 'rpsp' se ha cambiado de nuevo a 'news_pro' según la solicitud.
-// Si el nombre de su paquete sigue siendo 'rpsp', deberá reemplazar 'news_pro' por 'rpsp' en todo el proyecto.
 import 'package:news_pro/core/controllers/internet/internet_state_provider.dart';
 import '../../core/app/initialization_provider.dart';
 import '../../core/logger/app_logger.dart';
-
 import '../../core/controllers/config/config_controllers.dart';
 import '../../core/models/config.dart';
 import '../../core/repositories/posts/offline_post_repository.dart';
@@ -22,35 +19,27 @@ class LoadingAppPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // connectivityProvider e InternetState ahora deberían estar disponibles
     final internetAvailable = ref.watch(connectivityProvider);
     ref.read(offlinePostRepoProvider).init();
 
     Log.info('Internet state: ${internetAvailable.internetState}');
 
-    // Don't show any UI until internet state is determined
     if (internetAvailable.internetState == InternetState.loading) {
       return const LoadingDependencies();
     } else if (internetAvailable.internetState == InternetState.disconnected) {
       return const OfflinePostsPage();
     } else if (internetAvailable.internetState == InternetState.connected) {
-      // Only initialize config when we have internet connectivity
       final configNotifier = ref.read(configProvider.notifier);
       final config = ref.watch(configProvider);
 
-      // Initialize config only if it's still loading (first time)
       if (config.isLoading) {
         configNotifier.init();
       }
 
       return config.map(
         data: (data) {
-          // Initialize the app when config is loaded
           _initializeApp(ref, data.value, context);
-
-          // Watch the app state
           final appState = ref.watch(appStateProvider);
-
           return appState.when(
             data: (state) => _buildAppStateUI(state, data.value),
             loading: () => const LoadingDependencies(),
@@ -64,20 +53,18 @@ class LoadingAppPage extends ConsumerWidget {
         loading: (t) => const LoadingDependencies(),
       );
     } else {
-      // Handle error state
       return const CoreErrorPage(errorMessage: 'Connection error');
     }
   }
 
   void _initializeApp(
       WidgetRef ref, NewsProConfig config, BuildContext context) {
-    // Start the initialization process
     ref.read(appInitializationProvider.notifier).initialize(
-      InitializationArgument(
-        config: config,
-        context: context,
-      ),
-    );
+          InitializationArgument(
+            config: config,
+            context: context,
+          ),
+        );
   }
 
   Widget _buildAppStateUI(AppState state, NewsProConfig config) {
@@ -88,12 +75,15 @@ class LoadingAppPage extends ConsumerWidget {
         if (config.isLoginEnabled) {
           return const LoginIntroPage();
         } else {
-          return const EntryPointUI();
+          // --- CORRECCIÓN 1 ---
+          return const BasePage();
         }
       case AppState.loggedIn:
-        return const EntryPointUI();
+        // --- CORRECCIÓN 2 ---
+        return const BasePage();
       case AppState.loggedOut:
-        return const EntryPointUI();
+        // --- CORRECCIÓN 3 ---
+        return const BasePage();
       case AppState.initializing:
         return const LoadingDependencies();
     }

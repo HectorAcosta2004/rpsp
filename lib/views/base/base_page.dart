@@ -1,133 +1,84 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:news_pro/views/explore/explore_page.dart';
+import 'package:news_pro/views/home/home_page/home_page.dart';
+import 'package:news_pro/views/saved/saved_page.dart';
+import 'package:news_pro/views/settings/settings_page.dart';
+import '../../core/controllers/auth/auth_controller.dart';
+import '../../core/controllers/auth/auth_state.dart';
+import '../../core/repositories/others/notification_local.dart';
 
-import '../../core/components/mini_player.dart';
-import '../../core/constants/app_colors.dart';
-import '../../core/constants/app_defaults.dart';
-import '../../core/controllers/config/config_controllers.dart';
-import '../../core/repositories/others/onboarding_local.dart';
-import '../../core/utils/extensions.dart';
-import '../../core/utils/ui_util.dart';
-import '../auth/dialogs/consent_sheet.dart';
-import '../explore/explore_page.dart';
-import '../home/home_page/home_page.dart';
-import '../saved/saved_page.dart';
-import '../settings/settings_page.dart';
 
-class EntryPointUI extends HookConsumerWidget {
-  const EntryPointUI({super.key});
+class BasePage extends ConsumerStatefulWidget {
+  const BasePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final controller = usePageController();
-    final selectedIndex = useState(0);
-    final currentBackPressTime = useState<DateTime?>(null);
-    final canPopNow = useState(false);
+  ConsumerState<BasePage> createState() => _BasePageState();
+}
 
-    final showConsent =
-        ref.watch(configProvider).value?.showCookieConsent ?? false;
+class _BasePageState extends ConsumerState<BasePage> {
+  int _currentIndex = 0;
+  final PageController _pageController = PageController();
 
-    void onTabTap(int index) {
-      controller.animateToPage(
-        index,
-        duration: AppDefaults.duration,
-        curve: Curves.ease,
-      );
-      selectedIndex.value = index;
-    }
+  @override
+  Widget build(BuildContext context) {
+    final authState = ref.watch(authController);
 
-    void checkIfConsent(BuildContext context, WidgetRef ref) {
-      if (!showConsent) return;
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        final isDone = OnboardingRepository().isConsentDone();
-        if (!isDone) {
-          UiUtil.openBottomSheet(
-              context: context, widget: const CookieConsentSheet());
-        }
-      });
-    }
+    // --- LÍNEA DE DEBUG AÑADIDA ---
+    // Esta línea nos dirá en la consola cuál es el estado de autenticación actual.
+    debugPrint("[DEBUG] Estado de autenticación en BasePage: ${authState.runtimeType}");
+    // --- FIN DE LA LÍNEA DE DEBUG ---
 
-    useEffect(() {
-      checkIfConsent(context, ref);
-      return null;
-    }, []);
+    // Creamos una variable que es 'true' SOLAMENTE si el estado es 'AuthLoggedIn'.
+    final bool shouldShowFavoriteTab = authState is AuthLoggedIn;
 
-    final isLoggedEnable =
-        ref.read(configProvider).value?.isLoginEnabled ?? false;
-
-    final screens = [
+    final List<Widget> pages = [
       const HomePage(),
       const ExplorePage(),
-      if (isLoggedEnable) const SavedPage(),
+      // Usamos nuestra nueva variable para decidir si mostrar la página de 'Favoritos'.
+      if (shouldShowFavoriteTab) const SavedPage(),
       const SettingsPage(),
     ];
 
-    final navbarItems = [
-      GButton(icon: IconlyLight.home, text: 'home'.tr()),
-      GButton(icon: IconlyLight.category, text: 'explore'.tr()),
-      if (isLoggedEnable) GButton(icon: IconlyLight.heart, text: 'saved'.tr()),
-      GButton(icon: IconlyLight.profile, text: 'settings'.tr()),
-    ];
-
-    return PopScope(
-      canPop: canPopNow.value,
-      onPopInvokedWithResult: (didPop, _) async {
-        final now = DateTime.now();
-        if (currentBackPressTime.value == null ||
-            now.difference(currentBackPressTime.value!) >
-                const Duration(seconds: 2)) {
-          currentBackPressTime.value = now;
-          canPopNow.value = false;
-          Fluttertoast.showToast(msg: 'Press back again to exit');
-        } else {
-          canPopNow.value = true;
-          await SystemNavigator.pop();
-        }
-      },
-      child: Scaffold(
-        body: Column(
-          children: [
-            Expanded(
-              child: PageView(
-                allowImplicitScrolling: false,
-                physics: const NeverScrollableScrollPhysics(),
-                controller: controller,
-                children: screens,
-              ),
-            ),
-            const MiniPlayer(isOnStack: false),
-          ],
-        ),
-        bottomNavigationBar: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: GNav(
-              rippleColor: AppColors.primary.withOpacityValue(0.3),
-              hoverColor: Colors.grey.shade700,
-              haptic: true,
-              tabBorderRadius: AppDefaults.radius,
-              curve: Curves.easeIn,
-              duration: AppDefaults.duration,
-              gap: 8,
-              padding: const EdgeInsets.all(AppDefaults.padding),
-              color: Colors.grey,
-              activeColor: AppColors.primary,
-              iconSize: 24,
-              tabBackgroundColor: AppColors.primary.withOpacityValue(0.1),
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              tabs: navbarItems,
-              onTabChange: onTabTap,
-              selectedIndex: selectedIndex.value,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-            ),
+    return Scaffold(
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (v) => setState(() => _currentIndex = v),
+        children: pages,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (v) => _pageController.jumpToPage(v),
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Theme.of(context).primaryColor,
+        unselectedItemColor:
+            Theme.of(context).textTheme.bodySmall?.color ?? Colors.grey,
+        items: [
+          BottomNavigationBarItem(
+            icon: const Icon(IconlyLight.home),
+            activeIcon: const Icon(IconlyBold.home),
+            label: 'home'.tr(),
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: const Icon(IconlyLight.discovery),
+            activeIcon: const Icon(IconlyBold.discovery),
+            label: 'explore'.tr(),
+          ),
+          // Usamos la misma variable para decidir si mostrar el botón en la barra.
+          if (shouldShowFavoriteTab)
+            BottomNavigationBarItem(
+              icon: const Icon(IconlyLight.heart),
+              activeIcon: const Icon(IconlyBold.heart),
+              label: 'favorites'.tr(),
+            ),
+          BottomNavigationBarItem(
+            icon: const Icon(IconlyLight.setting),
+            activeIcon: const Icon(IconlyBold.setting),
+            label: 'settings'.tr(),
+          ),
+        ],
       ),
     );
   }

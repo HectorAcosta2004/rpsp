@@ -41,7 +41,7 @@ class RouteGenerator {
             builder: (_) => const SelectLanguageAndThemePage());
 
       case AppRoutes.entryPoint:
-        return CupertinoPageRoute(builder: (_) => const EntryPointUI());
+       // return CupertinoPageRoute(builder: (_) => const EntryPointUI());
 
       case AppRoutes.login:
         return CupertinoPageRoute(builder: (_) => const LoginPage());

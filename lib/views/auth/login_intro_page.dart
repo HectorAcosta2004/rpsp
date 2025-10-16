@@ -154,7 +154,8 @@ class LoginIntroHeader extends ConsumerWidget {
           onPressed: () {
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const EntryPointUI()),
+              // --- CORRECCIÓN AQUÍ ---
+              MaterialPageRoute(builder: (context) => const BasePage()),
               (v) => false,
             );
           },
