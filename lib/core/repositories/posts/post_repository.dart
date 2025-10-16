@@ -90,28 +90,43 @@ class PostRepository extends PostRepoAbstract {
     }
   }
 
-@override
-Future<List<ArticleModel>> getPostByCategory({
-  required int pageNumber,
-  required int categoryID,
-  int perPage = 10,
-}) async {
-  final url = '$baseUrl?categories=$categoryID&page=$pageNumber&per_page=$perPage';
-  try {
-    // Usamos el método original y más seguro: buildCacheOptions
-    // Esto anula la caché global de 7 días solo para esta petición.
-    final response = await dio.get(
-      url,
-    );
+  // --- FUNCIÓN CORREGIDA CON DEBUG ---
+  @override
+  Future<List<ArticleModel>> getPostByCategory({
+    required int pageNumber,
+    required int categoryID,
+    int perPage = 10,
+  }) async {
+    final url = '$baseUrl?categories=$categoryID&page=$pageNumber&per_page=$perPage';
+    List<ArticleModel> articles = [];
 
-    // Corregimos el error de tipeo aquí
-    final posts = _parseResponseData(response.data);
-    return posts.map((e) => ArticleModel.fromMap(e)).toList();
-  } catch (e) {
-    debugPrint(e.toString());
-    return [];
+    // --- DEBUG: Imprime la información de la petición ---
+    debugPrint("📢 [Categoría] Buscando posts para el ID de categoría: $categoryID");
+    debugPrint("🔗 [Categoría] URL consultada: $url");
+    // ---
+
+    try {
+      final response = await dio.get(url);
+
+      // --- DEBUG: Imprime la respuesta del servidor ---
+      debugPrint("✅ [Categoría] Respuesta recibida. Código: ${response.statusCode}. Datos: ${response.data.toString()}");
+      // ---
+
+      final posts = _parseResponseData(response.data);
+      articles = posts.map((e) => ArticleModel.fromMap(e)).toList();
+
+      // --- DEBUG: Imprime el resultado final ---
+      debugPrint("📝 [Categoría] Se procesaron ${articles.length} artículos.");
+      // ---
+
+      return articles;
+    } catch (e) {
+      // --- DEBUG: Imprime si hubo un error ---
+      debugPrint("❌ [Categoría] ERROR al buscar posts: $e");
+      // ---
+      return [];
+    }
   }
-}
 
   @override
   Future<List<ArticleModel>> getPostByTag({required int pageNumber, required int tagID, int perPage = 10}) async {

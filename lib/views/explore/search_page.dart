@@ -39,8 +39,8 @@ class _SearchPageState extends ConsumerState<SearchPage> {
       _isSearching = true;
       _isOnHistory = false;
       if (mounted) setState(() {});
-      final repo = ref.read(postRepoProvider);
-      _searchedList = await repo.searchPost(keyword: _query.text);
+      //final repo = ref.read(postRepoProvider);
+      //_searchedList = await repo.searchPost(keyword: _query.text);
       AnalyticsController.logUserSearch(_query.text);
       ref.read(searchHistoryController.notifier).addEntry(_query.text);
       _isSearching = false;

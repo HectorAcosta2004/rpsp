@@ -48,7 +48,7 @@
                 <!-- Accepts URIs that begin with https://YOUR_HOST -->
                 <data
                 android:scheme="https"
-                android:host="news.momin.pro" />
+                android:host="reavivados" />
             </intent-filter>
       
         </activity>

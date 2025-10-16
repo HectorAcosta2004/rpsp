@@ -85,7 +85,6 @@ class CategoryPage extends StatelessWidget {
                   ),
                 ),
                 SubCategories(categoryId: arguments.category.id),
-                //const SliverToBoxAdapter(child: WPADWidget(isBannerOnly: true)),
                 CategoriesArticles(
                   arguments: CategoryPostsArguments(
                     categoryId: arguments.category.id,
@@ -261,6 +260,7 @@ class CategoriesArticles extends ConsumerWidget {
   }
 }
 
+// --- WIDGET CORREGIDO ---
 class CategoriesArticlesList extends StatelessWidget {
   const CategoriesArticlesList({
     super.key,
@@ -274,8 +274,11 @@ class CategoriesArticlesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverPadding(
-      padding: const EdgeInsets.all(AppDefaults.padding),
+    // SOLUCIÓN: Usamos ResponsiveListView para mostrar los posts que recibimos.
+    return ResponsiveListView(
+      data: _paginationController.posts,
+      handleScrollWithIndex: _controller.handleScrollWithIndex,
+      isMainPage: false,
     );
   }
 }
