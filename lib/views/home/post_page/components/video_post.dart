@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 
-import '../../../../core/components/ad_widgets.dart';
 import '../../../../core/components/app_video.dart';
 import '../../../../core/components/mini_player.dart';
 import '../../../../core/constants/constants.dart';
@@ -64,7 +63,6 @@ class VideoPost extends StatelessWidget {
                         currentArticleID: article.id,
                       ),
                     ),
-                 //   const BannerAdWidget(),
                     Padding(
                       padding: EdgeInsets.only(
                         left: 16,
@@ -136,7 +134,7 @@ class CustomVideoRenderer extends StatelessWidget {
         article: article,
       );
     } else {
-      return const Text('No video found');
+      return const Text('No se encuentra el video ');
     }
   }
 }

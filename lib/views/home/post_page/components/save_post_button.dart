@@ -6,7 +6,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:news_pro/core/utils/extensions.dart';
 
-import '../../../../core/ads/ad_state_provider.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../../core/controllers/auth/auth_controller.dart';
 import '../../../../core/controllers/auth/auth_state.dart';
@@ -35,7 +34,6 @@ class SavePostButton extends ConsumerWidget {
 
     void onTap() async {
       if (auth is AuthLoggedIn) {
-       //  ref.read(loadInterstitalAd(context))?.call();
         if (isSaved) {
           await controller.removePostFromSaved(article.id);
           Fluttertoast.showToast(msg: 'article_removed_message'.tr());

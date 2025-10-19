@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/controllers/config/config_controllers.dart';
 
-import '../../../../core/ads/ad_state_provider.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../../core/models/article.dart';
 import '../../../../core/routes/app_routes.dart';
@@ -32,7 +31,7 @@ class TotalCommentsButton extends ConsumerWidget {
               return ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(iconColor: Colors.white),
                 onPressed: () {
-                  //ref.read(loadInterstitalAd(context))?.call();
+
                   Navigator.pushNamed(context, AppRoutes.comment,
                       arguments: article);
                 },
