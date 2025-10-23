@@ -31,7 +31,7 @@ class UserRepository {
         return author;
       }
     } catch (e) {
-      Fluttertoast.showToast(msg: 'Error happened while fetching author data');
+      Fluttertoast.showToast(msg: 'Ocurrió un error al obtener los datos del autor');
       return null;
     }
     return null;
@@ -115,14 +115,14 @@ class UserRepository {
         ),
       );
       if (response.statusCode == 200) {
-        debugPrint('User deleted successfully');
+        debugPrint('Usuario Eliminado con Exito');
         debugPrint(response.data.toString());
       } else {
         debugPrint(response.statusCode.toString());
         debugPrint(response.data.toString());
       }
     } catch (e) {
-      Fluttertoast.showToast(msg: 'Error happened while deleting user');
+      Fluttertoast.showToast(msg: 'Ocurrio un Error al Eliminar el Usuario');
     }
   }
 

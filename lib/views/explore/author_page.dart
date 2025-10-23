@@ -107,7 +107,7 @@ class _NoPostsFound extends StatelessWidget {
           ),
           AppSizedBox.h16,
           Text(
-            'No posts found',
+            'No se encontraron entradas',
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -115,7 +115,7 @@ class _NoPostsFound extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(AppDefaults.padding),
             child: Text(
-              'The author don\'t have any posts. You can check other authors by going back.',
+              'El autor no a agregado ninguna entrada, Favor de volver mas tarde',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(),
               textAlign: TextAlign.center,
             ),
@@ -123,7 +123,7 @@ class _NoPostsFound extends StatelessWidget {
           const Spacer(),
           ElevatedButton.icon(
             onPressed: () => Navigator.pop(context),
-            label: Text('go_back'.tr()),
+            label: Text('ya Regreso'.tr()),
             icon: const Icon(Icons.arrow_back_ios_rounded),
           ),
           const Spacer(),

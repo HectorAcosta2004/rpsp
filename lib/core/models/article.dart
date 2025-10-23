@@ -109,7 +109,7 @@ class ArticleModel {
       featuredImage: map['featured_image_url'],
       heroTag: map['slug'] ?? '',
       categories:
-          map['categories'] != null ? List<int>.from(map['categories']) : [],
+          map['Categorias'] != null ? List<int>.from(map['Categorias']) : [],
       tags: map['tags'] != null ? List<int>.from(map['tags']) : [],
       date: DateTime.parse("${map['date_gmt']}Z").toLocal(),
       commentStatus: map['comment_status'].toString() == 'open' ? true : false,

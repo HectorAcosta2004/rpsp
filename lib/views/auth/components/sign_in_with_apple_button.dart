@@ -37,7 +37,7 @@ class AppSignInWithAppleButton extends ConsumerWidget {
               ),
             ),
             label: Text(
-              'sign_in_with_apple'.tr(),
+              'Iniciar Session con Apple'.tr(),
               style: TextStyle(
                   color: Theme.of(context).textTheme.bodyLarge?.color),
             ),

@@ -77,7 +77,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
         }
         AnalyticsController.logUserLogin();
         return null;
-      } else {
+        } else {
         Log.warning('Login failed: ${result.error ?? "Unknown error"}');
         return result.error ??
             'Login failed: ${result.error ?? "Unknown error"}';

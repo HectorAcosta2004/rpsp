@@ -13,6 +13,9 @@ import '../../core/utils/app_form_validattors.dart';
 import '../../core/utils/app_utils.dart';
 import 'components/dont_have_account_button.dart';
 
+// --- (CORRECCIÓN 1): IMPORTA TU PÁGINA PRINCIPAL ---
+import '../base/base_page.dart';
+
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
@@ -43,6 +46,7 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
 
   String? _loginErrorMessage;
 
+  // --- (CORRECCIÓN 2): FUNCIÓN _login ACTUALIZADA ---
   Future<void> _login() async {
     if (_isLoggingIn) {
       // so that we won't trigger our function twice
@@ -60,10 +64,27 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
               password: _pass.text,
               context: context,
             );
-        _loginErrorMessage = result;
+        
+        // Detener la carga ANTES de navegar o mostrar error
         _isLoggingIn = false;
-        if (mounted) setState(() {});
-            }
+
+        if (result == null) {
+          // LOGIN EXITOSO (result es null, no hay error)
+          // Navegamos a la página principal y eliminamos las rutas anteriores.
+          if (mounted) {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const BasePage()), // Esta es tu página "explorer"
+              (v) => false,
+            );
+          }
+        } else {
+          // FALLÓ EL LOGIN
+          // Mostramos el mensaje de error
+          _loginErrorMessage = result;
+          if (mounted) setState(() {});
+        }
+      }
     }
   }
 
