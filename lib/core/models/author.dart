@@ -20,14 +20,14 @@ class AuthorData {
 
   factory AuthorData.fromMap(Map<String, dynamic> map) {
     return AuthorData(
-      name: map['name'] ?? '',
+      name: map['Nombre'] ?? '',
       avatarUrl: map['avatar_urls']['24'] ?? '',
       avatarUrlHD: map['avatar_urls']['96'] ?? '',
       userID: map['id']?.toInt() ?? 0,
-      description: map['description'],
+      description: map['Descripcio'],
       url: map['url'],
-      savedArticles: map['saved_articles'] != null
-          ? List<String>.from(map['saved_articles'])
+      savedArticles: map['Articulos Guardados'] != null
+          ? List<String>.from(map['Articulos Guardados'])
           : [],
     );
   }

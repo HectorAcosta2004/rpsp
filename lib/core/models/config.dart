@@ -181,15 +181,15 @@ class NewsProConfig {
   }
   PostDetailStyle getPostDetailStyle(String style) {
     switch (style.toLowerCase()) {
-      case 'classic':
+      case 'Clasico':
         return PostDetailStyle.classic;
-      case 'magazine':
+      case 'Grande':
         return PostDetailStyle.magazine;
-      case 'minimal':
+      case 'Minimo':
         return PostDetailStyle.minimal;
-      case 'card':
+      case 'Carta':
         return PostDetailStyle.card;
-      case 'story':
+      case 'Hisotria':
         return PostDetailStyle.story;
       default:
         return PostDetailStyle.classic;

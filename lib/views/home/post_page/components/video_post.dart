@@ -39,7 +39,7 @@ class VideoPost extends StatelessWidget {
                         padding: const EdgeInsetsDirectional.only(start: 16),
                         child: OutlinedButton.icon(
                           onPressed: () => Navigator.pop(context),
-                          label: Text('go_back'.tr()),
+                          label: Text('Regresar'.tr()),
                           icon: Icon(
                             IconlyLight.arrowLeft,
                             color: AppColors.primary,
@@ -74,7 +74,7 @@ class VideoPost extends StatelessWidget {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () => Navigator.pop(context),
-                          child: Text('go_back'.tr()),
+                          child: Text('Regresar'.tr()),
                         ),
                       ),
                     ),

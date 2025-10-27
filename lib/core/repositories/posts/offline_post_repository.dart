@@ -14,7 +14,7 @@ final offlinePostRepoProvider = Provider<OfflinePostRepository>((ref) {
 /// Repository for managing offline posts storage using Hive
 class OfflinePostRepository {
   static const String _boxName = 'offline_posts';
-  static const String _postsKey = 'saved_posts';
+  static const String _postsKey = 'Entradas Guardadas';
   static const String _metadataKey = 'posts_metadata';
 
   /// Initialize the offline posts repository
@@ -187,7 +187,7 @@ class OfflinePostRepository {
       await box.put(_postsKey, <String>[]);
       await _updateMetadata();
 
-      Log.info('Cleared all offline posts');
+      Log.info('Borrar');
       return true;
     } catch (e, stack) {
       Log.fatal(error: 'Failed to clear all posts: $e', stackTrace: stack);

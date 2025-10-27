@@ -10,7 +10,7 @@ class WPConfig {
   static const String url = 'rpsp.adventistasumn.org';
 
   /// Your onesignal id
-  static const String oneSignalId = '9640bb7f-addb-4b15-87ea-8ea8981aa0d9';
+  static const String oneSignalId = '85a1d19b-6490-4c8a-9a7e-b051c0d4de49';
 
   /// Primary Color of the App, must be a valid hex code after '0xFF'
   static const Color primaryColor = Color(0xFF38B7FF);
