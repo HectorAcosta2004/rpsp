@@ -82,7 +82,7 @@ class LoginIntroPage extends ConsumerWidget {
                         mobile: Padding(
                           padding: const EdgeInsets.all(16),
                           child: AutoSizeText(
-                            'Mensaje de Bienvenido '.tr(),
+                            'Bienvenido '.tr(),
                             style: Theme.of(context).textTheme.bodyMedium,
                             textAlign: TextAlign.center,
                           ),
@@ -114,7 +114,7 @@ class LoginIntroPage extends ConsumerWidget {
                       onPressed: () {
                         Navigator.pushNamed(context, AppRoutes.login);
                       },
-                      child: Text('Continuar Inicio de Sesion '.tr()),
+                      child: Text('Inicio de Sesion '.tr()),
                     ),
                   ),
                 ),

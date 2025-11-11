@@ -32,13 +32,13 @@ class NotificationPermissionDialouge extends ConsumerWidget {
                 child: SvgPicture.asset('assets/svgs/email_sent.svg'),
               ),
               Text(
-                'stay_updated'.tr(),
+                'Mantente Actualizado'.tr(),
                 style: Theme.of(context).textTheme.bodyLarge,
                 textAlign: TextAlign.center,
               ),
               AppSizedBox.h10,
               Text(
-                'stay_updated_message'.tr(),
+                'Habilita las notificaciones para recibir las últimas actualizaciones y noticias directamente en tu dispositivo.'.tr(),
                 style: Theme.of(context).textTheme.bodySmall,
                 textAlign: TextAlign.center,
               ),
@@ -59,7 +59,7 @@ class NotificationPermissionDialouge extends ConsumerWidget {
                           side: const BorderSide(color: Colors.red),
                           foregroundColor: Colors.red,
                         ),
-                        child: Text('cancel'.tr()),
+                        child: Text('Cancelar'.tr()),
                       ),
                     ),
                     AppSizedBox.w16,
@@ -74,7 +74,7 @@ class NotificationPermissionDialouge extends ConsumerWidget {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primary,
                         ),
-                        child: Text('enable'.tr()),
+                        child: Text('Habilitar'.tr()),
                       ),
                     ),
                   ],
@@ -92,11 +92,11 @@ class NotificationPermissionDialouge extends ConsumerWidget {
     var status = await OneSignal.Notifications.requestPermission(false);
 
     if (status == true) {
-      Fluttertoast.showToast(msg: 'notification_on_message'.tr());
+      Fluttertoast.showToast(msg: 'Las notificaciones se han activado'.tr());
       await controller.turnOnNotifications();
       Navigator.pop(context, true);
     } else {
-      Fluttertoast.showToast(msg: 'notification_off_message'.tr());
+      Fluttertoast.showToast(msg: 'Las notificaciones están desactivadas'.tr());
       await controller.turnOffNotifications();
       Navigator.pop(context, false);
     }
