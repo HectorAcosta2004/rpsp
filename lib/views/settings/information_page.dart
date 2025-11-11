@@ -25,11 +25,11 @@ class ContactPage extends ConsumerWidget {
 
     void copyData(String data) async {
       await Clipboard.setData(ClipboardData(text: data));
-      Fluttertoast.showToast(msg: 'copied'.tr());
+      Fluttertoast.showToast(msg: 'Copiado'.tr());
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('contact_us'.tr())),
+      appBar: AppBar(title: Text('Contactanos'.tr())),
       body: Column(
         children: [
           const Align(
@@ -54,14 +54,14 @@ class ContactPage extends ConsumerWidget {
             ),
           const Divider(),
           ListTile(
-            title: Text('name'.tr()),
+            title: Text('Nombre'.tr()),
             subtitle: Text(name),
             leading: const Icon(Icons.person),
             onLongPress: () => copyData(name),
           ),
           const Divider(),
           ListTile(
-            title: Text('email'.tr()),
+            title: Text('Correo'.tr()),
             subtitle: Text(email),
             leading: const Icon(Icons.email),
             onLongPress: () => copyData(email),
@@ -78,7 +78,7 @@ class ContactPage extends ConsumerWidget {
           ),
           if (phone.isNotEmpty)
             ListTile(
-              title: Text('phone'.tr()),
+              title: Text('Telefono'.tr()),
               subtitle: Text(phone),
               leading: const Icon(Icons.phone),
               onLongPress: () => copyData(phone),
@@ -89,7 +89,7 @@ class ContactPage extends ConsumerWidget {
             ),
           if (address.isNotEmpty)
             ListTile(
-              title: Text('address'.tr()),
+              title: Text('Direccion'.tr()),
               subtitle: Text(address),
               leading: const Icon(Icons.gps_fixed_rounded),
               onLongPress: () => copyData(address),

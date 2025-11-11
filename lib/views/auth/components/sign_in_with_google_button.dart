@@ -34,7 +34,7 @@ class SignInWithGoogleButton extends ConsumerWidget {
                 BorderSide(color: AppColors.placeholder.withOpacityValue(0.3)),
           ),
           label: Text(
-            'sign_in_with_google'.tr(),
+            'Iniciar Sesion con Google'.tr(),
             style:
                 TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color),
           ),

@@ -124,7 +124,7 @@ class _LoginFormState extends ConsumerState<SignupForm> {
                   ),
                   AppSizedBox.h16,
                   Text(
-                    'Crear Cuenta '.tr(),
+                    ''.tr(),
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   AppSizedBox.h16,
@@ -195,7 +195,7 @@ class _LoginFormState extends ConsumerState<SignupForm> {
               Expanded(
                 child: Row(
                   children: [
-                    const Text('Agregar otro '),
+                    const Text('Agregar '),
                     TextButton(
                       onPressed: () {
                         final url = ref

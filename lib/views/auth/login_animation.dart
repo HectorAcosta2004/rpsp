@@ -36,8 +36,6 @@ class _LoggingInAnimationState extends State<LoggingInAnimation>
           controller: _controller,
           frameRate: FrameRate.max,
           onLoaded: (composition) {
-            // Configure the AnimationController with the duration of the
-            // Lottie file and start the animation.
             _controller
               ..duration = composition.duration
               ..forward().whenComplete(() => {

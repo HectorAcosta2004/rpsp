@@ -209,6 +209,5 @@
     "failed_repair_storage": "Error al reparar el almacenamiento",
     "retry": "Reintentar",
     "save_for_offline_reading": "Guardar para Lectura Sin Conexión",
-    "saved_for_offline_reading": "Guardado para lectura sin conexión",
-    "remove_from_offline": "Eliminar de Sin Conexión"
+    "saved_for_offline_reading": "Guardado para lectura sin conexión"
 }

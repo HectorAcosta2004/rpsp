@@ -7,6 +7,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../../../config/wp_config.dart';
 
+import '../../../../core/components/app_video.dart'; // IMPORTANTE: Importar el componente de video
 import '../../../../core/components/mini_player.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../../core/controllers/analytics/analytics_controller.dart';
@@ -34,7 +35,11 @@ class NormalPost extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  PostImageRenderer(article: article),
+                  // MODIFICACIÓN: Si es video/audio, mostrar el reproductor, si no, la imagen normal
+                  ArticleModel.isVideoArticle(article)
+                      ? _CustomMediaRenderer(article: article)
+                      : PostImageRenderer(article: article),
+                  
                   PostPageBody(article: article),
                  
                   Container(
@@ -147,5 +152,55 @@ class _NormalPostAppBar extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+// NUEVA CLASE: Para manejar el renderizado de Video y Audio
+class _CustomMediaRenderer extends StatelessWidget {
+  const _CustomMediaRenderer({
+    required this.article,
+  });
+
+  final ArticleModel article;
+
+  @override
+  Widget build(BuildContext context) {
+    bool isNormalVideo = article.featuredVideo != null;
+    bool isYoutubeVideo = article.featuredYoutubeVideoUrl != null;
+    String? thumbnail;
+    
+    String getYouTubeThumbnail(String url) {
+      try {
+        final Uri uri = Uri.parse(url);
+        final videoId = uri.queryParameters['v'] ?? uri.pathSegments.last;
+        return 'https://img.youtube.com/vi/$videoId/0.jpg';
+      } catch (e) {
+        return article.featuredImage ?? '';
+      }
+    }
+
+    if (isYoutubeVideo) {
+      thumbnail = getYouTubeThumbnail(article.featuredYoutubeVideoUrl ?? '');
+      return AppVideoHtmlRender(
+        url: article.featuredYoutubeVideoUrl ?? '',
+        isYoutube: true,
+        aspectRatio: 16 / 9,
+        isVideoPage: true,
+        thumbnail: thumbnail,
+        article: article,
+      );
+    } else if (isNormalVideo) {
+      // Esto manejará tanto video mp4 como audio si la URL se pasa en featuredVideo
+      return AppVideoHtmlRender(
+        url: article.featuredVideo ?? '',
+        isYoutube: false,
+        aspectRatio: 16 / 9,
+        isVideoPage: true,
+        thumbnail: article.featuredImage, // Usamos la imagen destacada como miniatura
+        article: article,
+      );
+    } else {
+      return const SizedBox();
+    }
   }
 }

@@ -71,7 +71,7 @@ class LoginIntroPage extends ConsumerWidget {
                       AppSizedBox.h16,
                       AppSizedBox.h16,
                       Text(
-                        '${'welcome_newspro'.tr()} ${WPConfig.appName}',
+                        '${'Bienvenidos a Reavivados por su Palabra'.tr()} ${WPConfig.appName}',
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.bold,
                               color: AppColors.primary,
@@ -82,7 +82,7 @@ class LoginIntroPage extends ConsumerWidget {
                         mobile: Padding(
                           padding: const EdgeInsets.all(16),
                           child: AutoSizeText(
-                            'welcome_message'.tr(),
+                            'Mensaje de Bienvenido '.tr(),
                             style: Theme.of(context).textTheme.bodyMedium,
                             textAlign: TextAlign.center,
                           ),
@@ -92,7 +92,7 @@ class LoginIntroPage extends ConsumerWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(16),
                             child: AutoSizeText(
-                              'welcome_message'.tr(),
+                              'Mensaje de Bienvenidos '.tr(),
                               style: Theme.of(context).textTheme.bodyMedium,
                               textAlign: TextAlign.center,
                             ),
@@ -114,7 +114,7 @@ class LoginIntroPage extends ConsumerWidget {
                       onPressed: () {
                         Navigator.pushNamed(context, AppRoutes.login);
                       },
-                      child: Text('sign_in_continue'.tr()),
+                      child: Text('Continuar Inicio de Sesion '.tr()),
                     ),
                   ),
                 ),
@@ -159,7 +159,7 @@ class LoginIntroHeader extends ConsumerWidget {
               (v) => false,
             );
           },
-          child: Text('skip'.tr()),
+          child: Text('Saltar'.tr()),
         ),
       ],
     );

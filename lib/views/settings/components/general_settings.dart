@@ -29,7 +29,7 @@ class GeneralSettings extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(AppDefaults.margin),
           child: Text(
-            'general_settings'.tr(),
+            'Ajustes Generales'.tr(),
             style: Theme.of(context).textTheme.bodySmall,
           ),
         ),
@@ -54,7 +54,7 @@ class _LanguageSettings extends ConsumerWidget {
 
     if (multiLanguage) {
       return SettingTile(
-        label: 'language',
+        label: 'Lenjuage',
         icon: Icons.language_rounded,
         iconColor: Colors.purple,
         trailing: const Padding(
@@ -87,7 +87,7 @@ class _PostStyleSettings extends ConsumerWidget {
       return const SizedBox();
     } else {
       return SettingTile(
-        label: 'reading_style',
+        label: 'Tipo de Estilo',
         icon: IconlyLight.document,
         iconColor: Colors.deepPurple,
         subtitle: _getStyleDisplayName(currentStyle),
@@ -108,15 +108,15 @@ class _PostStyleSettings extends ConsumerWidget {
   String _getStyleDisplayName(PostDetailStyle style) {
     switch (style) {
       case PostDetailStyle.classic:
-        return 'Classic';
+        return 'Clasico';
       case PostDetailStyle.magazine:
-        return 'Magazine';
+        return 'Ultra Grande';
       case PostDetailStyle.minimal:
-        return 'Minimal';
+        return 'Minimo';
       case PostDetailStyle.card:
-        return 'Card';
+        return 'Carta';
       case PostDetailStyle.story:
-        return 'Story';
+        return 'Historia';
     }
   }
 }

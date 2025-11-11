@@ -24,7 +24,7 @@ class AuthorData {
       avatarUrl: map['avatar_urls']['24'] ?? '',
       avatarUrlHD: map['avatar_urls']['96'] ?? '',
       userID: map['id']?.toInt() ?? 0,
-      description: map['Descripcio'],
+      description: map['Descripcion'],
       url: map['url'],
       savedArticles: map['Articulos Guardados'] != null
           ? List<String>.from(map['Articulos Guardados'])

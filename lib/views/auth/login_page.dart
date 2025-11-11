@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../core/components/headline_with_row.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/constants/app_defaults.dart';
@@ -33,7 +32,6 @@ class LoginPage extends StatelessWidget {
 
 class LoginFormSection extends ConsumerStatefulWidget {
   const LoginFormSection({super.key});
-
   @override
   ConsumerState<LoginFormSection> createState() => _LoginFormSectionState();
 }
@@ -41,12 +39,10 @@ class LoginFormSection extends ConsumerStatefulWidget {
 class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
   late TextEditingController _email;
   late TextEditingController _pass;
-
   bool _isLoggingIn = false;
-
   String? _loginErrorMessage;
 
-  // --- (CORRECCIÓN 2): FUNCIÓN _login ACTUALIZADA ---
+  //login ACTUALIZADA ---
   Future<void> _login() async {
     if (_isLoggingIn) {
       // so that we won't trigger our function twice
@@ -64,23 +60,17 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
               password: _pass.text,
               context: context,
             );
-        
-        // Detener la carga ANTES de navegar o mostrar error
         _isLoggingIn = false;
 
         if (result == null) {
-          // LOGIN EXITOSO (result es null, no hay error)
-          // Navegamos a la página principal y eliminamos las rutas anteriores.
           if (mounted) {
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const BasePage()), // Esta es tu página "explorer"
+              MaterialPageRoute(builder: (context) => const BasePage()), 
               (v) => false,
             );
           }
         } else {
-          // FALLÓ EL LOGIN
-          // Mostramos el mensaje de error
           _loginErrorMessage = result;
           if (mounted) setState(() {});
         }
@@ -88,7 +78,6 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
     }
   }
 
-  /// Formkey
   final _formKey = GlobalKey<FormState>();
 
   bool showPassword = false;
@@ -125,12 +114,12 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const HeadlineRow(
-                    headline: 'login',
+                    headline: 'Inicio de Sesion',
                     fontColor: AppColors.primary,
                   ),
                   AppSizedBox.h16,
                   Text(
-                    'login_message'.tr(),
+                    ' Inicio de Sesion'.tr(),
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   AppSizedBox.h16,
@@ -138,9 +127,9 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
                   TextFormField(
                     controller: _email,
                     decoration: InputDecoration(
-                      labelText: 'email'.tr(),
+                      labelText: 'Correo'.tr(),
                       prefixIcon: const Icon(IconlyLight.message),
-                      hintText: 'you@email.com',
+                      hintText: 'Prueba@Gmail.com',
                     ),
                     keyboardType: TextInputType.emailAddress,
                     validator: AppValidators.email.call,
@@ -154,7 +143,7 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
                     obscureText: !showPassword,
                     decoration: InputDecoration(
                       errorText: _loginErrorMessage,
-                      labelText: 'password'.tr(),
+                      labelText: 'Contraseña'.tr(),
                       prefixIcon: const Icon(IconlyLight.password),
                       hintText: '*******',
                       suffixIcon: Material(
@@ -186,7 +175,7 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
               onPressed: _login,
               child: _isLoggingIn
                   ? const CircularProgressIndicator(color: Colors.white)
-                  : Text('login'.tr()),
+                  : Text('Inicio de Sesion'.tr()),
             ),
           ),
         ),
@@ -200,7 +189,7 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
               onPressed: () {
                 Navigator.pushNamed(context, AppRoutes.forgotPass);
               },
-              child: Text('forgot_pass'.tr()),
+              child: Text('Olvide mi Contraseña'.tr()),
             ),
           ),
         ),

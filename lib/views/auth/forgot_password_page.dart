@@ -38,7 +38,7 @@ class ForgotPasswordPage extends StatelessWidget {
             children: [
               Icon(Icons.adaptive.arrow_back_rounded, size: 16),
               AppSizedBox.w5,
-              Text('go_back'.tr()),
+              Text('Regresar'.tr()),
             ],
           ),
         ),
@@ -112,12 +112,12 @@ class _ForgotPassFormState extends ConsumerState<ForgotPassForm> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const HeadlineRow(
-                  headline: 'forgot_pass',
+                  headline: 'Olvide mi Contraseña',
                   fontColor: AppColors.primary,
                 ),
                 AppSizedBox.h16,
                 Text(
-                  'forgot_pass_message'.tr(),
+                  'Mensaje de Olvide mi Contraseña'.tr(),
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 AppSizedBox.h16,
@@ -126,10 +126,10 @@ class _ForgotPassFormState extends ConsumerState<ForgotPassForm> {
                   child: TextFormField(
                     controller: _email,
                     decoration: InputDecoration(
-                      labelText: 'email'.tr(),
+                      labelText: 'Correo'.tr(),
                       prefixIcon: const Icon(IconlyLight.message),
                       errorText: errorMessage,
-                      hintText: 'you@email.com',
+                      hintText: 'Prueba@Gmail.com',
                     ),
                     keyboardType: TextInputType.emailAddress,
                     validator: AppValidators.email.call,
@@ -149,7 +149,7 @@ class _ForgotPassFormState extends ConsumerState<ForgotPassForm> {
               onPressed: _sendEmail,
               child: _isSendingEmail
                   ? const CircularProgressIndicator(color: Colors.white)
-                  : Text('send_otp'.tr()),
+                  : Text('Enviar_otp'.tr()),
             ),
           ),
         ),

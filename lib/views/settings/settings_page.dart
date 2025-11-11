@@ -34,7 +34,7 @@ class _SettingsPageState extends State<SettingsPage>
                     Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: AppDefaults.padding, vertical: 8.0),
-                      child: HeadlineRow(headline: 'settings'),
+                      child: HeadlineRow(headline: 'Ajustes'),
                     ),
                     Spacer(),
                     ContacUsButton()
@@ -65,7 +65,7 @@ class ContacUsButton extends StatelessWidget {
     return OutlinedButton.icon(
       onPressed: () => Navigator.pushNamed(context, AppRoutes.contact),
       icon: const Icon(IconlyLight.message),
-      label: Text('contact_us'.tr()),
+      label: Text('Contactanos'.tr()),
       style: OutlinedButton.styleFrom(
         side: BorderSide.none,
       ),

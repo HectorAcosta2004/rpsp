@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/controllers/config/config_controllers.dart';
+
 
 import '../../../core/components/animated_page_switcher.dart';
 import '../../../core/constants/constants.dart';
@@ -132,7 +132,7 @@ class _UserLoggedIn extends ConsumerWidget {
           shouldTranslate: false,
         ),
         SettingTile(
-          label: authProvider.member?.email ?? 'No se encontro Correp',
+          label: authProvider.member?.email ?? 'No se encontro Correo',
           icon: IconlyLight.message,
           iconColor: Colors.orangeAccent,
           shouldTranslate: false,

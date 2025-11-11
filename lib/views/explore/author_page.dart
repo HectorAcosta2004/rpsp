@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../core/components/app_loader.dart';
-import '../../core/components/list_view_responsive.dart';
 import '../../core/components/mini_player.dart';
 import '../../core/constants/constants.dart';
 import '../../core/controllers/posts/author_post_controllers.dart';

@@ -23,7 +23,7 @@ class CookieConsentSheet extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const Text(
-            'Cookie Consent',
+            'Consentimiento Cookie ',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -39,7 +39,7 @@ class CookieConsentSheet extends ConsumerWidget {
               AppUtils.openLink(privacyPolicy);
             },
             child: const Text(
-              'Privacy Policy',
+              'Politicas de Privacidad',
               style: TextStyle(
                 color: Colors.blue, // Make the link text blue
                 decoration:
@@ -47,7 +47,7 @@ class CookieConsentSheet extends ConsumerWidget {
               ),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
@@ -56,7 +56,7 @@ class CookieConsentSheet extends ConsumerWidget {
                   Navigator.of(context).pop();
                   SystemNavigator.pop();
                 },
-                child: const Text('Decline'),
+                child: const Text('Rechazar'),
               ),
               TextButton(
                 onPressed: () {
@@ -64,7 +64,7 @@ class CookieConsentSheet extends ConsumerWidget {
                   Navigator.of(context).pop();
                   OnboardingRepository().saveConsentDone();
                 },
-                child: const Text('Accept'),
+                child: const Text('Aceptar'),
               ),
             ],
           ),

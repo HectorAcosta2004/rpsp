@@ -34,12 +34,12 @@ class SocialSettings extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.all(AppDefaults.margin),
           child: Text(
-            'social'.tr(),
+            'Social'.tr(),
             style: Theme.of(context).textTheme.bodySmall,
           ),
         ),
         SettingTile(
-          label: 'contact_us',
+          label: 'Contactanos',
           icon: Icons.contact_mail_rounded,
           iconColor: Colors.blueGrey,
           trailing: const Padding(
@@ -51,7 +51,7 @@ class SocialSettings extends ConsumerWidget {
           },
         ),
         SettingTile(
-          label: 'website',
+          label: 'Sitio Web',
           icon: FontAwesomeIcons.earthAsia,
           isFaIcon: true,
           iconColor: Colors.green,
@@ -66,7 +66,7 @@ class SocialSettings extends ConsumerWidget {
                 context,
                 MaterialPageRoute(
                   builder: (_) => ViewOnWebPage(
-                    title: 'website'.tr(),
+                    title: 'Sitio Web'.tr(),
                     url: url,
                   ),
                 ),
@@ -92,7 +92,7 @@ class SocialSettings extends ConsumerWidget {
               if (url.isNotEmpty) {
                 AppUtils.openLink(url);
               } else {
-                Fluttertoast.showToast(msg: 'No Facebook link provided');
+                Fluttertoast.showToast(msg: 'No se encontro el Link de Facebook');
               }
             },
           ),
@@ -112,13 +112,13 @@ class SocialSettings extends ConsumerWidget {
               if (url.isNotEmpty) {
                 AppUtils.openLink(url);
               } else {
-                Fluttertoast.showToast(msg: 'No Youtube link provided');
+                Fluttertoast.showToast(msg: 'No se encontro el link Youtube ');
               }
             },
           ),
         if (twitterUrl.isNotEmpty)
           SettingTile(
-            label: 'Twitter',
+            label: 'X',
             shouldTranslate: false,
             icon: FontAwesomeIcons.twitter,
             isFaIcon: true,
@@ -132,7 +132,7 @@ class SocialSettings extends ConsumerWidget {
               if (url.isNotEmpty) {
                 AppUtils.openLink(url);
               } else {
-                Fluttertoast.showToast(msg: 'No Twitter link provided');
+                Fluttertoast.showToast(msg: 'No se encontro el link X ');
               }
             },
           ),
@@ -152,7 +152,7 @@ class SocialSettings extends ConsumerWidget {
               if (url.isNotEmpty) {
                 AppUtils.openLink(url);
               } else {
-                Fluttertoast.showToast(msg: 'No Instagram link provided');
+                Fluttertoast.showToast(msg: 'No se encontro el link de Instragram ');
               }
             },
           ),
@@ -172,7 +172,7 @@ class SocialSettings extends ConsumerWidget {
               if (url.isNotEmpty) {
                 AppUtils.openLink(url);
               } else {
-                Fluttertoast.showToast(msg: 'No Tiktok link provided');
+                Fluttertoast.showToast(msg: 'No se encontro el Link de Tiktok');
               }
             },
           ),
@@ -192,27 +192,7 @@ class SocialSettings extends ConsumerWidget {
               if (url.isNotEmpty) {
                 AppUtils.openLink(url);
               } else {
-                Fluttertoast.showToast(msg: 'No Whatsapp link provided');
-              }
-            },
-          ),
-        if (telegramUrl.isNotEmpty)
-          SettingTile(
-            label: 'Telegram',
-            shouldTranslate: false,
-            icon: FontAwesomeIcons.telegram,
-            isFaIcon: true,
-            iconColor: Colors.lightBlue,
-            trailing: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(IconlyLight.arrowRight2),
-            ),
-            onTap: () {
-              final url = telegramUrl;
-              if (url.isNotEmpty) {
-                AppUtils.openLink(url);
-              } else {
-                Fluttertoast.showToast(msg: 'No Telegram link provided');
+                Fluttertoast.showToast(msg: 'No se encontro el Link de Whatsapp');
               }
             },
           ),
