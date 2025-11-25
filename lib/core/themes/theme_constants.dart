@@ -1,3 +1,5 @@
+// Archivo comentado: AppTheme (con explicaciones de dónde se usa cada color)
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:news_pro/core/utils/extensions.dart';
@@ -6,56 +8,120 @@ import '../constants/app_colors.dart';
 import '../constants/app_defaults.dart';
 
 class AppTheme {
-  /// Add your custom font name here, which you added in [pubspec.yaml] file
+  /// Fuente global de la app
   static const fontName = 'Montserrat';
 
-  /// A light theme for NewsPro
+  /// ------------------------------
+  ///        TEMA CLARO
+  /// ------------------------------
   static ThemeData get lightTheme => ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
-        textTheme: ThemeData.light().textTheme.apply(fontFamily: fontName),
-        scaffoldBackgroundColor: AppColors.scaffoldBackground,
+        useMaterial3: true,
+
+        // ColorScheme general: usa AppColors.primary como color base
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: AppColors.primary, // 🌈 Color principal de toda la app
+          primary: AppColors.primary,   // Usado en botones, highlights, etc.
+          surface: AppColors.scaffoldBackground, // Fondos de contenedores
+        ),
+
+        // 🎨 Color del texto
+        textTheme: ThemeData.light().textTheme.apply(
+              fontFamily: fontName,
+              bodyColor: const Color(0xFFEB5057), // Texto principal morado
+              displayColor: const Color(0xFF4C16A0),
+            ),
+
+        // 🌕 Fondo principal del Scaffold
+        scaffoldBackgroundColor: const Color(0xFFEB5057),
+
+        // 🎴 Color de tarjetas/contenedores
         cardColor: AppColors.cardColor,
         canvasColor: AppColors.cardColor,
+
+        // ✏️ TextFields (inputs)
         inputDecorationTheme: InputDecorationTheme(
+          // Espaciado interno
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: AppDefaults.padding,
+            vertical: AppDefaults.padding,
+          ),
+
+          // Borde sin seleccionar
           enabledBorder: OutlineInputBorder(
             borderRadius: AppDefaults.borderRadius,
             borderSide: BorderSide.none,
           ),
+
+          // Borde cuando se enfoca → usa el color principal
           focusedBorder: OutlineInputBorder(
             borderRadius: AppDefaults.borderRadius,
             borderSide: const BorderSide(
-              color: AppColors.primary,
+              color: AppColors.primary, // 🌈 Color morado
+              width: 1.5,
             ),
           ),
-          fillColor: AppColors.cardColor,
+
+          // Bordes de error
+          errorBorder: OutlineInputBorder(
+            borderRadius: AppDefaults.borderRadius,
+            borderSide: const BorderSide(color: Colors.red),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: AppDefaults.borderRadius,
+            borderSide: const BorderSide(color: Colors.red, width: 1.5),
+          ),
+
+          // Fondo del TextField
+          fillColor: AppColors.cardColor, // 🟦 Fondo gris claro
           filled: true,
+
           floatingLabelBehavior: FloatingLabelBehavior.never,
+          labelStyle: const TextStyle(color: AppColors.placeholder), // 🟫 Placeholder
+          hintStyle: const TextStyle(color: AppColors.placeholder),
+          prefixIconColor: AppColors.placeholder,
         ),
+
+        // 🧭 AppBar
         appBarTheme: const AppBarTheme(
-          backgroundColor: AppColors.scaffoldBackground,
+          backgroundColor: AppColors.scaffoldBackground, // Fondo claro
           elevation: 0,
-          iconTheme: IconThemeData(color: AppColors.primary),
+          iconTheme: IconThemeData(color: Colors.black),
           titleTextStyle: TextStyle(
-            color: Colors.black,
+            color: Color(0xFF4C16A0),
             fontFamily: fontName,
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
           ),
           centerTitle: true,
-          surfaceTintColor: Colors.transparent,
+          surfaceTintColor: Color(0xFF8D8AFF),
           systemOverlayStyle: SystemUiOverlayStyle.dark,
         ),
+
+        // 🟪 Botón elevado (ElevatedButton)
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primary,
+            backgroundColor: AppColors.primary, // 🌈 Botón morado
             foregroundColor: Colors.white,
-            padding: const EdgeInsets.all(AppDefaults.padding),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppDefaults.padding,
+              vertical: 16,
+            ),
+            elevation: 0,
+            textStyle: const TextStyle(
+              fontFamily: fontName,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
             shape: RoundedRectangleBorder(
               borderRadius: AppDefaults.borderRadius,
             ),
           ),
         ),
+
+        // 📦 Botón Outline
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
-            foregroundColor: AppColors.primary,
+            foregroundColor: AppColors.primary, // Texto morado
             side: const BorderSide(color: AppColors.primary),
             padding: const EdgeInsets.all(AppDefaults.padding),
             shape: RoundedRectangleBorder(
@@ -63,10 +129,12 @@ class AppTheme {
             ),
           ),
         ),
+
+        // 📑 TabBar
         tabBarTheme: TabBarThemeData(
           indicator: const UnderlineTabIndicator(
             borderSide: BorderSide(
-              color: AppColors.primary,
+              color: AppColors.primary, // Línea debajo del tab
               width: 2,
             ),
           ),
@@ -75,8 +143,9 @@ class AppTheme {
             horizontal: AppDefaults.padding,
             vertical: AppDefaults.padding / 1.15,
           ),
-          labelColor: AppColors.primary,
-          unselectedLabelColor: AppColors.cardColorDark.withOpacityValue(0.5),
+          labelColor: AppColors.primary, // Texto seleccionado
+          unselectedLabelColor:
+              AppColors.cardColorDark.withOpacityValue(0.5), // Texto gris
           indicatorSize: TabBarIndicatorSize.label,
           labelStyle: const TextStyle(
             fontFamily: fontName,
@@ -84,41 +153,61 @@ class AppTheme {
           ),
           unselectedLabelStyle: const TextStyle(fontFamily: fontName),
         ),
+
+        // 🔵 TextButton
         textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(foregroundColor: AppColors.primary),
-        ),
-        checkboxTheme: const CheckboxThemeData(
-          side: BorderSide(
-            color: AppColors.scaffoldBackgrounDark,
+          style: TextButton.styleFrom(
+            foregroundColor: AppColors.primary,
+            textStyle: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
+
+        // ☑ Checkbox
+        checkboxTheme: CheckboxThemeData(
+          side: const BorderSide(color: AppColors.placeholder),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+        ),
+
+        // — Divider —
         dividerTheme: const DividerThemeData(
-          color: Colors.black12,
+          color: Color(0xFF4C16A0), // Morado del diseño
+          thickness: 1,
         ),
       );
 
-  /// A dark theme for NewsPro
+  /// ------------------------------
+  ///        TEMA OSCURO
+  /// ------------------------------
   static ThemeData get darkTheme => ThemeData(
+        useMaterial3: true,
+
         colorScheme: ColorScheme.fromSeed(
-            seedColor: AppColors.primary, brightness: Brightness.dark),
+          seedColor: const Color(0xFFEB5057),
+          brightness: Brightness.dark,
+        ),
+
         textTheme: ThemeData.dark().textTheme.apply(
               fontFamily: fontName,
-              displayColor: Colors.white,
-              bodyColor: Colors.white,
+              displayColor: const Color(0xFFEB5057), // Texto morado
+              bodyColor: const Color(0xFFEB5057),
             ),
-        cardColor: AppColors.cardColorDark,
-        scaffoldBackgroundColor: AppColors.scaffoldBackgrounDark,
+
+        cardColor: const Color(0xFF4C16A0),
+        scaffoldBackgroundColor: const Color(0xFF4C16A0),
         canvasColor: AppColors.cardColorDark,
+
         inputDecorationTheme: InputDecorationTheme(
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: AppDefaults.padding,
+            vertical: AppDefaults.padding,
+          ),
           enabledBorder: OutlineInputBorder(
             borderRadius: AppDefaults.borderRadius,
             borderSide: BorderSide.none,
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: AppDefaults.borderRadius,
-            borderSide: const BorderSide(
-              color: AppColors.primary,
-            ),
+            borderSide: const BorderSide(color: AppColors.primary),
           ),
           fillColor: AppColors.cardColorDark,
           filled: true,
@@ -127,31 +216,30 @@ class AppTheme {
           iconColor: AppColors.placeholder,
           hintStyle: const TextStyle(color: AppColors.placeholder),
         ),
+
         iconTheme: const IconThemeData(color: AppColors.primary),
+
         listTileTheme: const ListTileThemeData(
-            iconColor: AppColors.primary, textColor: Colors.white),
+          iconColor: AppColors.primary,
+          textColor: Colors.white,
+        ),
+
         appBarTheme: const AppBarTheme(
           backgroundColor: AppColors.scaffoldBackgrounDark,
           elevation: 0,
           foregroundColor: Colors.white,
-          iconTheme: IconThemeData(
-            color: Colors.white,
-          ),
-          // systemOverlayStyle: SystemUiOverlayStyle(
-          //   statusBarBrightness: Brightness.dark,
-          //   statusBarIconBrightness: Brightness.light,
-          //   systemNavigationBarColor: AppColors.scaffoldBackgrounDark,
-          //   statusBarColor: AppColors.scaffoldBackgrounDark,
-          // ),
+          iconTheme: IconThemeData(color: Colors.white),
           systemOverlayStyle: SystemUiOverlayStyle.light,
-
           titleTextStyle: TextStyle(
             color: Colors.white,
             fontFamily: fontName,
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
           ),
           centerTitle: true,
           surfaceTintColor: Colors.transparent,
         ),
+
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.primary,
@@ -162,6 +250,7 @@ class AppTheme {
             ),
           ),
         ),
+
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
             foregroundColor: AppColors.primary,
@@ -172,19 +261,18 @@ class AppTheme {
             ),
           ),
         ),
+
         tabBarTheme: TabBarThemeData(
           indicator: const UnderlineTabIndicator(
-            borderSide: BorderSide(
-              color: AppColors.primary,
-              width: 2,
-            ),
+            borderSide: BorderSide(color: AppColors.primary, width: 2),
           ),
           labelPadding: const EdgeInsets.symmetric(
             horizontal: AppDefaults.padding,
             vertical: AppDefaults.padding / 1.15,
           ),
           labelColor: AppColors.primary,
-          unselectedLabelColor: AppColors.cardColor.withOpacityValue(0.5),
+          unselectedLabelColor:
+              AppColors.cardColor.withOpacityValue(0.5), // Texto apagado
           indicatorSize: TabBarIndicatorSize.label,
           labelStyle: const TextStyle(
             fontFamily: fontName,
@@ -193,14 +281,13 @@ class AppTheme {
           unselectedLabelStyle: const TextStyle(fontFamily: fontName),
           dividerColor: AppColors.cardColorDark,
         ),
+
         checkboxTheme: const CheckboxThemeData(
-          side: BorderSide(
-            color: AppColors.scaffoldBackground,
-          ),
+          side: BorderSide(color: Colors.white70),
         ),
-        dividerTheme: const DividerThemeData(
-          color: Colors.black12,
-        ),
+
+        dividerTheme: const DividerThemeData(color: Colors.white10),
+
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
             foregroundColor: AppColors.primary,
@@ -210,7 +297,8 @@ class AppTheme {
             ),
           ),
         ),
-        bottomSheetTheme: const BottomSheetThemeData(
-            backgroundColor: AppColors.cardColorDark),
+
+        bottomSheetTheme:
+            const BottomSheetThemeData(backgroundColor: AppColors.cardColorDark),
       );
 }

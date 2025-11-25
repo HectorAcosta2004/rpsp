@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 
-import '../../config/wp_config.dart';
+// import '../../config/wp_config.dart'; // Comentado para usar colores personalizados
 
 class AppColors {
   /* <----------- Colors ------------> */
-  /// Primary Color of this App
-  static const Color primary = WPConfig.primaryColor;
+  /// Color Primario (Basado en image_4c16a0.png)
+  /// Es un tono Índigo/Morado profundo
+  static const Color primary = Color(0xFFEB5057);
 
-  // Others Color
-  static const Color scaffoldBackground = Color(0xFFFFFFFF);
-  static const Color cardColor = Color(0xFFF2F2F2);
-  static const Color placeholder = Color(0xFF8E8E8E);
-  static const Color separator = Color(0xFFFAFAFA);
+  // Otros Colores
+  static const Color scaffoldBackground = Color(0xFFEB5057);
+  
+  // Fondo gris muy suave para los inputs y tarjetas
+  static const Color cardColor = Color(0xFFEB5057); 
+  
+  static const Color placeholder = Color(0xFFFCC71F);
+  static const Color separator = Color(0xFF00FF00);
 
-  // Dark
-  static const Color scaffoldBackgrounDark = Color(0xFF1F2935);
-  static const Color cardColorDark = Color(0xFF19212C);
+  // Colores para Modo Oscuro
+  static const Color scaffoldBackgrounDark = Color(0xFF4C16A0);
+  static const Color cardColorDark = Color(0xFF8D8AFF);
 }

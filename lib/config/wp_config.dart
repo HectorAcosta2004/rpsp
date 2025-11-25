@@ -12,9 +12,6 @@ class WPConfig {
   /// Your onesignal id
   static const String oneSignalId = '85a1d19b-6490-4c8a-9a7e-b051c0d4de49';
 
-  /// Primary Color of the App, must be a valid hex code after '0xFF'
-  static const Color primaryColor = Color(0xFF38B7FF);
-
   /// Deeplinks config
   /// If you are using something like this:
   /// https://newspro.uixxy.com/sample-post/
