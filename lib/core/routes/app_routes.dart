@@ -21,4 +21,6 @@ class AppRoutes {
   static const String contact = '/contact';
   static const String viewImageFullScreen = '/viewImageFullScreen';
   static const String allAuthors = '/all_authors';
+  // Agrega esta línea:
+  static const String prayerRequest = '/prayer_request';
 }

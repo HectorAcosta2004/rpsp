@@ -4,6 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sliver_tools/sliver_tools.dart';
+
+// --- IMPORTACIÓN DEL FORMULARIO ---
+// Asegúrate de que esta ruta sea correcta. Si te marca error rojo aquí,
+// cambia la ruta a donde guardaste tu archivo prayer_request_page.dart
+import '../../views/prayer_request/prayer_request_page.dart'; 
+// ----------------------------------
+
 import '../../core/components/app_loader.dart';
 import '../../core/components/app_shimmer.dart';
 import '../../core/components/list_view_responsive.dart';
@@ -37,6 +44,22 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // --- 🛑 INTERCEPCIÓN FORZADA ---
+    // Imprimimos en consola para verificar que entra aquí
+    print("DEBUG: Revisando categoría ID: ${arguments.category.id}");
+    
+    // Verificamos si es el ID 3 o si el nombre contiene "Oracion" (por seguridad)
+    bool esPeticionOracion = arguments.category.id == 3 || 
+                             arguments.category.name.toLowerCase().contains('oracion') ||
+                             arguments.category.name.toLowerCase().contains('oración');
+
+    if (esPeticionOracion) {
+      print("DEBUG: ¡Categoría de Oración detectada! Mostrando formulario.");
+      // Aquí devolvemos DIRECTAMENTE tu página de formulario
+      return const PrayerRequestPage();
+    }
+    // --------------------------------
+
     return Scaffold(
       body: Stack(
         children: [
@@ -104,6 +127,8 @@ class CategoryPage extends StatelessWidget {
     );
   }
 }
+
+// ... (El resto de clases SubCategories, CategoriesArticles, etc. déjalas igual o pégalas si las borraste) ...
 
 class SubCategories extends ConsumerWidget {
   const SubCategories({
@@ -260,7 +285,6 @@ class CategoriesArticles extends ConsumerWidget {
   }
 }
 
-// --- WIDGET CORREGIDO ---
 class CategoriesArticlesList extends StatelessWidget {
   const CategoriesArticlesList({
     super.key,
@@ -274,7 +298,6 @@ class CategoriesArticlesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // SOLUCIÓN: Usamos ResponsiveListView para mostrar los posts que recibimos.
     return ResponsiveListView(
       data: _paginationController.posts,
       handleScrollWithIndex: _controller.handleScrollWithIndex,
