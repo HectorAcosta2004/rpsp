@@ -19,24 +19,27 @@ class AppTheme {
 
         // ColorScheme general: usa AppColors.primary como color base
         colorScheme: ColorScheme.fromSeed(
-          seedColor: AppColors.primary, // 🌈 Color principal de toda la app
-          primary: AppColors.primary,   // Usado en botones, highlights, etc.
-          surface: AppColors.scaffoldBackground, // Fondos de contenedores
+          seedColor: const Color.fromARGB(
+              255, 255, 255, 255), // 🌈 Color principal de toda la app
+          primary:
+              const Color(0xFF1b1464), // Usado en botones, highlights, etc.
+          surface: const Color.fromARGB(
+              255, 255, 255, 255), // Fondos de contenedores
         ),
 
         // 🎨 Color del texto
         textTheme: ThemeData.light().textTheme.apply(
               fontFamily: fontName,
-              bodyColor: const Color(0xFFEB5057), // Texto principal morado
-              displayColor: const Color(0xFF4C16A0),
+              bodyColor: const Color(0xFF1b1464), // Texto principal morado
+              displayColor: const Color(0xFF1b1464),
             ),
 
         // 🌕 Fondo principal del Scaffold
-        scaffoldBackgroundColor: const Color(0xFFEB5057),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
 
         // 🎴 Color de tarjetas/contenedores
-        cardColor: AppColors.cardColor,
-        canvasColor: AppColors.cardColor,
+        cardColor: const Color.fromARGB(255, 255, 255, 255),
+        canvasColor: const Color.fromARGB(255, 255, 255, 255),
 
         // ✏️ TextFields (inputs)
         inputDecorationTheme: InputDecorationTheme(
@@ -56,7 +59,7 @@ class AppTheme {
           focusedBorder: OutlineInputBorder(
             borderRadius: AppDefaults.borderRadius,
             borderSide: const BorderSide(
-              color: AppColors.primary, // 🌈 Color morado
+              color: Color.fromARGB(255, 255, 255, 255), // 🌈 Color morado
               width: 1.5,
             ),
           ),
@@ -64,28 +67,32 @@ class AppTheme {
           // Bordes de error
           errorBorder: OutlineInputBorder(
             borderRadius: AppDefaults.borderRadius,
-            borderSide: const BorderSide(color: Colors.red),
+            borderSide:
+                const BorderSide(color: Color.fromARGB(255, 253, 253, 253)),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: AppDefaults.borderRadius,
-            borderSide: const BorderSide(color: Colors.red, width: 1.5),
+            borderSide: const BorderSide(
+                color: Color.fromARGB(255, 255, 255, 255), width: 1.5),
           ),
 
           // Fondo del TextField
-          fillColor: AppColors.cardColor, // 🟦 Fondo gris claro
+          fillColor:
+              const Color.fromARGB(255, 255, 255, 255), // 🟦 Fondo gris claro
           filled: true,
 
           floatingLabelBehavior: FloatingLabelBehavior.never,
-          labelStyle: const TextStyle(color: AppColors.placeholder), // 🟫 Placeholder
+          labelStyle:
+              const TextStyle(color: AppColors.placeholder), // 🟫 Placeholder
           hintStyle: const TextStyle(color: AppColors.placeholder),
           prefixIconColor: AppColors.placeholder,
         ),
 
         // 🧭 AppBar
         appBarTheme: const AppBarTheme(
-          backgroundColor: AppColors.scaffoldBackground, // Fondo claro
+          backgroundColor: Color.fromARGB(255, 255, 255, 255), // Fondo claro
           elevation: 0,
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: IconThemeData(color: Color(0xFF1b1464)),
           titleTextStyle: TextStyle(
             color: Color(0xFF4C16A0),
             fontFamily: fontName,
@@ -100,7 +107,7 @@ class AppTheme {
         // 🟪 Botón elevado (ElevatedButton)
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primary, // 🌈 Botón morado
+            backgroundColor: const Color(0xFF1b1464), // 🌈 Botón morado
             foregroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(
               horizontal: AppDefaults.padding,
@@ -121,7 +128,7 @@ class AppTheme {
         // 📦 Botón Outline
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
-            foregroundColor: AppColors.primary, // Texto morado
+            foregroundColor: const Color(0xFF1b1464), // Texto morado
             side: const BorderSide(color: AppColors.primary),
             padding: const EdgeInsets.all(AppDefaults.padding),
             shape: RoundedRectangleBorder(
@@ -143,7 +150,7 @@ class AppTheme {
             horizontal: AppDefaults.padding,
             vertical: AppDefaults.padding / 1.15,
           ),
-          labelColor: AppColors.primary, // Texto seleccionado
+          labelColor: const Color(0xFF1b1464), // Texto seleccionado
           unselectedLabelColor:
               AppColors.cardColorDark.withOpacityValue(0.5), // Texto gris
           indicatorSize: TabBarIndicatorSize.label,
@@ -157,7 +164,7 @@ class AppTheme {
         // 🔵 TextButton
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-            foregroundColor: AppColors.primary,
+            foregroundColor: const Color(0xFF1b1464),
             textStyle: const TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
@@ -170,7 +177,7 @@ class AppTheme {
 
         // — Divider —
         dividerTheme: const DividerThemeData(
-          color: Color(0xFF4C16A0), // Morado del diseño
+          color: Color.fromARGB(255, 255, 255, 255), // Morado del diseño
           thickness: 1,
         ),
       );
@@ -180,22 +187,18 @@ class AppTheme {
   /// ------------------------------
   static ThemeData get darkTheme => ThemeData(
         useMaterial3: true,
-
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFFEB5057),
           brightness: Brightness.dark,
         ),
-
         textTheme: ThemeData.dark().textTheme.apply(
               fontFamily: fontName,
               displayColor: const Color(0xFFEB5057), // Texto morado
               bodyColor: const Color(0xFFEB5057),
             ),
-
         cardColor: const Color(0xFF4C16A0),
         scaffoldBackgroundColor: const Color(0xFF4C16A0),
         canvasColor: AppColors.cardColorDark,
-
         inputDecorationTheme: InputDecorationTheme(
           contentPadding: const EdgeInsets.symmetric(
             horizontal: AppDefaults.padding,
@@ -216,14 +219,11 @@ class AppTheme {
           iconColor: AppColors.placeholder,
           hintStyle: const TextStyle(color: AppColors.placeholder),
         ),
-
         iconTheme: const IconThemeData(color: AppColors.primary),
-
         listTileTheme: const ListTileThemeData(
           iconColor: AppColors.primary,
           textColor: Colors.white,
         ),
-
         appBarTheme: const AppBarTheme(
           backgroundColor: AppColors.scaffoldBackgrounDark,
           elevation: 0,
@@ -239,7 +239,6 @@ class AppTheme {
           centerTitle: true,
           surfaceTintColor: Colors.transparent,
         ),
-
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.primary,
@@ -250,7 +249,6 @@ class AppTheme {
             ),
           ),
         ),
-
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
             foregroundColor: AppColors.primary,
@@ -261,7 +259,6 @@ class AppTheme {
             ),
           ),
         ),
-
         tabBarTheme: TabBarThemeData(
           indicator: const UnderlineTabIndicator(
             borderSide: BorderSide(color: AppColors.primary, width: 2),
@@ -281,13 +278,10 @@ class AppTheme {
           unselectedLabelStyle: const TextStyle(fontFamily: fontName),
           dividerColor: AppColors.cardColorDark,
         ),
-
         checkboxTheme: const CheckboxThemeData(
           side: BorderSide(color: Colors.white70),
         ),
-
         dividerTheme: const DividerThemeData(color: Colors.white10),
-
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
             foregroundColor: AppColors.primary,
@@ -297,8 +291,7 @@ class AppTheme {
             ),
           ),
         ),
-
-        bottomSheetTheme:
-            const BottomSheetThemeData(backgroundColor: AppColors.cardColorDark),
+        bottomSheetTheme: const BottomSheetThemeData(
+            backgroundColor: AppColors.cardColorDark),
       );
 }
