@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:news_pro/core/utils/extensions.dart';
-
 import '../constants/app_colors.dart';
 import '../constants/app_defaults.dart';
 
@@ -22,7 +21,7 @@ class AppTheme {
           seedColor: const Color.fromARGB(
               255, 255, 255, 255), // 🌈 Color principal de toda la app
           primary:
-              const Color(0xFF1b1464), // Usado en botones, highlights, etc.
+              const Color(0xffeb5057), // Usado en botones, highlights, etc.
           surface: const Color.fromARGB(
               255, 255, 255, 255), // Fondos de contenedores
         ),
@@ -35,7 +34,7 @@ class AppTheme {
             ),
 
         // 🌕 Fondo principal del Scaffold
-        scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        scaffoldBackgroundColor: const Color(0xFFFFFFFF),
 
         // 🎴 Color de tarjetas/contenedores
         cardColor: const Color.fromARGB(255, 255, 255, 255),
@@ -194,11 +193,11 @@ class AppTheme {
         textTheme: ThemeData.dark().textTheme.apply(
               fontFamily: fontName,
               displayColor: const Color(0xFFEB5057), // Texto morado
-              bodyColor: const Color(0xFFEB5057),
+              bodyColor: const Color(0xFF8d8aff),
             ),
-        cardColor: const Color(0xFF4C16A0),
-        scaffoldBackgroundColor: const Color(0xFF4C16A0),
-        canvasColor: AppColors.cardColorDark,
+        cardColor: const Color(0xFF100f49),
+        scaffoldBackgroundColor: const Color(0xFF100f49),
+        canvasColor: const Color(0xFF1b1464),
         inputDecorationTheme: InputDecorationTheme(
           contentPadding: const EdgeInsets.symmetric(
             horizontal: AppDefaults.padding,
@@ -210,24 +209,26 @@ class AppTheme {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: AppDefaults.borderRadius,
-            borderSide: const BorderSide(color: AppColors.primary),
+            borderSide:
+                const BorderSide(color: Color.fromARGB(255, 255, 255, 255)),
           ),
-          fillColor: AppColors.cardColorDark,
+          fillColor: const Color(0xFF1B1464),
           filled: true,
           floatingLabelBehavior: FloatingLabelBehavior.never,
           labelStyle: const TextStyle(color: AppColors.placeholder),
           iconColor: AppColors.placeholder,
           hintStyle: const TextStyle(color: AppColors.placeholder),
         ),
-        iconTheme: const IconThemeData(color: AppColors.primary),
+        iconTheme:
+            const IconThemeData(color: Color.fromARGB(255, 255, 255, 255)),
         listTileTheme: const ListTileThemeData(
-          iconColor: AppColors.primary,
-          textColor: Colors.white,
+          iconColor: Color.fromARGB(255, 94, 59, 59),
+          textColor: Color.fromARGB(255, 255, 255, 255),
         ),
         appBarTheme: const AppBarTheme(
           backgroundColor: AppColors.scaffoldBackgrounDark,
           elevation: 0,
-          foregroundColor: Colors.white,
+          foregroundColor: Color(0xff1b1464),
           iconTheme: IconThemeData(color: Colors.white),
           systemOverlayStyle: SystemUiOverlayStyle.light,
           titleTextStyle: TextStyle(
@@ -241,8 +242,8 @@ class AppTheme {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.primary,
-            foregroundColor: Colors.white,
+            backgroundColor: const Color(0xFf1b1464),
+            foregroundColor: const Color(0xFfeb5057),
             padding: const EdgeInsets.all(AppDefaults.padding),
             shape: RoundedRectangleBorder(
               borderRadius: AppDefaults.borderRadius,
@@ -267,24 +268,24 @@ class AppTheme {
             horizontal: AppDefaults.padding,
             vertical: AppDefaults.padding / 1.15,
           ),
-          labelColor: AppColors.primary,
-          unselectedLabelColor:
-              AppColors.cardColor.withOpacityValue(0.5), // Texto apagado
+          labelColor: const Color(0xFFC0577A),
+          unselectedLabelColor: const Color.fromARGB(255, 94, 89, 89)
+              .withOpacityValue(0.5), // Texto apagado
           indicatorSize: TabBarIndicatorSize.label,
           labelStyle: const TextStyle(
             fontFamily: fontName,
             fontWeight: FontWeight.bold,
           ),
           unselectedLabelStyle: const TextStyle(fontFamily: fontName),
-          dividerColor: AppColors.cardColorDark,
+          dividerColor: const Color(0xFF1B1464),
         ),
         checkboxTheme: const CheckboxThemeData(
-          side: BorderSide(color: Colors.white70),
+          side: BorderSide(color: Color.fromARGB(255, 250, 250, 250)),
         ),
         dividerTheme: const DividerThemeData(color: Colors.white10),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-            foregroundColor: AppColors.primary,
+            foregroundColor: const Color.fromARGB(255, 255, 255, 255),
             textStyle: const TextStyle(
               fontWeight: FontWeight.bold,
               fontFamily: fontName,

@@ -66,7 +66,7 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
           if (mounted) {
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const BasePage()), 
+              MaterialPageRoute(builder: (context) => const BasePage()),
               (v) => false,
             );
           }
@@ -115,13 +115,8 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
                 children: [
                   const HeadlineRow(
                     headline: 'Inicio de Sesion',
-                    fontColor: AppColors.primary,
                   ),
                   AppSizedBox.h16,
-                  Text(
-                    ' Inicio de Sesion'.tr(),
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
                   AppSizedBox.h16,
                   AppSizedBox.h16,
                   TextFormField(
@@ -147,7 +142,7 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
                       prefixIcon: const Icon(IconlyLight.password),
                       hintText: '*******',
                       suffixIcon: Material(
-                        color: Colors.transparent,
+                        color: const Color.fromARGB(0, 0, 0, 0),
                         child: IconButton(
                           icon: Icon(
                             showPassword ? IconlyLight.show : IconlyLight.hide,
@@ -174,7 +169,8 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
             child: ElevatedButton(
               onPressed: _login,
               child: _isLoggingIn
-                  ? const CircularProgressIndicator(color: Colors.white)
+                  ? const CircularProgressIndicator(
+                      color: Color.fromARGB(255, 129, 4, 4))
                   : Text('Inicio de Sesion'.tr()),
             ),
           ),

@@ -18,6 +18,6 @@ class AppColors {
   static const Color separator = Color(0xFFFCC71F);
 
   // Colores para Modo Oscuro
-  static const Color scaffoldBackgrounDark = Color(0xFF4C16A0);
+  static const Color scaffoldBackgrounDark = Color(0xFF1b1464);
   static const Color cardColorDark = Color(0xFF1b1464);
 }
