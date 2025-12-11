@@ -14,12 +14,13 @@ class AlreadyHaveAccountButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Cuenta Existente'.tr()),
+          Text('Existing Account'.tr()),
           TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.login);
-              },
-              child: const Text('Iniciar Sesion').tr())
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.login);
+            },
+            child: const Text('Sign In').tr(),
+          ),
         ],
       ),
     );

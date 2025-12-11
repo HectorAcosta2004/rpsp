@@ -71,7 +71,7 @@ class LoginIntroPage extends ConsumerWidget {
                       AppSizedBox.h16,
                       AppSizedBox.h16,
                       Text(
-                        '${'Bienvenidos a Reavivados por su Palabra'.tr()} ${WPConfig.appName}',
+                        '${'Welcome to Revived by His Word'.tr()} ${WPConfig.appName}',
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.bold,
                               color: AppColors.primary,
@@ -82,7 +82,7 @@ class LoginIntroPage extends ConsumerWidget {
                         mobile: Padding(
                           padding: const EdgeInsets.all(16),
                           child: AutoSizeText(
-                            'Bienvenido '.tr(),
+                            'Welcome'.tr(),
                             style: Theme.of(context).textTheme.bodyMedium,
                             textAlign: TextAlign.center,
                           ),
@@ -92,7 +92,7 @@ class LoginIntroPage extends ConsumerWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(16),
                             child: AutoSizeText(
-                              'Mensaje de Bienvenidos '.tr(),
+                              'Welcome Message'.tr(),
                               style: Theme.of(context).textTheme.bodyMedium,
                               textAlign: TextAlign.center,
                             ),
@@ -114,7 +114,7 @@ class LoginIntroPage extends ConsumerWidget {
                       onPressed: () {
                         Navigator.pushNamed(context, AppRoutes.login);
                       },
-                      child: Text('Inicio de Sesion '.tr()),
+                      child: Text('Sign In'.tr()),
                     ),
                   ),
                 ),
@@ -154,12 +154,11 @@ class LoginIntroHeader extends ConsumerWidget {
           onPressed: () {
             Navigator.pushAndRemoveUntil(
               context,
-              // --- CORRECCIÓN AQUÍ ---
               MaterialPageRoute(builder: (context) => const BasePage()),
               (v) => false,
             );
           },
-          child: Text('Saltar'.tr()),
+          child: Text('Skip'.tr()),
         ),
       ],
     );

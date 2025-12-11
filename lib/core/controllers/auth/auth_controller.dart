@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:easy_localization/easy_localization.dart'; // Importante para traducciones
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../logger/app_logger.dart';
 import '../../models/member.dart';
@@ -25,7 +25,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   Future<void> init() async {
     try {
-      Log.info('Iniciando Iniciacion');
+      Log.info('Starting initialization');
       Member? theUser = await repository.getUser();
 
       if (theUser != null) {
@@ -37,7 +37,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
           bool isValid = await repository.vallidateToken(token: token);
 
           if (isValid) {
-            Log.info('Llave de validacion con Exito');
+            Log.info('Token validation successful');
             state = AuthLoggedIn(theUser);
             Log.info('Auth state set to LoggedIn');
           } else {
@@ -70,22 +70,20 @@ class AuthNotifier extends StateNotifier<AuthState> {
           await repository.login(email: email, password: password);
 
       if (result.success && result.member != null) {
-        Log.info('Inicio de Sesion con Exito');
+        Log.info('Login successful');
         state = AuthLoggedIn(result.member!);
         if (mounted) {
-          Log.info('Navegacion de Animacion de Sesion');
+          Log.info('Navigating with login animation');
           Navigator.pushNamed(context, AppRoutes.loginAnimation);
         }
         AnalyticsController.logUserLogin();
         return null;
       } else {
         Log.warning('Login failed: ${result.error ?? "Unknown error"}');
-        // CAMBIO: Uso de traducción y manejo de error más limpio
-        return result.error ?? 'login_failed'.tr(); 
+        return result.error ?? 'login_failed'.tr();
       }
     } catch (e, stack) {
       Log.fatal(error: 'Login error: $e', stackTrace: stack);
-      // CAMBIO: Uso de traducción
       return 'unexpected_error'.tr();
     }
   }
@@ -95,17 +93,16 @@ class AuthNotifier extends StateNotifier<AuthState> {
     try {
       final member = await repository.googleSignIn();
       if (member != null) {
-        Log.info('Inicio de Sesion de Google con Exito');
+        Log.info('Google login successful');
         state = AuthLoggedIn(member);
         if (mounted) {
-          Log.info('Navegacion con Animacion de Sesion');
+          Log.info('Navigating with login animation');
           Navigator.pushNamed(context, AppRoutes.loginAnimation);
         }
         AnalyticsController.logUserLogin();
         return true;
       } else {
-        Log.warning('Inicio de Sesion con Google Fallo');
-        // CAMBIO: Uso de traducción
+        Log.warning('Google login failed');
         Fluttertoast.showToast(msg: 'account_issue'.tr());
         return false;
       }
@@ -120,7 +117,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     try {
       final member = await repository.appleSignIn();
       if (member != null) {
-        Log.info('Inicio de Sesion con Apple con Exito');
+        Log.info('Apple login successful');
         state = AuthLoggedIn(member);
         if (mounted) {
           Log.info('Navigating to login animation');
@@ -129,8 +126,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
         AnalyticsController.logUserLogin();
         return true;
       } else {
-        Log.warning('Inicio de Sesion con Apple Fallo');
-        // CAMBIO: Uso de traducción
+        Log.warning('Apple login failed');
         Fluttertoast.showToast(msg: 'account_issue'.tr());
         return false;
       }
@@ -160,7 +156,6 @@ class AuthNotifier extends StateNotifier<AuthState> {
         return true;
       } else {
         Log.warning('Signup failed');
-        // CAMBIO: Uso de traducción
         Fluttertoast.showToast(msg: 'invalid_credentials'.tr());
         return false;
       }
@@ -189,21 +184,16 @@ class AuthNotifier extends StateNotifier<AuthState> {
     Log.info('Sending password reset link to: ${email.split('@')[0]}***');
     try {
       bool isValid = await repository.sendPasswordResetLink(email);
-      
+
       if (isValid) {
         Log.info('Password reset link sent successfully');
         return null;
       } else {
         Log.warning('Failed to send password reset link');
-        // CAMBIO CRÍTICO:
-        // Antes devolvía 'The email is not registered' siempre que fallaba.
-        // Ahora devuelve un mensaje genérico de error de envío, ya que puede ser 
-        // que el usuario sí exista pero el servidor (WordPress) falló al enviar el email.
-        return 'error_sending_email'.tr(); 
+        return 'error_sending_email'.tr();
       }
     } catch (e, stack) {
       Log.fatal(error: 'Password reset error: $e', stackTrace: stack);
-      // CAMBIO: Uso de traducción
       return 'unexpected_error'.tr();
     }
   }

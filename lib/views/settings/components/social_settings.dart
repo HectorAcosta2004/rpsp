@@ -28,6 +28,7 @@ class SocialSettings extends ConsumerWidget {
     final whatsappUrl = config?.whatsappUrl ?? '';
     final youtubeUrl = config?.youtubeUrl ?? '';
     final twitterUrl = config?.twitterUrl ?? '';
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -38,8 +39,10 @@ class SocialSettings extends ConsumerWidget {
             style: Theme.of(context).textTheme.bodySmall,
           ),
         ),
+
+        // Contact Us
         SettingTile(
-          label: 'Contactanos',
+          label: 'Contact Us',
           icon: Icons.contact_mail_rounded,
           iconColor: Colors.blueGrey,
           trailing: const Padding(
@@ -50,8 +53,10 @@ class SocialSettings extends ConsumerWidget {
             Navigator.pushNamed(context, AppRoutes.contact);
           },
         ),
+
+        // Website
         SettingTile(
-          label: 'Sitio Web',
+          label: 'Website',
           icon: FontAwesomeIcons.earthAsia,
           isFaIcon: true,
           iconColor: Colors.green,
@@ -66,16 +71,18 @@ class SocialSettings extends ConsumerWidget {
                 context,
                 MaterialPageRoute(
                   builder: (_) => ViewOnWebPage(
-                    title: 'Sitio Web'.tr(),
+                    title: 'Website'.tr(),
                     url: url,
                   ),
                 ),
               );
             } else {
-              Fluttertoast.showToast(msg: 'No App Url link provided');
+              Fluttertoast.showToast(msg: 'No App URL link provided');
             }
           },
         ),
+
+        // Facebook
         if (facebookUrl.isNotEmpty)
           SettingTile(
             label: 'Facebook',
@@ -92,13 +99,15 @@ class SocialSettings extends ConsumerWidget {
               if (url.isNotEmpty) {
                 AppUtils.openLink(url);
               } else {
-                Fluttertoast.showToast(msg: 'No se encontro el Link de Facebook');
+                Fluttertoast.showToast(msg: 'Facebook link not found');
               }
             },
           ),
+
+        // YouTube
         if (youtubeUrl.isNotEmpty)
           SettingTile(
-            label: 'Youtube',
+            label: 'YouTube',
             shouldTranslate: false,
             icon: FontAwesomeIcons.youtube,
             isFaIcon: true,
@@ -112,10 +121,12 @@ class SocialSettings extends ConsumerWidget {
               if (url.isNotEmpty) {
                 AppUtils.openLink(url);
               } else {
-                Fluttertoast.showToast(msg: 'No se encontro el link Youtube ');
+                Fluttertoast.showToast(msg: 'YouTube link not found');
               }
             },
           ),
+
+        // X (Twitter)
         if (twitterUrl.isNotEmpty)
           SettingTile(
             label: 'X',
@@ -132,10 +143,12 @@ class SocialSettings extends ConsumerWidget {
               if (url.isNotEmpty) {
                 AppUtils.openLink(url);
               } else {
-                Fluttertoast.showToast(msg: 'No se encontro el link X ');
+                Fluttertoast.showToast(msg: 'X link not found');
               }
             },
           ),
+
+        // Instagram
         if (instagramUrl.isNotEmpty)
           SettingTile(
             label: 'Instagram',
@@ -152,17 +165,19 @@ class SocialSettings extends ConsumerWidget {
               if (url.isNotEmpty) {
                 AppUtils.openLink(url);
               } else {
-                Fluttertoast.showToast(msg: 'No se encontro el link de Instragram ');
+                Fluttertoast.showToast(msg: 'Instagram link not found');
               }
             },
           ),
+
+        // TikTok
         if (tiktokUrl.isNotEmpty)
           SettingTile(
-            label: 'Tiktok',
+            label: 'TikTok',
             shouldTranslate: false,
             icon: FontAwesomeIcons.tiktok,
             isFaIcon: true,
-            iconColor: Colors.red,
+            iconColor: Colors.black,
             trailing: const Padding(
               padding: EdgeInsets.all(8.0),
               child: Icon(IconlyLight.arrowRight2),
@@ -172,13 +187,15 @@ class SocialSettings extends ConsumerWidget {
               if (url.isNotEmpty) {
                 AppUtils.openLink(url);
               } else {
-                Fluttertoast.showToast(msg: 'No se encontro el Link de Tiktok');
+                Fluttertoast.showToast(msg: 'TikTok link not found');
               }
             },
           ),
+
+        // WhatsApp
         if (whatsappUrl.isNotEmpty)
           SettingTile(
-            label: 'Whatsapp',
+            label: 'WhatsApp',
             shouldTranslate: false,
             icon: FontAwesomeIcons.whatsapp,
             isFaIcon: true,
@@ -192,7 +209,7 @@ class SocialSettings extends ConsumerWidget {
               if (url.isNotEmpty) {
                 AppUtils.openLink(url);
               } else {
-                Fluttertoast.showToast(msg: 'No se encontro el Link de Whatsapp');
+                Fluttertoast.showToast(msg: 'WhatsApp link not found');
               }
             },
           ),

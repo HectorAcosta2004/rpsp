@@ -11,15 +11,13 @@ import '../../core/utils/app_utils.dart';
 import '../../core/utils/ui_util.dart';
 import 'dialogs/email_sent_successfully.dart';
 
-
-
 class ForgotPasswordPage extends StatelessWidget {
   const ForgotPasswordPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(), 
+      appBar: AppBar(),
       body: const SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -38,7 +36,7 @@ class ForgotPasswordPage extends StatelessWidget {
             children: [
               Icon(Icons.adaptive.arrow_back_rounded, size: 16),
               AppSizedBox.w5,
-              Text('Regresar'.tr()),
+              Text('Back'.tr()),
             ],
           ),
         ),
@@ -109,15 +107,14 @@ class _ForgotPassFormState extends ConsumerState<ForgotPassForm> {
             padding: const EdgeInsets.all(AppDefaults.padding),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const HeadlineRow(
-                  headline: 'Olvide mi Contraseña',
+                  headline: 'Forgot Password',
                   fontColor: AppColors.primary,
                 ),
                 AppSizedBox.h16,
                 Text(
-                  'Mensaje de Olvide mi Contraseña'.tr(),
+                  'Forgot Password Message'.tr(),
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 AppSizedBox.h16,
@@ -126,10 +123,10 @@ class _ForgotPassFormState extends ConsumerState<ForgotPassForm> {
                   child: TextFormField(
                     controller: _email,
                     decoration: InputDecoration(
-                      labelText: 'Correo'.tr(),
+                      labelText: 'Email'.tr(),
                       prefixIcon: const Icon(IconlyLight.message),
                       errorText: errorMessage,
-                      hintText: 'Prueba@Gmail.com',
+                      hintText: 'Hector@gmail.com',
                     ),
                     keyboardType: TextInputType.emailAddress,
                     validator: AppValidators.email.call,
@@ -149,7 +146,7 @@ class _ForgotPassFormState extends ConsumerState<ForgotPassForm> {
               onPressed: _sendEmail,
               child: _isSendingEmail
                   ? const CircularProgressIndicator(color: Colors.white)
-                  : Text('Enviar_otp'.tr()),
+                  : Text('Send'.tr()),
             ),
           ),
         ),

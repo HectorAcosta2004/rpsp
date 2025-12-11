@@ -53,7 +53,6 @@ class _LoginFormState extends ConsumerState<SignupForm> {
 
   Future<void> _signUp() async {
     if (_isCreating) {
-      // so that we won't trigger our function twice
       return;
     } else {
       bool isValid = _formKey.currentState?.validate() ?? false;
@@ -73,12 +72,11 @@ class _LoginFormState extends ConsumerState<SignupForm> {
           if (mounted) setState(() {});
         }
       } else if (!_isAgreed) {
-        Fluttertoast.showToast(msg: 'Terminos y servicios');
+        Fluttertoast.showToast(msg: 'Terms and Services');
       }
     }
   }
 
-  /// Formkey
   final _formKey = GlobalKey<FormState>();
 
   bool showPassword = false;
@@ -107,6 +105,7 @@ class _LoginFormState extends ConsumerState<SignupForm> {
   Widget build(BuildContext context) {
     final isSocialLogin =
         ref.watch(configProvider).value?.isSocialLoginEnabled ?? false;
+
     return Column(
       children: [
         Form(
@@ -116,10 +115,9 @@ class _LoginFormState extends ConsumerState<SignupForm> {
             child: AutofillGroup(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const HeadlineRow(
-                    headline: 'Crear Cuenta',
+                    headline: 'Create Account',
                     fontColor: AppColors.primary,
                   ),
                   AppSizedBox.h16,
@@ -132,12 +130,12 @@ class _LoginFormState extends ConsumerState<SignupForm> {
                   TextFormField(
                     controller: _username,
                     decoration: InputDecoration(
-                      labelText: 'Nombre de Usuario'.tr(),
+                      labelText: 'Username'.tr(),
                       prefixIcon: const Icon(IconlyLight.profile),
                     ),
                     keyboardType: TextInputType.text,
                     validator:
-                        AppValidators.requiredWithName('Nombre de Usuario'.tr()).call,
+                        AppValidators.requiredWithName('Username'.tr()).call,
                     autofillHints: const [AutofillHints.name],
                     textInputAction: TextInputAction.next,
                   ),
@@ -145,7 +143,7 @@ class _LoginFormState extends ConsumerState<SignupForm> {
                   TextFormField(
                     controller: _email,
                     decoration: InputDecoration(
-                      labelText: 'Correo'.tr(),
+                      labelText: 'Email'.tr(),
                       prefixIcon: const Icon(IconlyLight.message),
                     ),
                     keyboardType: TextInputType.emailAddress,
@@ -158,19 +156,18 @@ class _LoginFormState extends ConsumerState<SignupForm> {
                     controller: _pass,
                     obscureText: !showPassword,
                     decoration: InputDecoration(
-                        labelText: 'Contraseña'.tr(),
-                        prefixIcon: const Icon(IconlyLight.password),
-                        suffixIcon: Material(
-                          color: Colors.transparent,
-                          child: IconButton(
-                            icon: Icon(
-                              showPassword
-                                  ? IconlyLight.show
-                                  : IconlyLight.hide,
-                            ),
-                            onPressed: _toggleShowPassword,
+                      labelText: 'Password'.tr(),
+                      prefixIcon: const Icon(IconlyLight.password),
+                      suffixIcon: Material(
+                        color: Colors.transparent,
+                        child: IconButton(
+                          icon: Icon(
+                            showPassword ? IconlyLight.show : IconlyLight.hide,
                           ),
-                        )),
+                          onPressed: _toggleShowPassword,
+                        ),
+                      ),
+                    ),
                     keyboardType: TextInputType.visiblePassword,
                     validator: AppValidators.password.call,
                     autofillHints: const [AutofillHints.password],
@@ -195,7 +192,7 @@ class _LoginFormState extends ConsumerState<SignupForm> {
               Expanded(
                 child: Row(
                   children: [
-                    const Text('Agregar '),
+                    const Text('Agree '),
                     TextButton(
                       onPressed: () {
                         final url = ref
@@ -208,7 +205,7 @@ class _LoginFormState extends ConsumerState<SignupForm> {
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
                       ),
-                      child: const Text('Terminos y Servicios'),
+                      child: const Text('Terms and Services'),
                     ),
                   ],
                 ),
@@ -224,7 +221,7 @@ class _LoginFormState extends ConsumerState<SignupForm> {
               onPressed: _signUp,
               child: _isCreating
                   ? const CircularProgressIndicator(color: Colors.white)
-                  : Text('Crear Cuenta'.tr()),
+                  : Text('Create Account'.tr()),
             ),
           ),
         ),

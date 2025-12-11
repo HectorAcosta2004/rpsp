@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 import '../../../core/components/animated_page_switcher.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/controllers/auth/auth_controller.dart';
@@ -22,14 +21,8 @@ class UserSettings extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authProvider = ref.watch(authController);
-    // final isLoginEnabled =
-    //     ref.watch(configProvider).value?.isLoginEnabled ?? false;
 
-    // --- CORRECCIÓN ---
-    // Eliminamos la condición 'if (isLoginEnabled)' y siempre mostramos la interfaz de autenticación.
-    // Esto fuerza a que los botones de "Login" aparezcan.
     return TransitionWidget(child: handleAuthState(authProvider));
-    // --- FIN DE LA CORRECCIÓN ---
   }
 
   Widget handleAuthState(AuthState authProvider) {
@@ -54,12 +47,12 @@ class _LoadingAuthentication extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(AppDefaults.margin),
           child: Text(
-            'Ajustes de Usuarios'.tr(),
+            'User Settings'.tr(),
             style: Theme.of(context).textTheme.bodySmall,
           ),
         ),
         const SettingTile(
-          label: 'Cargando...',
+          label: 'Loading...',
           icon: IconlyLight.arrowUpCircle,
           iconColor: AppColors.primary,
           trailing: CircularProgressIndicator(),
@@ -80,12 +73,12 @@ class _UserLoggedOut extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.all(AppDefaults.margin),
           child: Text(
-            'Ajustes de Usuarios'.tr(),
+            'User Settings'.tr(),
             style: Theme.of(context).textTheme.bodySmall,
           ),
         ),
         SettingTile(
-          label: 'Iniciar Session',
+          label: 'Log In',
           icon: IconlyLight.logout,
           iconColor: AppColors.primary,
           trailing: const Padding(
@@ -121,24 +114,24 @@ class _UserLoggedIn extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.all(AppDefaults.margin),
           child: Text(
-            'Ajustes de Usuarios'.tr(),
+            'User Settings'.tr(),
             style: Theme.of(context).textTheme.bodySmall,
           ),
         ),
         SettingTile(
-          label: authProvider.member?.name ?? 'No se encontro el nombre',
+          label: authProvider.member?.name ?? 'Name not found',
           icon: IconlyLight.profile,
           iconColor: Colors.blue,
           shouldTranslate: false,
         ),
         SettingTile(
-          label: authProvider.member?.email ?? 'No se encontro Correo',
+          label: authProvider.member?.email ?? 'Email not found',
           icon: IconlyLight.message,
           iconColor: Colors.orangeAccent,
           shouldTranslate: false,
         ),
         SettingTile(
-          label: 'Eliminar Cuenta',
+          label: 'Delete Account',
           icon: IconlyLight.delete,
           iconColor: Colors.red,
           onTap: () {
@@ -147,7 +140,7 @@ class _UserLoggedIn extends ConsumerWidget {
           },
         ),
         SettingTile(
-          label: 'Cerrar Session',
+          label: 'Log Out',
           icon: IconlyLight.logout,
           iconColor: Colors.redAccent,
           trailing: const Padding(

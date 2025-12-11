@@ -14,12 +14,13 @@ class DontHaveAccountButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('No existe la Cuenta'.tr()),
+          Text('No account exists'.tr()),
           TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.signup);
-              },
-              child: Text('Crear Cuenta'.tr()))
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.signup);
+            },
+            child: Text('Create Account'.tr()),
+          ),
         ],
       ),
     );

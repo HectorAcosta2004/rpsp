@@ -12,7 +12,7 @@ import '../../core/utils/app_form_validattors.dart';
 import '../../core/utils/app_utils.dart';
 import 'components/dont_have_account_button.dart';
 
-// --- (CORRECCIÓN 1): IMPORTA TU PÁGINA PRINCIPAL ---
+// --- MAIN PAGE IMPORT ---
 import '../base/base_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -42,10 +42,9 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
   bool _isLoggingIn = false;
   String? _loginErrorMessage;
 
-  //login ACTUALIZADA ---
+  // UPDATED LOGIN METHOD ---
   Future<void> _login() async {
     if (_isLoggingIn) {
-      // so that we won't trigger our function twice
       return;
     } else {
       bool isValid = _formKey.currentState?.validate() ?? false;
@@ -114,7 +113,7 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const HeadlineRow(
-                    headline: 'Inicio de Sesion',
+                    headline: 'Login',
                   ),
                   AppSizedBox.h16,
                   AppSizedBox.h16,
@@ -122,9 +121,9 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
                   TextFormField(
                     controller: _email,
                     decoration: InputDecoration(
-                      labelText: 'Correo'.tr(),
+                      labelText: 'Email'.tr(),
                       prefixIcon: const Icon(IconlyLight.message),
-                      hintText: 'Prueba@Gmail.com',
+                      hintText: 'Test@Gmail.com',
                     ),
                     keyboardType: TextInputType.emailAddress,
                     validator: AppValidators.email.call,
@@ -138,7 +137,7 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
                     obscureText: !showPassword,
                     decoration: InputDecoration(
                       errorText: _loginErrorMessage,
-                      labelText: 'Contraseña'.tr(),
+                      labelText: 'Password'.tr(),
                       prefixIcon: const Icon(IconlyLight.password),
                       hintText: '*******',
                       suffixIcon: Material(
@@ -171,7 +170,7 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
               child: _isLoggingIn
                   ? const CircularProgressIndicator(
                       color: Color.fromARGB(255, 129, 4, 4))
-                  : Text('Inicio de Sesion'.tr()),
+                  : Text('Login'.tr()),
             ),
           ),
         ),
@@ -185,7 +184,7 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
               onPressed: () {
                 Navigator.pushNamed(context, AppRoutes.forgotPass);
               },
-              child: Text('Olvide mi Contraseña'.tr()),
+              child: Text('Forgot my Password'.tr()),
             ),
           ),
         ),

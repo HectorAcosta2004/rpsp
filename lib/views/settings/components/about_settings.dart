@@ -4,7 +4,6 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-
 import '../../../core/controllers/config/config_controllers.dart';
 
 import '../../view_on_web/view_on_web_page.dart';
@@ -22,7 +21,7 @@ class AboutSettings extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SettingTile(
-          label: 'Terminos y Condiciones',
+          label: 'Terms and Conditions',
           icon: IconlyLight.paper,
           iconColor: Colors.pink,
           trailing: const Padding(
@@ -36,17 +35,16 @@ class AboutSettings extends ConsumerWidget {
                   context,
                   MaterialPageRoute(
                       builder: (_) => ViewOnWebPage(
-                            title: 'Terminos y Condiciones'.tr(),
+                            title: 'Terms and Conditions'.tr(),
                             url: theURL,
                           )));
             } else {
-              Fluttertoast.showToast(
-                  msg: 'No terminos '.tr());
+              Fluttertoast.showToast(msg: 'No terms'.tr());
             }
           },
         ),
         SettingTile(
-          label: 'Politica de Privacidad',
+          label: 'Privacy Policy',
           icon: IconlyLight.lock,
           iconColor: Colors.green,
           trailing: const Padding(
@@ -60,11 +58,11 @@ class AboutSettings extends ConsumerWidget {
                   context,
                   MaterialPageRoute(
                       builder: (_) => ViewOnWebPage(
-                            title: 'Politica de Privacidad'.tr(),
+                            title: 'Privacy Policy'.tr(),
                             url: privacyPolicy,
                           )));
             } else {
-              Fluttertoast.showToast(msg: 'No Privacidad'.tr());
+              Fluttertoast.showToast(msg: 'No privacy'.tr());
             }
           },
         ),

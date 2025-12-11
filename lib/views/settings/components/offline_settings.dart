@@ -43,12 +43,12 @@ class OfflineSettings extends ConsumerWidget {
           // Saved Posts
           ListTile(
             leading: const Icon(IconlyLight.document),
-            title: Text('Entradas Guardadas'.tr()),
+            title: Text('Saved Posts'.tr()),
             subtitle: FutureBuilder<int>(
               future: offlineRepo.getSavedPostsCount(),
               builder: (context, snapshot) {
                 final count = snapshot.data ?? 0;
-                return Text('$count ${'Entradas Guardadas sin Conexion'.tr()}');
+                return Text('$count ${'Saved Posts Offline'.tr()}');
               },
             ),
             trailing: const Icon(Icons.arrow_forward_ios),
@@ -67,8 +67,8 @@ class OfflineSettings extends ConsumerWidget {
           const Divider(height: 1),
           ListTile(
             leading: const Icon(IconlyLight.delete),
-            title: Text('Eliminar todas las entradas sin Conexion'.tr()),
-            subtitle: Text('Eliminar todas las entradas Guardadas'.tr()),
+            title: Text('Delete All Offline Posts'.tr()),
+            subtitle: Text('Delete All Saved Posts'.tr()),
             onTap: () => _showClearAllDialog(context, ref),
           ),
 
@@ -82,9 +82,9 @@ class OfflineSettings extends ConsumerWidget {
 
               return ListTile(
                 leading: const Icon(IconlyLight.chart),
-                title: Text('Informacion de Almacenamiento'.tr()),
+                title: Text('Storage Information'.tr()),
                 subtitle:
-                    Text('Almacenamiento Usado'.tr(namedArgs: {'size': totalSizeMB})),
+                    Text('Storage Used'.tr(namedArgs: {'size': totalSizeMB})),
                 trailing: const Icon(Icons.info_outline),
                 onTap: () => _showStorageInfoDialog(context, storageInfo),
               );
@@ -97,14 +97,14 @@ class OfflineSettings extends ConsumerWidget {
 
   void _showClearAllDialog(BuildContext context, WidgetRef ref) {
     showDialog(
-      context: context,//
+      context: context,
       builder: (context) => AlertDialog(
-        title: Text('Eliminar todas las entradas sin conexion'.tr()),
-        content: Text('Eliminar todas las entradas Guardadas'.tr()),
+        title: Text('Delete All Offline Posts'.tr()),
+        content: Text('Delete All Saved Posts'.tr()),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('Cancelar'.tr()),
+            child: Text('Cancel'.tr()),
           ),
           TextButton(
             onPressed: () async {
@@ -113,24 +113,23 @@ class OfflineSettings extends ConsumerWidget {
               final success = await offlineRepo.clearAllPosts();
 
               if (success) {
-                // Refresh providers after clearing
                 ref.invalidate(offlinePostRepoProvider);
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(       
-                    content: Text('Eliminar las entradas sin Conexion'.tr()),
+                  SnackBar(
+                    content: Text('Offline Posts Deleted'.tr()),
                     backgroundColor: Colors.green,
                   ),
                 );
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(         //
-                    content: Text('Fallo en eliminar las Entradas sin Conexion'.tr()),
+                  SnackBar(
+                    content: Text('Failed to Delete Offline Posts'.tr()),
                     backgroundColor: Colors.red,
                   ),
                 );
               }
-            },            // 
-            child: Text('Eliminar todo las entradas sin Conexion'.tr()),
+            },
+            child: Text('Delete All Offline Posts'.tr()),
           ),
         ],
       ),
@@ -142,20 +141,26 @@ class OfflineSettings extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Informacion de Almacenamiento'.tr()),
+        title: Text('Storage Information'.tr()),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildInfoRow(
-                'Total de entradas'.tr(), '${storageInfo['postCount'] ?? 0}'),
-            _buildInfoRow('storage_used'.tr(),
-                '${storageInfo['totalSizeMB'] ?? '0.00'} MB'),
-            _buildInfoRow('Almacenamiento Usado kb'.tr(),
-                '${storageInfo['totalSizeKB'] ?? '0.00'} KB'),
-            if (storageInfo['Ultima Actulizacion'] != null)
+              'Total Posts'.tr(),
+              '${storageInfo['postCount'] ?? 0}',
+            ),
+            _buildInfoRow(
+              'storage_used'.tr(),
+              '${storageInfo['totalSizeMB'] ?? '0.00'} MB',
+            ),
+            _buildInfoRow(
+              'Storage Used KB'.tr(),
+              '${storageInfo['totalSizeKB'] ?? '0.00'} KB',
+            ),
+            if (storageInfo['lastUpdated'] != null)
               _buildInfoRow(
-                'lUltima Actulizacion'.tr(),
+                'Last Update'.tr(),
                 _formatDate(storageInfo['lastUpdated']),
               ),
           ],
@@ -163,7 +168,7 @@ class OfflineSettings extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('Guardar'.tr()),
+            child: Text('Close'.tr()),
           ),
         ],
       ),
@@ -188,6 +193,7 @@ class OfflineSettings extends ConsumerWidget {
 
   String _formatDate(int timestamp) {
     final date = DateTime.fromMillisecondsSinceEpoch(timestamp);
-    return '${date.day}/${date.month}/${date.year} ${date.hour}:${date.minute.toString().padLeft(2, '0')}';
+    return '${date.day}/${date.month}/${date.year} ${date.hour}'
+        ':${date.minute.toString().padLeft(2, '0')}';
   }
 }

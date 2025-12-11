@@ -37,9 +37,10 @@ class AppSignInWithAppleButton extends ConsumerWidget {
               ),
             ),
             label: Text(
-              'Iniciar Sesion con Apple'.tr(),
+              'Sign in with Apple'.tr(),
               style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyLarge?.color),
+                color: Theme.of(context).textTheme.bodyLarge?.color,
+              ),
             ),
             icon: SvgPicture.asset(
               'assets/svgs/apple_logo.svg',

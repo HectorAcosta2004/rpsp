@@ -29,7 +29,7 @@ class GeneralSettings extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(AppDefaults.margin),
           child: Text(
-            'Ajustes Generales'.tr(),
+            'General Settings'.tr(),
             style: Theme.of(context).textTheme.bodySmall,
           ),
         ),
@@ -54,7 +54,7 @@ class _LanguageSettings extends ConsumerWidget {
 
     if (multiLanguage) {
       return SettingTile(
-        label: 'Lenjuage',
+        label: 'Language',
         icon: Icons.language_rounded,
         iconColor: Colors.purple,
         trailing: const Padding(
@@ -87,7 +87,7 @@ class _PostStyleSettings extends ConsumerWidget {
       return const SizedBox();
     } else {
       return SettingTile(
-        label: 'Tipo de Estilo',
+        label: 'Style Type',
         icon: IconlyLight.document,
         iconColor: Colors.deepPurple,
         subtitle: _getStyleDisplayName(currentStyle),
@@ -108,15 +108,15 @@ class _PostStyleSettings extends ConsumerWidget {
   String _getStyleDisplayName(PostDetailStyle style) {
     switch (style) {
       case PostDetailStyle.classic:
-        return 'Clasico';
+        return 'Classic';
       case PostDetailStyle.magazine:
-        return 'Ultra Grande';
+        return 'Ultra Large';
       case PostDetailStyle.minimal:
-        return 'Minimo';
+        return 'Minimal';
       case PostDetailStyle.card:
-        return 'Carta';
+        return 'Card';
       case PostDetailStyle.story:
-        return 'Historia';
+        return 'Story';
     }
   }
 }
@@ -133,7 +133,7 @@ class NotificationTileRow extends ConsumerWidget {
     bool isLoading = notificationState == NotificationState.loading;
 
     return SettingTile(
-      label: 'notification',
+      label: 'Notifications',
       icon: IconlyLight.notification,
       iconColor: Colors.green,
       trailing: CupertinoSwitch(
