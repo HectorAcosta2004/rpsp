@@ -71,33 +71,13 @@ class LoginIntroPage extends ConsumerWidget {
                       AppSizedBox.h16,
                       AppSizedBox.h16,
                       Text(
-                        '${'Welcome to Revived by His Word'.tr()} ${WPConfig.appName}',
+                        // CAMBIO 1: 'welcome_newspro'
+                        '${'welcome_newspro'.tr()} ${WPConfig.appName}',
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.bold,
                               color: AppColors.primary,
                             ),
                         textAlign: TextAlign.center,
-                      ),
-                      Responsive(
-                        mobile: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: AutoSizeText(
-                            'Welcome'.tr(),
-                            style: Theme.of(context).textTheme.bodyMedium,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        tablet: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          child: Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: AutoSizeText(
-                              'Welcome Message'.tr(),
-                              style: Theme.of(context).textTheme.bodyMedium,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
                       ),
                     ],
                   ),
@@ -114,7 +94,8 @@ class LoginIntroPage extends ConsumerWidget {
                       onPressed: () {
                         Navigator.pushNamed(context, AppRoutes.login);
                       },
-                      child: Text('Sign In'.tr()),
+                      // CAMBIO 4: 'login' (que es "Iniciar sesión" en tu JSON)
+                      child: Text('login'.tr()),
                     ),
                   ),
                 ),
@@ -158,7 +139,8 @@ class LoginIntroHeader extends ConsumerWidget {
               (v) => false,
             );
           },
-          child: Text('Skip'.tr()),
+          // CAMBIO 5: 'skip'
+          child: Text('skip'.tr()),
         ),
       ],
     );

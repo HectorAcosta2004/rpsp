@@ -17,7 +17,7 @@ class ContactPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final config = ref.watch(configProvider).value;
-    final description = config?.appDescription ?? '';
+    final description = 'app_description'.tr();
     final email = config?.ownerEmail ?? 'no_email_provided'.tr();
     final name = config?.ownerName ?? 'no_name_provided'.tr();
     final phone = config?.ownerPhone ?? 'no_phone_provided'.tr();
@@ -25,11 +25,11 @@ class ContactPage extends ConsumerWidget {
 
     void copyData(String data) async {
       await Clipboard.setData(ClipboardData(text: data));
-      Fluttertoast.showToast(msg: 'Copiado'.tr());
+      Fluttertoast.showToast(msg: 'copied'.tr());
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text('Contactanos'.tr())),
+      appBar: AppBar(title: Text('contact_us'.tr())),
       body: Column(
         children: [
           const Align(
@@ -54,14 +54,14 @@ class ContactPage extends ConsumerWidget {
             ),
           const Divider(),
           ListTile(
-            title: Text('Nombre'.tr()),
+            title: Text('name'.tr()),
             subtitle: Text(name),
             leading: const Icon(Icons.person),
             onLongPress: () => copyData(name),
           ),
           const Divider(),
           ListTile(
-            title: Text('Correo'.tr()),
+            title: Text('email'.tr()),
             subtitle: Text(email),
             leading: const Icon(Icons.email),
             onLongPress: () => copyData(email),
@@ -78,7 +78,7 @@ class ContactPage extends ConsumerWidget {
           ),
           if (phone.isNotEmpty)
             ListTile(
-              title: Text('Telefono'.tr()),
+              title: Text('phone'.tr()),
               subtitle: Text(phone),
               leading: const Icon(Icons.phone),
               onLongPress: () => copyData(phone),
@@ -89,14 +89,14 @@ class ContactPage extends ConsumerWidget {
             ),
           if (address.isNotEmpty)
             ListTile(
-              title: Text('Direccion'.tr()),
+              title: Text('address'.tr()),
               subtitle: Text(address),
               leading: const Icon(Icons.gps_fixed_rounded),
               onLongPress: () => copyData(address),
             ),
           const Divider(),
           const Spacer(),
-          MiniPlayer(isOnStack: false),
+          const MiniPlayer(isOnStack: false),
         ],
       ),
     );

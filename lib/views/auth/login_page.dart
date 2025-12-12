@@ -12,7 +12,6 @@ import '../../core/utils/app_form_validattors.dart';
 import '../../core/utils/app_utils.dart';
 import 'components/dont_have_account_button.dart';
 
-// --- MAIN PAGE IMPORT ---
 import '../base/base_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -42,7 +41,6 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
   bool _isLoggingIn = false;
   String? _loginErrorMessage;
 
-  // UPDATED LOGIN METHOD ---
   Future<void> _login() async {
     if (_isLoggingIn) {
       return;
@@ -112,8 +110,8 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const HeadlineRow(
-                    headline: 'Login',
+                  HeadlineRow(
+                    headline: 'login'.tr(),
                   ),
                   AppSizedBox.h16,
                   AppSizedBox.h16,
@@ -121,7 +119,7 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
                   TextFormField(
                     controller: _email,
                     decoration: InputDecoration(
-                      labelText: 'Email'.tr(),
+                      labelText: 'email'.tr(),
                       prefixIcon: const Icon(IconlyLight.message),
                       hintText: 'Test@Gmail.com',
                     ),
@@ -137,7 +135,7 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
                     obscureText: !showPassword,
                     decoration: InputDecoration(
                       errorText: _loginErrorMessage,
-                      labelText: 'Password'.tr(),
+                      labelText: 'password'.tr(),
                       prefixIcon: const Icon(IconlyLight.password),
                       hintText: '*******',
                       suffixIcon: Material(
@@ -170,7 +168,7 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
               child: _isLoggingIn
                   ? const CircularProgressIndicator(
                       color: Color.fromARGB(255, 129, 4, 4))
-                  : Text('Login'.tr()),
+                  : Text('login'.tr()),
             ),
           ),
         ),
@@ -184,7 +182,7 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
               onPressed: () {
                 Navigator.pushNamed(context, AppRoutes.forgotPass);
               },
-              child: Text('Forgot my Password'.tr()),
+              child: Text('forgot_pass'.tr()),
             ),
           ),
         ),

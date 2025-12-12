@@ -10,7 +10,6 @@ import '../../core/controllers/config/config_controllers.dart';
 import '../../core/components/country_flag.dart';
 import '../../core/components/select_theme_mode.dart';
 import '../../core/constants/constants.dart';
-import '../../core/localization/app_locales.dart';
 import '../../core/routes/app_routes.dart';
 
 class SelectLanguageAndThemePage extends StatelessWidget {
@@ -22,13 +21,11 @@ class SelectLanguageAndThemePage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: SingleChildScrollView(
-          // Add padding around entire content area
           padding: const EdgeInsets.symmetric(vertical: AppDefaults.padding),
           child: Column(
             children: [
               _ThemeWrapper(),
               const Divider(
-                // Improve divider appearance
                 indent: AppDefaults.padding,
                 endIndent: AppDefaults.padding,
                 height: 10,
@@ -67,7 +64,7 @@ class _DoneButton extends ConsumerWidget {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
         child: Container(
-          margin: EdgeInsets.symmetric(vertical: 8),
+          margin: const EdgeInsets.symmetric(vertical: 8),
           padding: const EdgeInsets.all(AppDefaults.padding),
           decoration: BoxDecoration(
             color: Theme.of(context)
@@ -122,8 +119,19 @@ class SelectLanguage extends StatelessWidget {
     super.key,
   });
 
+  String _getLanguageName(String code) {
+    if (code == 'es') return 'Español';
+    if (code == 'en') return 'English';
+    return code.toUpperCase();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final List<Locale> myLanguages = [
+      const Locale('es', 'ES'),
+      const Locale('en', 'US'),
+    ];
+
     return Padding(
       padding: const EdgeInsets.all(AppDefaults.padding),
       child: Column(
@@ -162,7 +170,7 @@ class SelectLanguage extends StatelessWidget {
           ),
           const SizedBox(height: 16),
 
-          // Language list with consistent styling
+          // Language list
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(AppDefaults.radius),
@@ -175,20 +183,23 @@ class SelectLanguage extends StatelessWidget {
               borderRadius: BorderRadius.circular(AppDefaults.radius),
               child: ListView.separated(
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: AppLocales.supportedLocales.length,
+                itemCount: myLanguages.length, // Usamos nuestra lista manual
                 itemBuilder: (context, index) {
-                  Locale current = AppLocales.supportedLocales[index];
+                  Locale current = myLanguages[index];
+                  bool isSelected =
+                      context.locale.languageCode == current.languageCode;
+
                   return ListTile(
                     onTap: () async {
                       await context.setLocale(current);
                     },
-                    title: Text(AppLocales.formattedLanguageName(current)),
+                    // Usamos la función para el nombre bonito
+                    title: Text(_getLanguageName(current.languageCode)),
                     leading:
-                        CountryFlag(countryCode: current.countryCode ?? 'AD'),
-                    trailing: context.locale == current
+                        CountryFlag(countryCode: current.countryCode ?? 'US'),
+                    trailing: isSelected
                         ? const Icon(Icons.check_circle, color: Colors.green)
                         : const SizedBox(),
-                    // Add consistent height and padding
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: 4,

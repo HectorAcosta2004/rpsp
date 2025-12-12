@@ -5,13 +5,17 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import '../../../core/components/bottom_sheet_top_handler.dart';
 import '../../../core/components/country_flag.dart';
 import '../../../core/constants/constants.dart';
-import '../../../core/localization/app_locales.dart';
 
 class ChangeLanguageDialog extends StatelessWidget {
   const ChangeLanguageDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final List<Locale> myLanguages = [
+      const Locale('es', 'ES'),
+      const Locale('en', 'US'),
+    ];
+
     return Padding(
       padding: const EdgeInsets.all(AppDefaults.padding),
       child: Column(
@@ -20,20 +24,30 @@ class ChangeLanguageDialog extends StatelessWidget {
           const BottomSheetTopHandler(),
           const _ChangeLanguageHeader(),
           const Divider(),
-
-          /// All Languages
           ListView.separated(
-            itemCount: AppLocales.supportedLocales.length,
+            itemCount: myLanguages.length,
             itemBuilder: (context, index) {
-              Locale current = AppLocales.supportedLocales[index];
+              Locale current = myLanguages[index];
+              bool isSelected =
+                  context.locale.languageCode == current.languageCode;
+
               return ListTile(
                 onTap: () async {
-                  Navigator.pop(context);
                   await context.setLocale(current);
+                  if (context.mounted) {
+                    Navigator.pop(context);
+                  }
                 },
-                title: Text(AppLocales.formattedLanguageName(current)),
-                leading: CountryFlag(countryCode: current.countryCode ?? 'AD'),
-                trailing: context.locale == current
+                title: Text(
+                  _getLanguageName(current.languageCode),
+                  style: TextStyle(
+                    fontWeight:
+                        isSelected ? FontWeight.bold : FontWeight.normal,
+                    color: isSelected ? Theme.of(context).primaryColor : null,
+                  ),
+                ),
+                leading: CountryFlag(countryCode: current.countryCode ?? 'US'),
+                trailing: isSelected
                     ? const Icon(Icons.check_circle, color: Colors.green)
                     : const SizedBox(),
               );
@@ -45,6 +59,12 @@ class ChangeLanguageDialog extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String _getLanguageName(String code) {
+    if (code == 'es') return 'Español';
+    if (code == 'en') return 'English';
+    return code.toUpperCase();
   }
 }
 

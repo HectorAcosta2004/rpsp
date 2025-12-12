@@ -72,7 +72,8 @@ class _LoginFormState extends ConsumerState<SignupForm> {
           if (mounted) setState(() {});
         }
       } else if (!_isAgreed) {
-        Fluttertoast.showToast(msg: 'Terms and Services');
+        // CAMBIO 1: Mensaje de error traducido
+        Fluttertoast.showToast(msg: 'accept_terms_error'.tr());
       }
     }
   }
@@ -116,13 +117,15 @@ class _LoginFormState extends ConsumerState<SignupForm> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const HeadlineRow(
-                    headline: 'Create Account',
+                  // CAMBIO 2: 'Create Account' -> 'sign_up'
+                  HeadlineRow(
+                    headline: 'sign_up'.tr(),
                     fontColor: AppColors.primary,
                   ),
                   AppSizedBox.h16,
                   Text(
-                    ''.tr(),
+                    // CAMBIO 3: Rellenamos el string vacío con el mensaje de bienvenida
+                    'sign_up_message'.tr(),
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   AppSizedBox.h16,
@@ -130,12 +133,14 @@ class _LoginFormState extends ConsumerState<SignupForm> {
                   TextFormField(
                     controller: _username,
                     decoration: InputDecoration(
-                      labelText: 'Username'.tr(),
+                      // CAMBIO 4: 'Username' -> 'username'
+                      labelText: 'username'.tr(),
                       prefixIcon: const Icon(IconlyLight.profile),
                     ),
                     keyboardType: TextInputType.text,
                     validator:
-                        AppValidators.requiredWithName('Username'.tr()).call,
+                        // CAMBIO 5: 'Username' -> 'username'
+                        AppValidators.requiredWithName('username'.tr()).call,
                     autofillHints: const [AutofillHints.name],
                     textInputAction: TextInputAction.next,
                   ),
@@ -143,7 +148,8 @@ class _LoginFormState extends ConsumerState<SignupForm> {
                   TextFormField(
                     controller: _email,
                     decoration: InputDecoration(
-                      labelText: 'Email'.tr(),
+                      // CAMBIO 6: 'Email' -> 'email'
+                      labelText: 'email'.tr(),
                       prefixIcon: const Icon(IconlyLight.message),
                     ),
                     keyboardType: TextInputType.emailAddress,
@@ -156,7 +162,8 @@ class _LoginFormState extends ConsumerState<SignupForm> {
                     controller: _pass,
                     obscureText: !showPassword,
                     decoration: InputDecoration(
-                      labelText: 'Password'.tr(),
+                      // CAMBIO 7: 'Password' -> 'password'
+                      labelText: 'password'.tr(),
                       prefixIcon: const Icon(IconlyLight.password),
                       suffixIcon: Material(
                         color: Colors.transparent,
@@ -192,7 +199,8 @@ class _LoginFormState extends ConsumerState<SignupForm> {
               Expanded(
                 child: Row(
                   children: [
-                    const Text('Agree '),
+                    // CAMBIO 8: 'Agree ' -> 'agree'
+                    Text('agree'.tr()),
                     TextButton(
                       onPressed: () {
                         final url = ref
@@ -205,7 +213,8 @@ class _LoginFormState extends ConsumerState<SignupForm> {
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
                       ),
-                      child: const Text('Terms and Services'),
+                      // CAMBIO 9: 'Terms and Services' -> 'terms_conditions'
+                      child: Text('terms_conditions'.tr()),
                     ),
                   ],
                 ),
@@ -221,7 +230,8 @@ class _LoginFormState extends ConsumerState<SignupForm> {
               onPressed: _signUp,
               child: _isCreating
                   ? const CircularProgressIndicator(color: Colors.white)
-                  : Text('Create Account'.tr()),
+                  // CAMBIO 10: 'Create Account' -> 'sign_up'
+                  : Text('sign_up'.tr()),
             ),
           ),
         ),

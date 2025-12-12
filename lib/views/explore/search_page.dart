@@ -74,7 +74,6 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               : IconButton(
                   onPressed: () => setState(() {
                     _isOnHistory = true;
-                
                   }),
                   icon: const Icon(IconlyLight.timeSquare),
                 )
@@ -95,14 +94,12 @@ class _SearchPageState extends ConsumerState<SearchPage> {
                     child: widget,
                   ),
                   children: [
-                  
                     SearchTextFieldWithButton(
                       formKey: _formKey,
                       onSubmit: () => _search(),
                       controller: _query,
                     ),
                     const Divider(),
-                   
 
                     /// Page Swtich Animation
                     PageTransitionSwitcher(
@@ -134,7 +131,6 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               ),
             ),
           ),
-        
         ],
       ),
     );

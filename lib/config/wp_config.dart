@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class WPConfig {
   /// The Name of your app
-  static const String appName = 'Rpsp';
+  static const String appName = 'Reavivados por su palabra';
 
   /// The url of your app, should not inclued any '/' slash or any 'https://' or 'http://'
   /// Otherwise it may break the compaitbility, And your website must be

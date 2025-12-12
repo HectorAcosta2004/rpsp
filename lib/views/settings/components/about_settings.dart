@@ -21,7 +21,7 @@ class AboutSettings extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SettingTile(
-          label: 'Terms and Conditions',
+          label: 'terms_conditions'.tr(),
           icon: IconlyLight.paper,
           iconColor: Colors.pink,
           trailing: const Padding(
@@ -35,16 +35,16 @@ class AboutSettings extends ConsumerWidget {
                   context,
                   MaterialPageRoute(
                       builder: (_) => ViewOnWebPage(
-                            title: 'Terms and Conditions'.tr(),
+                            title: 'terms_conditions'.tr(),
                             url: theURL,
                           )));
             } else {
-              Fluttertoast.showToast(msg: 'No terms'.tr());
+              Fluttertoast.showToast(msg: 'no_terms_provided'.tr());
             }
           },
         ),
         SettingTile(
-          label: 'Privacy Policy',
+          label: 'privacy_policy'.tr(),
           icon: IconlyLight.lock,
           iconColor: Colors.green,
           trailing: const Padding(
@@ -58,11 +58,11 @@ class AboutSettings extends ConsumerWidget {
                   context,
                   MaterialPageRoute(
                       builder: (_) => ViewOnWebPage(
-                            title: 'Privacy Policy'.tr(),
+                            title: 'privacy_policy'.tr(),
                             url: privacyPolicy,
                           )));
             } else {
-              Fluttertoast.showToast(msg: 'No privacy'.tr());
+              Fluttertoast.showToast(msg: 'no_privacy_provided'.tr());
             }
           },
         ),

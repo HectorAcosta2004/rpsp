@@ -52,7 +52,8 @@ class InitializationState {
     StackTrace? stackTrace,
   }) {
     return InitializationState(
-      isCriticalInitComplete: isCriticalInitComplete ?? this.isCriticalInitComplete,
+      isCriticalInitComplete:
+          isCriticalInitComplete ?? this.isCriticalInitComplete,
       isLazyInitComplete: isLazyInitComplete ?? this.isLazyInitComplete,
       currentAppState: currentAppState ?? this.currentAppState,
       error: error ?? this.error,
@@ -136,7 +137,8 @@ class AppInitializer extends StateNotifier<InitializationState> {
   }
 
   // Inicialización crítica
-  Future<void> _performCriticalInitialization(InitializationArgument arg) async {
+  Future<void> _performCriticalInitialization(
+      InitializationArgument arg) async {
     Log.info('Starting critical initialization');
 
     // Abrir cajas esenciales
@@ -172,7 +174,8 @@ class AppInitializer extends StateNotifier<InitializationState> {
     await ref.read(authRepositoryProvider).init();
     await SearchLocalRepo().init();
     ref.read(localNotificationProvider);
-    AppLocales.setLocaleMessages();
+    // Nota: Si eliminaste setLocaleMessages de AppLocales, comenta la siguiente línea:
+    // AppLocales.setLocaleMessages();
     ref.read(applinkNotifierProvider(arg.context));
 
     Log.info('Lazy initialization complete');
@@ -187,18 +190,19 @@ class AppInitializer extends StateNotifier<InitializationState> {
     final isOnboardingDone = onboarding.isIntroDone();
     final isLoggedIn = ref.read(authController) is AuthLoggedIn;
 
-    // 1. FORZAR mostrar login/registro si no hay sesión activa (Nueva Lógica)
-    if (!isLoggedIn) {
-      return AppState.loggedOut;
-    }
+    // --- LÓGICA CORREGIDA ---
 
-    // 2. Mostrar onboarding si está habilitado y no se completó (Lógica secundaria)
+    // 1. Primero verificamos Onboarding. Si está activado y no se ha hecho, mostramos intro.
     if (onboardingEnabled && !isOnboardingDone) {
       return AppState.introNotDone;
     }
 
+    // 2. Si ya pasó el onboarding, verificamos si necesita login.
+    if (!isLoggedIn) {
+      return AppState.loggedOut;
+    }
 
-    // 3. Usuario logueado (Lógica final, implica que se omitió Onboarding)
+    // 3. Si tiene sesión activa, entra a la app.
     return AppState.loggedIn;
   }
 }

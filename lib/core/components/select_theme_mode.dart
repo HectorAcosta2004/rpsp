@@ -28,6 +28,7 @@ class SelectThemeMode extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
+              // CAMBIO 1: Clave del JSON
               'select_theme'.tr(),
               style: Theme.of(context)
                   .textTheme
@@ -38,7 +39,6 @@ class SelectThemeMode extends ConsumerWidget {
               padding: const EdgeInsets.symmetric(
                 vertical: AppDefaults.padding,
               ),
-              // Add container with border to group theme options
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(AppDefaults.radius),
@@ -55,7 +55,8 @@ class SelectThemeMode extends ConsumerWidget {
                         backgroundColor: AppColors.primary,
                         icon: Icons.phone_android,
                         isActive: themeMode == AdaptiveThemeMode.system,
-                        themeName: 'System',
+                        // CAMBIO 2: Clave traducida para "Sistema"
+                        themeName: 'system_theme'.tr(),
                         onTap: () {
                           controller.changeThemeMode(
                               AdaptiveThemeMode.system, context);
@@ -68,7 +69,8 @@ class SelectThemeMode extends ConsumerWidget {
                         backgroundColor: Colors.orangeAccent,
                         icon: Icons.light_mode_rounded,
                         isActive: themeMode == AdaptiveThemeMode.light,
-                        themeName: 'Light',
+                        // CAMBIO 3: Clave traducida para "Claro"
+                        themeName: 'light_theme'.tr(),
                         onTap: () {
                           controller.changeThemeMode(
                               AdaptiveThemeMode.light, context);
@@ -81,7 +83,8 @@ class SelectThemeMode extends ConsumerWidget {
                         backgroundColor: Colors.black87,
                         icon: Icons.dark_mode_rounded,
                         isActive: themeMode == AdaptiveThemeMode.dark,
-                        themeName: 'Dark',
+                        // CAMBIO 4: Clave traducida para "Oscuro" (usamos la que ya tenías o 'dark_mode')
+                        themeName: 'dark_mode'.tr(),
                         onTap: () {
                           controller.changeThemeMode(
                               AdaptiveThemeMode.dark, context);
@@ -118,7 +121,7 @@ class _ThemeModeSelector extends StatelessWidget {
     return Material(
       color: backgroundColor,
       borderRadius: BorderRadius.circular(AppDefaults.radius),
-      elevation: isActive ? 2 : 0, // Add elevation for selected theme
+      elevation: isActive ? 2 : 0,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(AppDefaults.radius),
@@ -145,6 +148,9 @@ class _ThemeModeSelector extends StatelessWidget {
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
                           ),
+                      textAlign: TextAlign
+                          .center, // Asegura que el texto no se corte feo
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),

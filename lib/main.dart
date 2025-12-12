@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:firebase_core/firebase_core.dart'; // <- Firebase
+import 'package:firebase_core/firebase_core.dart';
 
 import 'config/wp_config.dart';
 import 'core/localization/app_locales.dart';
@@ -46,8 +46,8 @@ void main() async {
         child: EasyLocalization(
           supportedLocales: AppLocales.supportedLocales,
           path: 'assets/translations',
-          startLocale: AppLocales.english,
-          fallbackLocale: AppLocales.english,
+          startLocale: const Locale('es', 'ES'),
+          fallbackLocale: const Locale('es', 'ES'),
           child: NewsProApp(savedThemeMode: savedThemeMode),
         ),
       ),
@@ -66,7 +66,8 @@ class NewsProApp extends StatelessWidget {
       dark: AppTheme.darkTheme,
       initial: savedThemeMode ?? AdaptiveThemeMode.system,
       builder: (theme, darkTheme) => GlobalLoaderOverlay(
-        overlayColor: const Color.fromARGB(255, 233, 233, 233).withOpacityValue(0.4),
+        overlayColor:
+            const Color.fromARGB(255, 233, 233, 233).withOpacityValue(0.4),
         child: MaterialApp(
           title: WPConfig.appName,
           localizationsDelegates: context.localizationDelegates,

@@ -47,15 +47,15 @@ class _LoadingAuthentication extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(AppDefaults.margin),
           child: Text(
-            'User Settings'.tr(),
+            'user_settings'.tr(),
             style: Theme.of(context).textTheme.bodySmall,
           ),
         ),
-        const SettingTile(
-          label: 'Loading...',
+        SettingTile(
+          label: 'loading'.tr(),
           icon: IconlyLight.arrowUpCircle,
           iconColor: AppColors.primary,
-          trailing: CircularProgressIndicator(),
+          trailing: const CircularProgressIndicator(),
         ),
       ],
     );
@@ -73,12 +73,12 @@ class _UserLoggedOut extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.all(AppDefaults.margin),
           child: Text(
-            'User Settings'.tr(),
+            'user_settings'.tr(),
             style: Theme.of(context).textTheme.bodySmall,
           ),
         ),
         SettingTile(
-          label: 'Log In',
+          label: 'login'.tr(),
           icon: IconlyLight.logout,
           iconColor: AppColors.primary,
           trailing: const Padding(
@@ -114,24 +114,24 @@ class _UserLoggedIn extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.all(AppDefaults.margin),
           child: Text(
-            'User Settings'.tr(),
+            'user_settings'.tr(),
             style: Theme.of(context).textTheme.bodySmall,
           ),
         ),
         SettingTile(
-          label: authProvider.member?.name ?? 'Name not found',
+          label: authProvider.member?.name ?? 'name_not_found'.tr(),
           icon: IconlyLight.profile,
           iconColor: Colors.blue,
           shouldTranslate: false,
         ),
         SettingTile(
-          label: authProvider.member?.email ?? 'Email not found',
+          label: authProvider.member?.email ?? 'email_not_found'.tr(),
           icon: IconlyLight.message,
           iconColor: Colors.orangeAccent,
           shouldTranslate: false,
         ),
         SettingTile(
-          label: 'Delete Account',
+          label: 'delete_account'.tr(),
           icon: IconlyLight.delete,
           iconColor: Colors.red,
           onTap: () {
@@ -140,7 +140,7 @@ class _UserLoggedIn extends ConsumerWidget {
           },
         ),
         SettingTile(
-          label: 'Log Out',
+          label: 'logout'.tr(),
           icon: IconlyLight.logout,
           iconColor: Colors.redAccent,
           trailing: const Padding(

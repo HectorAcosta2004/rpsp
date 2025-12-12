@@ -23,7 +23,7 @@ class _SettingsPageState extends State<SettingsPage>
     return Scaffold(
       body: Container(
         color: Theme.of(context).scaffoldBackgroundColor,
-        child: const SafeArea(
+        child: SafeArea(
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,17 +32,17 @@ class _SettingsPageState extends State<SettingsPage>
                 Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                           horizontal: AppDefaults.padding, vertical: 8.0),
-                      child: HeadlineRow(headline: 'Settings'),
+                      child: HeadlineRow(headline: 'settings'.tr()),
                     ),
-                    Spacer(),
-                    ContacUsButton()
+                    const Spacer(),
+                    const ContacUsButton()
                   ],
                 ),
 
                 /// Settings
-                AllSettings(),
+                const AllSettings(),
               ],
             ),
           ),
@@ -65,7 +65,7 @@ class ContacUsButton extends StatelessWidget {
     return OutlinedButton.icon(
       onPressed: () => Navigator.pushNamed(context, AppRoutes.contact),
       icon: const Icon(IconlyLight.message),
-      label: Text('Contact Us'.tr()),
+      label: Text('contact_us'.tr()),
       style: OutlinedButton.styleFrom(
         side: BorderSide.none,
       ),

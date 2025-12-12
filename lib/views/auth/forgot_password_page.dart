@@ -36,7 +36,8 @@ class ForgotPasswordPage extends StatelessWidget {
             children: [
               Icon(Icons.adaptive.arrow_back_rounded, size: 16),
               AppSizedBox.w5,
-              Text('Back'.tr()),
+              // CAMBIO 1: 'Back' -> 'go_back'
+              Text('go_back'.tr()),
             ],
           ),
         ),
@@ -108,13 +109,18 @@ class _ForgotPassFormState extends ConsumerState<ForgotPassForm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const HeadlineRow(
-                  headline: 'Forgot Password',
+                // CAMBIO 2: 'Forgot Password' -> 'forgot_pass'
+                // Nota: HeadlineRow a veces toma texto directo. Si HeadlineRow usa .tr() adentro,
+                // pasamos la clave. Si no, deberíamos pasar 'forgot_pass'.tr() aquí.
+                // Asumiendo que HeadlineRow hace .tr(), pasamos la clave:
+                HeadlineRow(
+                  headline: 'forgot_pass'.tr(),
                   fontColor: AppColors.primary,
                 ),
                 AppSizedBox.h16,
                 Text(
-                  'Forgot Password Message'.tr(),
+                  // CAMBIO 3: 'Forgot Password Message' -> 'forgot_pass_message'
+                  'forgot_pass_message'.tr(),
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 AppSizedBox.h16,
@@ -123,7 +129,8 @@ class _ForgotPassFormState extends ConsumerState<ForgotPassForm> {
                   child: TextFormField(
                     controller: _email,
                     decoration: InputDecoration(
-                      labelText: 'Email'.tr(),
+                      // CAMBIO 4: 'Email' -> 'email'
+                      labelText: 'email'.tr(),
                       prefixIcon: const Icon(IconlyLight.message),
                       errorText: errorMessage,
                       hintText: 'Hector@gmail.com',
@@ -146,7 +153,7 @@ class _ForgotPassFormState extends ConsumerState<ForgotPassForm> {
               onPressed: _sendEmail,
               child: _isSendingEmail
                   ? const CircularProgressIndicator(color: Colors.white)
-                  : Text('Send'.tr()),
+                  : Text('send'.tr()),
             ),
           ),
         ),

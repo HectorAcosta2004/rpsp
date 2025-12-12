@@ -29,7 +29,7 @@ class GeneralSettings extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(AppDefaults.margin),
           child: Text(
-            'General Settings'.tr(),
+            'general_settings'.tr(),
             style: Theme.of(context).textTheme.bodySmall,
           ),
         ),
@@ -49,28 +49,23 @@ class _LanguageSettings extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final multiLanguage =
-        ref.watch(configProvider).value?.multiLanguageEnabled ?? false;
+    // Hemos eliminado la restricción 'if (multiLanguage)' para que el botón siempre sea visible.
 
-    if (multiLanguage) {
-      return SettingTile(
-        label: 'Language',
-        icon: Icons.language_rounded,
-        iconColor: Colors.purple,
-        trailing: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Icon(IconlyLight.arrowRight2),
-        ),
-        onTap: () async {
-          await UiUtil.openBottomSheet(
-            context: context,
-            widget: const ChangeLanguageDialog(),
-          );
-        },
-      );
-    } else {
-      return const SizedBox();
-    }
+    return SettingTile(
+      label: 'language'.tr(),
+      icon: Icons.language_rounded,
+      iconColor: Colors.purple,
+      trailing: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Icon(IconlyLight.arrowRight2),
+      ),
+      onTap: () async {
+        await UiUtil.openBottomSheet(
+          context: context,
+          widget: const ChangeLanguageDialog(),
+        );
+      },
+    );
   }
 }
 
@@ -87,7 +82,7 @@ class _PostStyleSettings extends ConsumerWidget {
       return const SizedBox();
     } else {
       return SettingTile(
-        label: 'Style Type',
+        label: 'reading_style'.tr(),
         icon: IconlyLight.document,
         iconColor: Colors.deepPurple,
         subtitle: _getStyleDisplayName(currentStyle),
@@ -108,15 +103,15 @@ class _PostStyleSettings extends ConsumerWidget {
   String _getStyleDisplayName(PostDetailStyle style) {
     switch (style) {
       case PostDetailStyle.classic:
-        return 'Classic';
+        return 'classic'.tr();
       case PostDetailStyle.magazine:
-        return 'Ultra Large';
+        return 'magazine'.tr();
       case PostDetailStyle.minimal:
-        return 'Minimal';
+        return 'minimal'.tr();
       case PostDetailStyle.card:
-        return 'Card';
+        return 'card'.tr();
       case PostDetailStyle.story:
-        return 'Story';
+        return 'story'.tr();
     }
   }
 }
@@ -133,14 +128,14 @@ class NotificationTileRow extends ConsumerWidget {
     bool isLoading = notificationState == NotificationState.loading;
 
     return SettingTile(
-      label: 'Notifications',
+      label: 'notification'.tr(),
       icon: IconlyLight.notification,
       iconColor: Colors.green,
       trailing: CupertinoSwitch(
         value: notificationState == NotificationState.on,
         onChanged: (v) async {
           if (isLoading) {
-            Fluttertoast.showToast(msg: 'Wait');
+            Fluttertoast.showToast(msg: 'loading'.tr());
           } else {
             final controller =
                 ref.read(notificationStateProvider(context).notifier);
