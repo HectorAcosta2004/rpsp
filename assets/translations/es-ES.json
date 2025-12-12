@@ -236,5 +236,11 @@
     "favorites": "Favoritos",
     "system_theme": "Sistema",
     "light_theme": "Claro",
-    "app_description": "Es una aplicación donde tendrás a tu disposición lecturas diarias que te ayudaran a conectar con DIOS."
+    "app_description": "Es una aplicación donde tendrás a tu disposición lecturas diarias que te ayudaran a conectar con DIOS.",
+    "prayer_requests_title": "Peticiones de Oración",
+    "send_us_request": "Envíanos tu petición",
+    "first_name": "Nombre",
+    "last_name": "Apellido",
+    "request_sent_success": "Petición enviada correctamente",
+    "send_request": "Enviar Petición"
 }

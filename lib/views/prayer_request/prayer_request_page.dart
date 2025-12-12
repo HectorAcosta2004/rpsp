@@ -1,5 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart'; // Para CupertinoPageRoute si prefieres consistencia
 import '../../core/utils/app_form_validattors.dart';
 
 class PrayerRequestPage extends StatefulWidget {
@@ -11,7 +11,7 @@ class PrayerRequestPage extends StatefulWidget {
 
 class _PrayerRequestPageState extends State<PrayerRequestPage> {
   final _formKey = GlobalKey<FormState>();
-  
+
   // Controladores para capturar el texto
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
@@ -29,16 +29,14 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      // Aquí va la lógica para enviar los datos (API, Firebase, etc.)
-      final nombre = _nameController.text;
-      final apellido = _lastNameController.text;
-      final email = _emailController.text;
-      final mensaje = _messageController.text;
+      // Aquí iría la lógica para enviar el correo o guardar en base de datos
+      // final nombre = _nameController.text;
+      // final apellido = _lastNameController.text;
+      // ...
 
-      print("Enviando petición: $nombre $apellido, $email, $mensaje");
-      
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Petición enviada correctamente')),
+        // CAMBIO 1: Mensaje de éxito traducido
+        SnackBar(content: Text('request_sent_success'.tr())),
       );
     }
   }
@@ -47,7 +45,8 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Peticiones de Oración'),
+        // CAMBIO 2: Título traducido
+        title: Text('prayer_requests_title'.tr()),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -56,29 +55,36 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
-                'Envíanos tu petición',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              Text(
+                // CAMBIO 3: Subtítulo traducido
+                'send_us_request'.tr(),
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
-              
+
               // Campo Nombre
               TextFormField(
                 controller: _nameController,
-                decoration: const InputDecoration(
-                  labelText: 'Nombre',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  // CAMBIO 4: Label traducido
+                  labelText: 'first_name'.tr(),
+                  border: const OutlineInputBorder(),
                 ),
-                validator: AppValidators.required, // Usando tu validador existente
+                // Nota: Si AppValidators.required devuelve un string fijo en inglés,
+                // deberías considerar usar AppValidators.requiredWithName('first_name'.tr())
+                // si tu validador lo soporta, o dejarlo así si el validador ya maneja errores genéricos.
+                validator: AppValidators.required,
               ),
               const SizedBox(height: 16),
 
               // Campo Apellido
               TextFormField(
                 controller: _lastNameController,
-                decoration: const InputDecoration(
-                  labelText: 'Apellido',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  // CAMBIO 5: Label traducido
+                  labelText: 'last_name'.tr(),
+                  border: const OutlineInputBorder(),
                 ),
                 validator: AppValidators.required,
               ),
@@ -88,11 +94,12 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  // CAMBIO 6: Reutilizamos la clave 'email' que ya tenías
+                  labelText: 'email'.tr(),
+                  border: const OutlineInputBorder(),
                 ),
-                validator: AppValidators.email, // Validador de email existente
+                validator: AppValidators.email,
               ),
               const SizedBox(height: 16),
 
@@ -100,9 +107,10 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
               TextFormField(
                 controller: _messageController,
                 maxLines: 5,
-                decoration: const InputDecoration(
-                  labelText: 'Mensaje',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  // CAMBIO 7: Reutilizamos la clave 'message' que ya tenías
+                  labelText: 'message'.tr(),
+                  border: const OutlineInputBorder(),
                   alignLabelWithHint: true,
                 ),
                 validator: AppValidators.required,
@@ -115,7 +123,8 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
-                child: const Text('Enviar Petición'),
+                // CAMBIO 8: Botón traducido
+                child: Text('send_request'.tr()),
               ),
             ],
           ),

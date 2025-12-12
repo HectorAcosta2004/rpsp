@@ -281,5 +281,11 @@
     "favorites": "Favorites",
     "system_theme": "System",
     "light_theme": "Light",
-    "app_description": "It is an application where you will have daily readings at your disposal that will help you connect with GOD."
+    "app_description": "It is an application where you will have daily readings at your disposal that will help you connect with GOD.",
+    "prayer_requests_title": "Prayer Requests",
+    "send_us_request": "Send us your request",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "request_sent_success": "Request sent successfully",
+    "send_request": "Send Request"
 }

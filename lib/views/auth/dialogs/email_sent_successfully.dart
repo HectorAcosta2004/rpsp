@@ -18,7 +18,7 @@ class EmailSentSuccessfully extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'message'.tr(), // CAMBIADO: 'Message' -> 'message'
+              'message'.tr(),
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     color: Colors.green,
                     fontWeight: FontWeight.bold,
@@ -33,14 +33,13 @@ class EmailSentSuccessfully extends StatelessWidget {
               ),
             ),
             Text(
-              'email_sent'.tr(), // CAMBIADO: 'Send Email' -> 'email_sent'
+              'email_sent'.tr(), //
               style: Theme.of(context).textTheme.bodyLarge,
               textAlign: TextAlign.center,
             ),
             AppSizedBox.h10,
             Text(
-              'email_sent_message'
-                  .tr(), // CAMBIADO: 'Email Sent Message' -> 'email_sent_message'
+              'email_sent_message'.tr(),
               style: Theme.of(context).textTheme.bodySmall,
               textAlign: TextAlign.center,
             ),
@@ -56,7 +55,7 @@ class EmailSentSuccessfully extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
                   ),
-                  child: Text('verify'.tr()), // CAMBIADO: 'Verify' -> 'verify'
+                  child: Text('verify'.tr()),
                 ),
               ),
             )
