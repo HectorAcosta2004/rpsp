@@ -287,5 +287,6 @@
     "first_name": "First Name",
     "last_name": "Last Name",
     "request_sent_success": "Request sent successfully",
-    "send_request": "Send Request"
+    "send_request": "Send Request",
+  "or_sign_in_with": "Or sign in with"
 }

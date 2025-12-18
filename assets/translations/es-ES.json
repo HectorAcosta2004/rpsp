@@ -242,5 +242,6 @@
     "first_name": "Nombre",
     "last_name": "Apellido",
     "request_sent_success": "Petición enviada correctamente",
-    "send_request": "Enviar Petición"
+    "send_request": "Enviar Petición",
+    "or_sign_in_with": "O inicia sesión con"
 }

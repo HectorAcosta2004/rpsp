@@ -13,6 +13,9 @@ import '../../core/utils/app_utils.dart';
 import 'components/dont_have_account_button.dart';
 
 import '../base/base_page.dart';
+import 'dart:io';
+import 'components/sign_in_with_google_button.dart';
+import 'components/sign_in_with_apple_button.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -121,7 +124,7 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
                     decoration: InputDecoration(
                       labelText: 'email'.tr(),
                       prefixIcon: const Icon(IconlyLight.message),
-                      hintText: 'Test@Gmail.com',
+                      hintText: 'Hector@Gmail.com',
                     ),
                     keyboardType: TextInputType.emailAddress,
                     validator: AppValidators.email.call,
@@ -186,6 +189,20 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
             ),
           ),
         ),
+
+        AppSizedBox.h16,
+        Text('or_sign_in_with'.tr()),
+        AppSizedBox.h16,
+
+        // Botón de Google
+        const SignInWithGoogleButton(),
+
+        // Botón de Apple (Solo visible en iOS)
+        if (Platform.isIOS) ...[
+          AppSizedBox.h16,
+          const SignInWithGoogleButton(),
+        ],
+        AppSizedBox.h16,
       ],
     );
   }
