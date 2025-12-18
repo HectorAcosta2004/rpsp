@@ -75,14 +75,11 @@ class LoadingAppPage extends ConsumerWidget {
         if (config.isLoginEnabled) {
           return const LoginIntroPage();
         } else {
-          // --- CORRECCIÓN 1 ---
           return const BasePage();
         }
       case AppState.loggedIn:
-        // --- CORRECCIÓN 2 ---
         return const BasePage();
       case AppState.loggedOut:
-        // --- CORRECCIÓN 3 ---
         return const BasePage();
       case AppState.initializing:
         return const LoadingDependencies();

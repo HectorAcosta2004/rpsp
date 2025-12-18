@@ -12,7 +12,6 @@ class PrayerRequestPage extends StatefulWidget {
 class _PrayerRequestPageState extends State<PrayerRequestPage> {
   final _formKey = GlobalKey<FormState>();
 
-  // Controladores para capturar el texto
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -29,13 +28,7 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      // Aquí iría la lógica para enviar el correo o guardar en base de datos
-      // final nombre = _nameController.text;
-      // final apellido = _lastNameController.text;
-      // ...
-
       ScaffoldMessenger.of(context).showSnackBar(
-        // CAMBIO 1: Mensaje de éxito traducido
         SnackBar(content: Text('request_sent_success'.tr())),
       );
     }
@@ -45,7 +38,6 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // CAMBIO 2: Título traducido
         title: Text('prayer_requests_title'.tr()),
       ),
       body: SingleChildScrollView(
@@ -56,24 +48,18 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                // CAMBIO 3: Subtítulo traducido
                 'send_us_request'.tr(),
                 style:
                     const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
 
-              // Campo Nombre
               TextFormField(
                 controller: _nameController,
                 decoration: InputDecoration(
-                  // CAMBIO 4: Label traducido
                   labelText: 'first_name'.tr(),
                   border: const OutlineInputBorder(),
                 ),
-                // Nota: Si AppValidators.required devuelve un string fijo en inglés,
-                // deberías considerar usar AppValidators.requiredWithName('first_name'.tr())
-                // si tu validador lo soporta, o dejarlo así si el validador ya maneja errores genéricos.
                 validator: AppValidators.required,
               ),
               const SizedBox(height: 16),
@@ -82,7 +68,6 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
               TextFormField(
                 controller: _lastNameController,
                 decoration: InputDecoration(
-                  // CAMBIO 5: Label traducido
                   labelText: 'last_name'.tr(),
                   border: const OutlineInputBorder(),
                 ),
@@ -90,12 +75,10 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
               ),
               const SizedBox(height: 16),
 
-              // Campo Email
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  // CAMBIO 6: Reutilizamos la clave 'email' que ya tenías
                   labelText: 'email'.tr(),
                   border: const OutlineInputBorder(),
                 ),
@@ -103,12 +86,10 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
               ),
               const SizedBox(height: 16),
 
-              // Campo Mensaje
               TextFormField(
                 controller: _messageController,
                 maxLines: 5,
                 decoration: InputDecoration(
-                  // CAMBIO 7: Reutilizamos la clave 'message' que ya tenías
                   labelText: 'message'.tr(),
                   border: const OutlineInputBorder(),
                   alignLabelWithHint: true,
@@ -117,13 +98,11 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
               ),
               const SizedBox(height: 24),
 
-              // Botón de Enviar
               ElevatedButton(
                 onPressed: _submitForm,
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                 ),
-                // CAMBIO 8: Botón traducido
                 child: Text('send_request'.tr()),
               ),
             ],

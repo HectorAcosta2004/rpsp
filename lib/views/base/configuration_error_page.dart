@@ -77,13 +77,12 @@ class ConfigErrorPage extends StatelessWidget {
               TextButton(
                 onPressed: () {
                   AppUtils.sendEmail(
-                    email: 'mdmomin322@gmail.com',
-                    content:
-                        'config_error_email_content'.tr(),
+                    email: 'hector@gmail.com',
+                    content: 'config_error_email_content'.tr(),
                     subject: 'config_error_subject'.tr(),
                   );
                 },
-                child: const Text('mdmomin322@gmail.com'),
+                child: const Text('hector@gmail.com'),
               ),
             ],
           ),

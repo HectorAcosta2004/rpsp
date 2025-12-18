@@ -189,15 +189,10 @@ class _LoginFormSectionState extends ConsumerState<LoginFormSection> {
             ),
           ),
         ),
-
         AppSizedBox.h16,
         Text('or_sign_in_with'.tr()),
         AppSizedBox.h16,
-
-        // Botón de Google
         const SignInWithGoogleButton(),
-
-        // Botón de Apple (Solo visible en iOS)
         if (Platform.isIOS) ...[
           AppSizedBox.h16,
           const SignInWithGoogleButton(),
