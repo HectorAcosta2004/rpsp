@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
+import '../../views/prayer_request/prayer_request_page.dart';
+
 import '../../core/components/app_loader.dart';
 import '../../core/components/app_shimmer.dart';
 import '../../core/components/list_view_responsive.dart';
@@ -38,6 +40,10 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (arguments.category.id == 3) {
+      return const PrayerRequestPage();
+    }
+
     return Scaffold(
       body: Stack(
         children: [
