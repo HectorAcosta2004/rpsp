@@ -25,12 +25,6 @@ class InternetNotAvailableDialog extends StatelessWidget {
                   ),
             ),
             const Divider(),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.2,
-              width: MediaQuery.of(context).size.width * 0.5,
-              child:
-                  Lottie.asset('assets/animations/no_internet_animation.json'),
-            ),
             const SizedBox(height: AppDefaults.margin),
             Text(
               'Currently you don\'t have internet available',
