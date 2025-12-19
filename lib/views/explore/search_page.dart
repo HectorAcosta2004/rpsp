@@ -4,13 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:news_pro/core/components/mini_player.dart';
 
 import '../../core/constants/constants.dart';
 import '../../core/controllers/analytics/analytics_controller.dart';
 import '../../core/controllers/posts/search_post_controller.dart';
 import '../../core/models/article.dart';
-import '../../core/repositories/posts/post_repository.dart';
+
 import '../../core/utils/app_utils.dart';
 import 'components/search_history_list.dart';
 import 'components/search_text_field.dart';

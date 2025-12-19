@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
-
 import '../../components/article_tile.dart';
 import '../../components/article_tile_large.dart';
-import '../../components/wp_ad_widget.dart';
 import '../../models/article.dart';
 
 class AdController {
@@ -26,13 +24,12 @@ class AdController {
       (i) {
         if (i != 0 && i % every == 0) {
           if (isAdOn) {
-          
           } else {
             return null;
           }
         } else if (i != 0 && i % everyWP == 0) {
           if (isCustomOn) {
-           return const SizedBox.shrink();
+            return const SizedBox.shrink();
           } else {
             return null;
           }

@@ -10,7 +10,6 @@ import '../controllers/auth/auth_state.dart';
 import '../controllers/internet/internet_state_provider.dart';
 import '../controllers/notifications/notification_handler.dart';
 import '../controllers/notifications/notification_local.dart';
-import '../localization/app_locales.dart';
 import '../logger/app_logger.dart';
 import '../models/config.dart';
 import '../models/notification_model.dart';

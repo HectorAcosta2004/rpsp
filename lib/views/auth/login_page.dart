@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/components/headline_with_row.dart';
-import '../../core/constants/app_colors.dart';
+
 import '../../core/constants/app_defaults.dart';
 import '../../core/constants/sizedbox_const.dart';
 import '../../core/controllers/auth/auth_controller.dart';
@@ -15,7 +15,6 @@ import 'components/dont_have_account_button.dart';
 import '../base/base_page.dart';
 import 'dart:io';
 import 'components/sign_in_with_google_button.dart';
-import 'components/sign_in_with_apple_button.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});

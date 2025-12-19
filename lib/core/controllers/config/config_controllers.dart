@@ -1,6 +1,4 @@
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:news_pro/core/logger/app_logger.dart';
 
 import '../../models/config.dart';
 import '../../repositories/configs/config_repository.dart';
@@ -28,8 +26,7 @@ class NewsProConfigNotifier extends StateNotifier<AsyncValue<NewsProConfig>> {
       const errorMessage = 'No configuration found';
       state = AsyncError(errorMessage, StackTrace.fromString(errorMessage));
     } else {
-      if (data.isAdOn) {
-      }
+      if (data.isAdOn) {}
       state = AsyncData(data);
       return;
     }
@@ -46,6 +43,4 @@ class NewsProConfigNotifier extends StateNotifier<AsyncValue<NewsProConfig>> {
     }
     return data;
   }
-
-  
 }

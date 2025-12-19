@@ -47,7 +47,6 @@ class RecentPostList extends StatelessWidget {
     required RecentPostsController notifer,
   })  : _recentPosts = recentPosts,
         _notifer = notifer;
-
   final PostPagination _recentPosts;
   final RecentPostsController _notifer;
 
@@ -58,6 +57,6 @@ class RecentPostList extends StatelessWidget {
         horizontal: AppDefaults.padding,
         vertical: AppDefaults.padding / 2,
       ),
-      );
+    );
   }
 }

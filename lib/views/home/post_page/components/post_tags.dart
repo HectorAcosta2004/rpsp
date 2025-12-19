@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/ads/ad_state_provider.dart';
 import '../../../../core/components/animated_page_switcher.dart';
 import '../../../../core/components/app_shimmer.dart';
 import '../../../../core/constants/app_defaults.dart';
@@ -35,7 +34,7 @@ class ArticleTags extends ConsumerWidget {
                     AppRoutes.tag,
                     arguments: data.value[index],
                   );
-                 // ref.read(loadInterstitalAd(context))?.call();
+                  // ref.read(loadInterstitalAd(context))?.call();
                 },
                 borderRadius: AppDefaults.borderRadius,
                 child: Chip(

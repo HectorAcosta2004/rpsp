@@ -22,7 +22,6 @@ class SocialSettings extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final config = ref.watch(configProvider).value;
     final facebookUrl = config?.facebookUrl ?? '';
-    final telegramUrl = config?.telegramUrl ?? '';
     final instagramUrl = config?.instagramUrl ?? '';
     final tiktokUrl = config?.tiktokUrl ?? '';
     final whatsappUrl = config?.whatsappUrl ?? '';

@@ -6,7 +6,7 @@ import 'package:sliver_tools/sliver_tools.dart';
 
 import '../../config/app_images_config.dart';
 import '../../core/components/app_loader.dart';
-import '../../core/components/list_view_responsive.dart';
+
 import '../../core/constants/constants.dart';
 import '../../core/controllers/posts/tags_post_controller.dart';
 import '../../core/models/post_tag.dart';
@@ -82,7 +82,6 @@ class _TagsArticles extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final paginationController = ref.watch(tagPostController(tag));
-    final controller = ref.watch(tagPostController(tag).notifier);
 
     if (paginationController.refershError) {
       return SliverToBoxAdapter(

@@ -23,7 +23,7 @@ import '../models/author.dart';
 import '../models/post_tag.dart';
 import 'app_routes.dart';
 import 'unknown_page.dart';
-import '../../views/prayer_request/prayer_request_page.dart'; // Asegúrate de que la ruta sea correcta
+import '../../views/prayer_request/prayer_request_page.dart';
 
 class RouteGenerator {
   static Route? onGenerate(RouteSettings settings) {
@@ -118,9 +118,6 @@ class RouteGenerator {
       // Agrega este bloque:
       case AppRoutes.prayerRequest:
         return CupertinoPageRoute(builder: (_) => const PrayerRequestPage());
-
-      case AppRoutes.allAuthors:
-        return CupertinoPageRoute(builder: (_) => const AllAuthorsPage());
 
       default:
         return errorRoute();

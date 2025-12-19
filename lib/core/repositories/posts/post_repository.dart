@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+
 import '../../../config/wp_config.dart';
 import '../../controllers/dio/dio_provider.dart';
 import '../../logger/app_logger.dart';
@@ -16,10 +16,14 @@ final postRepoProvider = Provider<PostRepository>((ref) {
 });
 
 abstract class PostRepoAbstract {
-  Future<List<ArticleModel>> getAllPost({required int pageNumber, int perPage = 10});
-  Future<List<ArticleModel>> getPostByCategory({required int pageNumber, required int categoryID, int perPage = 10});
-  Future<List<ArticleModel>> getPostByTag({required int pageNumber, required int tagID, int perPage = 10});
-  Future<List<ArticleModel>> getPostByAuthor({required int pageNumber, required int authorID, int perPage = 10});
+  Future<List<ArticleModel>> getAllPost(
+      {required int pageNumber, int perPage = 10});
+  Future<List<ArticleModel>> getPostByCategory(
+      {required int pageNumber, required int categoryID, int perPage = 10});
+  Future<List<ArticleModel>> getPostByTag(
+      {required int pageNumber, required int tagID, int perPage = 10});
+  Future<List<ArticleModel>> getPostByAuthor(
+      {required int pageNumber, required int authorID, int perPage = 10});
   Future<ArticleModel?> getPost({required int postID});
   Future<List<ArticleModel>> getPopularPosts({int perPage = 10});
   Future<List<ArticleModel>> getThesePosts({required List<int> ids});
@@ -55,7 +59,8 @@ class PostRepository extends PostRepoAbstract {
   }
 
   @override
-  Future<List<ArticleModel>> getAllPost({required int pageNumber, int perPage = 10}) async {
+  Future<List<ArticleModel>> getAllPost(
+      {required int pageNumber, int perPage = 10}) async {
     final url = '$baseUrl?page=$pageNumber&per_page=$perPage';
     final List<ArticleModel> articles = [];
 
@@ -97,11 +102,13 @@ class PostRepository extends PostRepoAbstract {
     required int categoryID,
     int perPage = 10,
   }) async {
-    final url = '$baseUrl?categories=$categoryID&page=$pageNumber&per_page=$perPage';
+    final url =
+        '$baseUrl?categories=$categoryID&page=$pageNumber&per_page=$perPage';
     List<ArticleModel> articles = [];
 
     // --- DEBUG: Imprime la información de la petición ---
-    debugPrint("📢 [Categoría] Buscando posts para el ID de categoría: $categoryID");
+    debugPrint(
+        "📢 [Categoría] Buscando posts para el ID de categoría: $categoryID");
     debugPrint("🔗 [Categoría] URL consultada: $url");
     // ---
 
@@ -109,7 +116,8 @@ class PostRepository extends PostRepoAbstract {
       final response = await dio.get(url);
 
       // --- DEBUG: Imprime la respuesta del servidor ---
-      debugPrint("✅ [Categoría] Respuesta recibida. Código: ${response.statusCode}. Datos: ${response.data.toString()}");
+      debugPrint(
+          "✅ [Categoría] Respuesta recibida. Código: ${response.statusCode}. Datos: ${response.data.toString()}");
       // ---
 
       final posts = _parseResponseData(response.data);
@@ -129,7 +137,8 @@ class PostRepository extends PostRepoAbstract {
   }
 
   @override
-  Future<List<ArticleModel>> getPostByTag({required int pageNumber, required int tagID, int perPage = 10}) async {
+  Future<List<ArticleModel>> getPostByTag(
+      {required int pageNumber, required int tagID, int perPage = 10}) async {
     final url = '$baseUrl?tags=$tagID&page=$pageNumber&per_page=$perPage';
     try {
       final response = await dio.get(url);
@@ -142,8 +151,12 @@ class PostRepository extends PostRepoAbstract {
   }
 
   @override
-  Future<List<ArticleModel>> getPostByAuthor({required int pageNumber, required int authorID, int perPage = 10}) async {
-    final url = '$baseUrl?page=$pageNumber&author=$authorID&status=publish&per_page=$perPage';
+  Future<List<ArticleModel>> getPostByAuthor(
+      {required int pageNumber,
+      required int authorID,
+      int perPage = 10}) async {
+    final url =
+        '$baseUrl?page=$pageNumber&author=$authorID&status=publish&per_page=$perPage';
     try {
       final response = await dio.get(url);
       final posts = _parseResponseData(response.data);
@@ -155,7 +168,8 @@ class PostRepository extends PostRepoAbstract {
   }
 
   @override
-  Future<List<ArticleModel>> getThesePosts({required List<int> ids, int page = 1}) async {
+  Future<List<ArticleModel>> getThesePosts(
+      {required List<int> ids, int page = 1}) async {
     final postsQuery = ids.join(',');
     final url = '$baseUrl?include=$postsQuery&page=$page&orderby=include';
     try {
@@ -170,7 +184,8 @@ class PostRepository extends PostRepoAbstract {
 
   @override
   Future<List<ArticleModel>> getPopularPosts({int perPage = 10}) async {
-    final url = 'https://${WPConfig.url}/wp-json/wordpress-popular-posts/v1/popular-posts?limit=$perPage';
+    final url =
+        'https://${WPConfig.url}/wp-json/wordpress-popular-posts/v1/popular-posts?limit=$perPage';
     try {
       final response = await dio.get(url);
       final posts = _parseResponseData(response.data);
@@ -188,7 +203,8 @@ class PostRepository extends PostRepoAbstract {
     final url = '$baseUrl/$postID';
     try {
       final response = await dio.get(url);
-      if (response.statusCode == 200) return ArticleModel.fromMap(response.data);
+      if (response.statusCode == 200)
+        return ArticleModel.fromMap(response.data);
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -252,7 +268,8 @@ Post id: $postID
 From: $userName <$userEmail>
 ''';
     try {
-      await AppUtils.sendEmail(email: reportEmail, content: mail, subject: 'Reporting Post $postID');
+      await AppUtils.sendEmail(
+          email: reportEmail, content: mail, subject: 'Reporting Post $postID');
       return true;
     } catch (e) {
       debugPrint(e.toString());
@@ -261,7 +278,8 @@ From: $userName <$userEmail>
   }
 
   static Future<bool> addViewsToPost({required int postID}) async {
-    final url = 'https://${WPConfig.url}/wp-json/wordpress-popular-posts/v1/popular-posts?wpp_id=$postID';
+    final url =
+        'https://${WPConfig.url}/wp-json/wordpress-popular-posts/v1/popular-posts?wpp_id=$postID';
     try {
       final response = await Dio().post(url);
       return response.statusCode == 201;

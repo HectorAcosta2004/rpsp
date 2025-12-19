@@ -66,7 +66,6 @@ class _PostRenderer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authorPost = ref.watch(authorPostController(data.userID));
-    final controller = ref.watch(authorPostController(data.userID).notifier);
 
     if (authorPost.initialLoaded == false) {
       return const LoadingPostsResponsive(isInSliver: false);

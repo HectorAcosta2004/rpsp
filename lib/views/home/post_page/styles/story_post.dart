@@ -6,8 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../../../config/wp_config.dart';
-import '../../../../core/ads/ad_state_provider.dart';
-import '../../../../core/components/ad_widgets.dart';
 import '../../../../core/components/article_category_row.dart';
 import '../../../../core/components/mini_player.dart';
 import '../../../../core/constants/constants.dart';
@@ -25,7 +23,6 @@ import '../components/post_image_renderer.dart';
 import '../components/post_meta_data.dart';
 import '../components/post_sidebar.dart';
 import '../components/post_tags.dart';
-// import '../components/save_post_button.dart'; // No longer needed
 import '../components/total_comments_button.dart';
 import '../components/offline_save_button.dart';
 
@@ -279,14 +276,14 @@ class StoryPost extends StatelessWidget {
                     color: Theme.of(context).cardColor,
                     child: Column(
                       children: [
-                      //const NativeAdWidget(),
+                        //const NativeAdWidget(),
                         MoreRelatedPost(
                           categoryID: article.categories.isNotEmpty
                               ? article.categories.first
                               : 0,
                           currentArticleID: article.id,
                         ),
-                     //   const BannerAdWidget(),
+                        //   const BannerAdWidget(),
                         Padding(
                           padding: const EdgeInsets.all(AppDefaults.padding),
                           child: SizedBox(

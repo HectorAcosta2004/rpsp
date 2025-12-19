@@ -6,7 +6,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../../../../core/controllers/auth/auth_controller.dart';
 import '../../../../core/controllers/auth/auth_state.dart';
 
-import '../../../../core/ads/ad_state_provider.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../../core/controllers/posts/saved_posts_controller.dart';
 import '../../../../core/models/article.dart';

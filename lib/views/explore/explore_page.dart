@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart'; //
 
 import '../../core/components/internet_wrapper.dart';
-import '../../core/constants/constants.dart';
 import '../../core/routes/app_routes.dart';
 import 'components/authors_list_horizontal.dart';
 import 'components/parent_categories.dart';

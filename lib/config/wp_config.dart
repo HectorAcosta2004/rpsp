@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class WPConfig {
   /// The Name of your app
   static const String appName = 'Reavivados por su palabra';

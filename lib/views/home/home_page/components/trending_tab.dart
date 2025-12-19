@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../../../../core/components/ad_widgets.dart';
 import '../../../../core/components/headline_with_row.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../../core/controllers/config/config_controllers.dart';
@@ -60,8 +59,8 @@ class TrendingTabSection extends ConsumerWidget {
                 ),
 
                 const SliverToBoxAdapter(
-                //  child: BannerAdWidget(),
-                ),
+                    //  child: BannerAdWidget(),
+                    ),
 
                 /* <---- Recent News -----> */
 

@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../core/ads/ad_state_provider.dart';
-import '../../../core/controllers/analytics/analytics_controller.dart';
-import '../../../core/controllers/ui/post_style_controller.dart'; 
+import '../../../core/controllers/ui/post_style_controller.dart';
 import '../../../core/models/article.dart';
 import '../../../core/repositories/others/post_style_local.dart';
-import '../../../core/repositories/posts/post_repository.dart';
-import '../../../core/utils/extensions.dart';
-import 'components/video_post.dart';
 import 'styles/card_post.dart';
 import 'styles/classic_post.dart';
 import 'styles/magazine_post.dart';
@@ -27,7 +22,7 @@ class PostPage extends HookConsumerWidget {
     // CORRECCIÓN: Se cambia 'postStyleController' por el nombre correcto del proveedor:
     // 'postStyleControllerProvider'.
     final currentStyle = ref.watch(postStyleControllerProvider);
-        // Devuelve el widget de publicación correcto según el estilo
+    // Devuelve el widget de publicación correcto según el estilo
     return _buildPostWithStyle(currentStyle);
   }
 
@@ -43,8 +38,6 @@ class PostPage extends HookConsumerWidget {
         return CardPost(article: article);
       case PostDetailStyle.story:
         return StoryPost(article: article);
-      default:
-        return ClassicPost(article: article);
     }
   }
 }

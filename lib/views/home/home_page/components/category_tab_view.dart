@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../core/components/components.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../../core/controllers/posts/categories_post_controller.dart';
 import '../../../../core/controllers/ui/scroll_controller_provider.dart';

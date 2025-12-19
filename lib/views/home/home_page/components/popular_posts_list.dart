@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/components/list_view_responsive.dart';
 import '../../../../core/constants/constants.dart';
 import '../../../../core/controllers/posts/popular_posts_controller.dart';
 import '../../../../core/models/article.dart';

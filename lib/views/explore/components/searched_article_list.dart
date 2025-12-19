@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../core/components/list_view_responsive.dart';
 import '../../../core/constants/constants.dart';
 import '../../../core/models/article.dart';
 import '../../../core/utils/responsive.dart';
@@ -26,7 +25,6 @@ class SearchedArticleList extends StatelessWidget {
             ? const SearchedListEmpty()
             : Padding(
                 padding: const EdgeInsets.all(AppDefaults.padding),
-
               );
   }
 }
