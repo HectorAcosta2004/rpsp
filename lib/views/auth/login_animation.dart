@@ -40,7 +40,8 @@ class _LoggingInAnimationState extends State<LoggingInAnimation>
               ..duration = composition.duration
               ..forward().whenComplete(() => {
                     Navigator.pushNamedAndRemoveUntil(
-                        context, AppRoutes.entryPoint, (v) => false)
+                        context, AppRoutes.entryPoint, (v) => false,
+                        arguments: 0)
                   });
           },
         ),

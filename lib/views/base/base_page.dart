@@ -8,7 +8,7 @@ import 'package:news_pro/views/saved/saved_page.dart';
 import 'package:news_pro/views/settings/settings_page.dart';
 import '../../core/controllers/auth/auth_controller.dart';
 import '../../core/controllers/auth/auth_state.dart';
-import '../../core/repositories/others/notification_local.dart';
+// import '../../core/repositories/others/notification_local.dart'; // No se usa en este snippet
 
 class BasePage extends ConsumerStatefulWidget {
   const BasePage({super.key});
@@ -19,6 +19,23 @@ class BasePage extends ConsumerStatefulWidget {
 
 class _BasePageState extends ConsumerState<BasePage> {
   int _currentIndex = 0;
+  bool _isInit =
+      true; // 🔹 Variable para asegurar que solo leemos el argumento una vez
+
+  // 🔹 Este método captura el argumento enviado desde el Login
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_isInit) {
+      final args = ModalRoute.of(context)?.settings.arguments;
+      if (args != null && args is int) {
+        setState(() {
+          _currentIndex = args;
+        });
+      }
+      _isInit = false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +46,10 @@ class _BasePageState extends ConsumerState<BasePage> {
 
     // Lista de páginas según el estado de autenticación
     final List<Widget> pages = [
-      const ExplorePage(),
-      if (isLoggedIn) const SavedPage(),
-      const SettingsPage(),
+      const ExplorePage(), // Índice 0: Categorías/Explorar
+      if (isLoggedIn)
+        const SavedPage(), // Índice 1: Guardados (Solo si hay login)
+      const SettingsPage(), // Índice 1 o 2: Configuración
     ];
 
     // Asegurar que el índice actual esté dentro del rango válido

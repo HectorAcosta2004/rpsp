@@ -1,73 +1,87 @@
 {
   "project_info": {
-    "project_number": "994617670866",
-    "project_id": "newspro-b7b63",
-    "storage_bucket": "newspro-b7b63.appspot.com"
+    "project_number": "1027519034837",
+    "project_id": "rpsp-a2b18",
+    "storage_bucket": "rpsp-a2b18.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:994617670866:android:c1b0a5a3e309496cc5c10b",
+        "mobilesdk_app_id": "1:1027519034837:android:deaacff6824b87514af95c",
         "android_client_info": {
-          "package_name": "org.adventistas.umn.rpsp"
+          "package_name": "Reavivados.por_su_palabra_4"
         }
       },
       "oauth_client": [
         {
-          "client_id": "994617670866-4phiil9flmnf1khppbod53n0mmu69ue9.apps.googleusercontent.com",
+          "client_id": "1027519034837-m6v70813l0usnq1admg8f3a9s8va0jr3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "org.adventistas.umn.rpsp",
-            "certificate_hash": "4c78bd3ea02ae290279502860c05e6b2e02d210b"
+            "package_name": "Reavivados.por_su_palabra_4",
+            "certificate_hash": "456e51a023df76f83672da033bfff2a4bb63cb8b"
           }
         },
         {
-          "client_id": "994617670866-7e31lf8pi97huslm0d3usespdm0lv2q1.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.adventistas.umn.rpsp",
-            "certificate_hash": "643782bed9876c32e680fd8271e49e2f3f364bfe"
-          }
-        },
-        {
-          "client_id": "994617670866-co8ji72c2u0nmqtkne5nv77mhujnm7ra.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.adventistas.umn.rpsp",
-            "certificate_hash": "a8ef7e8081675028d38d9b5675f09ba493e9ba17"
-          }
-        },
-        {
-          "client_id": "994617670866-onn1i1b0q1ra6cu9ie1jtkd5do4qsuc2.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "org.adventistas.umn.rpsp",
-            "certificate_hash": "f02c3dda03f2da709b22e57b5c829cc0937132af"
-          }
-        },
-        {
-          "client_id": "994617670866-irktpetk1rthdpdidkjvanal53957a6u.apps.googleusercontent.com",
+          "client_id": "1027519034837-8bgjlcs7q72rvi0iigam4f77lc254b1d.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDhJD-fBCXQ01fgFPAarAz-GeUGSpnlGVs"
+          "current_key": "AIzaSyDVC-T8MXyrRj5qSc3EyQDKCuDbQwFiiIs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "994617670866-4enq9qc9s0ud87javot7faq4aam34qtl.apps.googleusercontent.com",
+              "client_id": "1027519034837-8bgjlcs7q72rvi0iigam4f77lc254b1d.apps.googleusercontent.com",
               "client_type": 3
-            },
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027519034837:android:0b250c09c7c9b6a34af95c",
+        "android_client_info": {
+          "package_name": "org.adventistas.umn.rpsp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1027519034837-57tol3l7k2khp0t6qiq6sc04ppe5967m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.adventistas.umn.rpsp",
+            "certificate_hash": "9030118cbc5db9a85b7569271b5629a674a7ee6b"
+          }
+        },
+        {
+          "client_id": "1027519034837-cv0lhmifsubmq8f000j2r4l4oiqsv7kr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.adventistas.umn.rpsp",
+            "certificate_hash": "456e51a023df76f83672da033bfff2a4bb63cb8b"
+          }
+        },
+        {
+          "client_id": "1027519034837-8bgjlcs7q72rvi0iigam4f77lc254b1d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVC-T8MXyrRj5qSc3EyQDKCuDbQwFiiIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
             {
-              "client_id": "994617670866-ea0f1dturiq7nrrpkdt40nlrhgbb30dl.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "pro.momin.newspro"
-              }
+              "client_id": "1027519034837-8bgjlcs7q72rvi0iigam4f77lc254b1d.apps.googleusercontent.com",
+              "client_type": 3
             }
           ]
         }
