@@ -5,15 +5,6 @@ import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
-///
-/// Example:
-/// ```dart
-/// import 'firebase_options.dart';
-/// // ...
-/// await Firebase.initializeApp(
-///   options: DefaultFirebaseOptions.currentPlatform,
-/// );
-/// ```
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -63,8 +54,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '994617670866',
     projectId: 'newspro-b7b63',
     storageBucket: 'newspro-b7b63.appspot.com',
-    androidClientId: '994617670866-4phiil9flmnf1khppbod53n0mmu69ue9.apps.googleusercontent.com',
-    iosClientId: '994617670866-ea0f1dturiq7nrrpkdt40nlrhgbb30dl.apps.googleusercontent.com',
+    androidClientId:
+        '994617670866-4phiil9flmnf1khppbod53n0mmu69ue9.apps.googleusercontent.com',
+    iosClientId:
+        '994617670866-ea0f1dturiq7nrrpkdt40nlrhgbb30dl.apps.googleusercontent.com',
     iosBundleId: 'pro.momin.newspro',
   );
 }
