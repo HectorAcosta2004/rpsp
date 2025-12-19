@@ -28,7 +28,6 @@ class SelectThemeMode extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              // CAMBIO 1: Clave del JSON
               'select_theme'.tr(),
               style: Theme.of(context)
                   .textTheme
@@ -55,7 +54,6 @@ class SelectThemeMode extends ConsumerWidget {
                         backgroundColor: AppColors.primary,
                         icon: Icons.phone_android,
                         isActive: themeMode == AdaptiveThemeMode.system,
-                        // CAMBIO 2: Clave traducida para "Sistema"
                         themeName: 'system_theme'.tr(),
                         onTap: () {
                           controller.changeThemeMode(
@@ -69,7 +67,6 @@ class SelectThemeMode extends ConsumerWidget {
                         backgroundColor: Colors.orangeAccent,
                         icon: Icons.light_mode_rounded,
                         isActive: themeMode == AdaptiveThemeMode.light,
-                        // CAMBIO 3: Clave traducida para "Claro"
                         themeName: 'light_theme'.tr(),
                         onTap: () {
                           controller.changeThemeMode(
@@ -83,7 +80,6 @@ class SelectThemeMode extends ConsumerWidget {
                         backgroundColor: Colors.black87,
                         icon: Icons.dark_mode_rounded,
                         isActive: themeMode == AdaptiveThemeMode.dark,
-                        // CAMBIO 4: Clave traducida para "Oscuro" (usamos la que ya tenías o 'dark_mode')
                         themeName: 'dark_mode'.tr(),
                         onTap: () {
                           controller.changeThemeMode(

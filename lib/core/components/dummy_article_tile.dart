@@ -70,7 +70,6 @@ class DummyArticleTile extends StatelessWidget {
                       ),
                     ),
                     AppSizedBox.h5,
-                    /* <---- Category List -----> */
                     SingleChildScrollView(
                       padding: EdgeInsets.zero,
                       scrollDirection: Axis.horizontal,
