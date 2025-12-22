@@ -40,7 +40,7 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (arguments.category.id == 3) {
+    if (arguments.category.id == 29) {
       return const PrayerRequestPage();
     }
 
