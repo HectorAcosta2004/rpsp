@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:news_pro/core/utils/extensions.dart';
+import 'package:rpsp_iasd/core/utils/extensions.dart';
 
 import '../../../../core/constants/constants.dart';
 import '../../../../core/controllers/auth/auth_controller.dart';

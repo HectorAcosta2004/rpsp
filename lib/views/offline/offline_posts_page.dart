@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:news_pro/core/utils/app_utils.dart';
+import 'package:rpsp_iasd/core/utils/app_utils.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../core/components/network_image.dart';

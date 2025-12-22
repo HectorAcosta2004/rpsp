@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:news_pro/core/components/mini_player.dart';
+import 'package:rpsp_iasd/core/components/mini_player.dart';
 
 import '../../config/wp_config.dart';
 import '../../core/components/app_logo.dart';

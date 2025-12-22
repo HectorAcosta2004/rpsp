@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:news_pro/core/controllers/config/config_controllers.dart';
+import 'package:rpsp_iasd/core/controllers/config/config_controllers.dart';
 
 import '../../logger/app_logger.dart';
 import '../../repositories/others/post_style_local.dart';

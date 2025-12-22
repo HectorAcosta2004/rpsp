@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:news_pro/core/utils/extensions.dart';
+import 'package:rpsp_iasd/core/utils/extensions.dart';
 
 import '../../../../core/constants/constants.dart';
 import '../../../../core/controllers/config/config_controllers.dart';

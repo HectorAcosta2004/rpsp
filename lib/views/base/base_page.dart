@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:news_pro/views/explore/explore_page.dart';
-import 'package:news_pro/views/saved/saved_page.dart';
-import 'package:news_pro/views/settings/settings_page.dart';
+import 'package:rpsp_iasd/views/explore/explore_page.dart';
+import 'package:rpsp_iasd/views/saved/saved_page.dart';
+import 'package:rpsp_iasd/views/settings/settings_page.dart';
 import '../../core/controllers/auth/auth_controller.dart';
 import '../../core/controllers/auth/auth_state.dart';
-// import '../../core/repositories/others/notification_local.dart'; // No se usa en este snippet
 
 class BasePage extends ConsumerStatefulWidget {
   const BasePage({super.key});
@@ -19,10 +18,8 @@ class BasePage extends ConsumerStatefulWidget {
 
 class _BasePageState extends ConsumerState<BasePage> {
   int _currentIndex = 0;
-  bool _isInit =
-      true; // 🔹 Variable para asegurar que solo leemos el argumento una vez
+  bool _isInit = true;
 
-  // 🔹 Este método captura el argumento enviado desde el Login
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();

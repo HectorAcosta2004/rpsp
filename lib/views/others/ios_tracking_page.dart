@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
-import 'package:news_pro/core/components/components.dart';
+import 'package:rpsp_iasd/core/components/components.dart';
 
 /// A widget wrapper that handles iOS App Tracking Transparency permissions.
 /// Wrap any widget with this to show the tracking permission dialog when

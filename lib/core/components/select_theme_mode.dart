@@ -2,7 +2,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:news_pro/core/utils/extensions.dart';
+import 'package:rpsp_iasd/core/utils/extensions.dart';
 
 import '../constants/constants.dart';
 import '../themes/theme_manager.dart';

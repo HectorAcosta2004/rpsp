@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:news_pro/core/constants/app_colors.dart';
+import 'package:rpsp_iasd/core/constants/app_colors.dart';
 import '../../../../core/controllers/config/config_controllers.dart';
 import '../../../../core/models/article.dart';
 import '../../../../core/routes/app_routes.dart';

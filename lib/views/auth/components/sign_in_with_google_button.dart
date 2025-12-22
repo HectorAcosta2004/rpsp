@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:news_pro/core/utils/extensions.dart';
+import 'package:rpsp_iasd/core/utils/extensions.dart';
 
 import '../../../core/constants/constants.dart';
 import '../../../core/controllers/auth/auth_controller.dart';

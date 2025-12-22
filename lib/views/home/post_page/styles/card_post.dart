@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:news_pro/core/utils/extensions.dart';
+import 'package:rpsp_iasd/core/utils/extensions.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../../config/wp_config.dart';
@@ -196,7 +196,7 @@ class CardPost extends StatelessWidget {
                     ),
                   ),
 
-                              Card(
+                  Card(
                     margin: const EdgeInsets.all(16),
                     elevation: 4,
                     shadowColor: isDark ? Colors.black54 : Colors.black26,
@@ -208,7 +208,7 @@ class CardPost extends StatelessWidget {
                       currentArticleID: article.id,
                     ),
                   ),
-                
+
                   Padding(
                     padding: const EdgeInsets.all(AppDefaults.padding),
                     child: SizedBox(
@@ -267,7 +267,6 @@ class _CardSaveButton extends ConsumerWidget {
           ? null
           : () async {
               if (auth is AuthLoggedIn) {
-                
                 if (isSaved) {
                   await controller.removePostFromSaved(article.id);
                   Fluttertoast.showToast(msg: 'article_removed_message'.tr());

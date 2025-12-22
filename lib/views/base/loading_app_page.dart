@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:news_pro/core/controllers/internet/internet_state_provider.dart';
+import 'package:rpsp_iasd/core/controllers/internet/internet_state_provider.dart';
 import '../../core/app/initialization_provider.dart';
 import '../../core/logger/app_logger.dart';
 import '../../core/controllers/config/config_controllers.dart';

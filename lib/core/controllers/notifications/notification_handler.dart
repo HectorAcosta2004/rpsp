@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import 'package:news_pro/core/repositories/posts/post_repository.dart';
-import 'package:news_pro/core/routes/app_routes.dart';
+import 'package:rpsp_iasd/core/repositories/posts/post_repository.dart';
+import 'package:rpsp_iasd/core/routes/app_routes.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 import '../../../config/wp_config.dart';
@@ -48,9 +48,7 @@ class NotificationHandler {
 
   /// Maneja el click en una notificación
   static Future<void> handleNotificationClick(
-    NotificationModel notification,
-    BuildContext context,
-    Ref ref) async {
+      NotificationModel notification, BuildContext context, Ref ref) async {
     if (notification.postId != 0) {
       // Obtener el PostRepository usando Riverpod
       final postRepo = ref.read(postRepoProvider);

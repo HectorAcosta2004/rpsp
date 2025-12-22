@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:news_pro/config/wp_config.dart';
+import 'package:rpsp_iasd/config/wp_config.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../../core/constants/constants.dart';

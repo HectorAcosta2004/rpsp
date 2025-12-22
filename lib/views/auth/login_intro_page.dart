@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:news_pro/views/others/ios_tracking_page.dart';
+import 'package:rpsp_iasd/views/others/ios_tracking_page.dart';
 
 import '../../config/wp_config.dart';
 import '../../core/components/app_logo.dart';

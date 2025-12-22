@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:news_pro/core/utils/extensions.dart';
+import 'package:rpsp_iasd/core/utils/extensions.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../../config/wp_config.dart';
@@ -39,9 +39,9 @@ class NormalPost extends StatelessWidget {
                   ArticleModel.isVideoArticle(article)
                       ? _CustomMediaRenderer(article: article)
                       : PostImageRenderer(article: article),
-                  
+
                   PostPageBody(article: article),
-                 
+
                   Container(
                     color: Theme.of(context).cardColor,
                     child: MoreRelatedPost(
@@ -51,7 +51,7 @@ class NormalPost extends StatelessWidget {
                       currentArticleID: article.id,
                     ),
                   ),
-                 
+
                   Padding(
                     padding: const EdgeInsets.all(AppDefaults.padding),
                     child: SizedBox(
@@ -168,7 +168,7 @@ class _CustomMediaRenderer extends StatelessWidget {
     bool isNormalVideo = article.featuredVideo != null;
     bool isYoutubeVideo = article.featuredYoutubeVideoUrl != null;
     String? thumbnail;
-    
+
     String getYouTubeThumbnail(String url) {
       try {
         final Uri uri = Uri.parse(url);
@@ -196,7 +196,8 @@ class _CustomMediaRenderer extends StatelessWidget {
         isYoutube: false,
         aspectRatio: 16 / 9,
         isVideoPage: true,
-        thumbnail: article.featuredImage, // Usamos la imagen destacada como miniatura
+        thumbnail:
+            article.featuredImage, // Usamos la imagen destacada como miniatura
         article: article,
       );
     } else {

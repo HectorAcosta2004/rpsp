@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_pro/core/utils/extensions.dart';
+import 'package:rpsp_iasd/core/utils/extensions.dart';
 
 class AppDefaults {
   static const double radius = 16;

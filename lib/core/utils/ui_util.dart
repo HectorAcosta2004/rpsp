@@ -24,7 +24,7 @@ class UiUtil {
     required BuildContext context,
     required Widget widget,
     bool isDismissable = true,
-    String? barrierLabel, // NUEVO: opcional
+    String? barrierLabel,
   }) async {
     final safeBarrierLabel =
         isDismissable ? (barrierLabel ?? 'close_dialog'.tr()) : null;
