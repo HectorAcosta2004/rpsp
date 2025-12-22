@@ -41,6 +41,7 @@ class CategoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (arguments.category.id == 29) {
+      // Prayer Request Category ID IS PEDIDOS DE ORACION
       return const PrayerRequestPage();
     }
 
