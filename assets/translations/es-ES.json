@@ -243,5 +243,10 @@
     "last_name": "Apellido",
     "request_sent_success": "Petición enviada correctamente",
     "send_request": "Enviar Petición",
-    "or_sign_in_with": "O inicia sesión con"
+    "or_sign_in_with": "O inicia sesión con",
+    "loading_message": "Cargando...",
+    "add_to_favorites": "Agregar a Favoritos",
+    "remove_from_favorites": "Eliminar de Favoritos",
+     "adding":"Agregando...",
+     "app_name": "Reavivados por su palabra"
 }

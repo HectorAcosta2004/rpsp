@@ -69,7 +69,7 @@ class NewsProApp extends StatelessWidget {
         overlayColor:
             const Color.fromARGB(255, 233, 233, 233).withOpacityValue(0.4),
         child: MaterialApp(
-          title: WPConfig.appName,
+          onGenerateTitle: (context) => 'app_name'.tr(),
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,

@@ -31,7 +31,6 @@ class SavePostButtonAlternative extends ConsumerWidget {
 
     void onTap() async {
       if (isLoggedIn) {
-        //ref.read(loadInterstitalAd(context))?.call();
         if (isSaved) {
           await controller.removePostFromSaved(article.id);
           Fluttertoast.showToast(msg: 'article_removed_message'.tr());
@@ -67,10 +66,10 @@ class SavePostButtonAlternative extends ConsumerWidget {
               AppSizedBox.w5,
               Text(
                 isSaving
-                    ? 'Adding...'
+                    ? 'Adding...'.tr()
                     : isSaved
                         ? 'saved'.tr()
-                        : 'Add To Favourite',
+                        : 'Add To Favourites'.tr(),
                 style: Theme.of(context).textTheme.bodySmall,
               )
             ],

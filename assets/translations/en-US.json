@@ -288,5 +288,9 @@
     "last_name": "Last Name",
     "request_sent_success": "Request sent successfully",
     "send_request": "Send Request",
-  "or_sign_in_with": "Or sign in with"
+  "or_sign_in_with": "Or sign in with",
+   "adding":"Adding...",
+   "add_to_favorites": "Agregar a Favoritos",
+    "remove_from_favorites": "Eliminar de Favoritos",
+    "app_name": "Revived by his word"
 }

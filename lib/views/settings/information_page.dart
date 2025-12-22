@@ -42,7 +42,7 @@ class ContactPage extends ConsumerWidget {
           ),
           AppSizedBox.h10,
           Text(
-            WPConfig.appName,
+            'app_name'.tr(),
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
