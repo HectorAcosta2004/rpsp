@@ -292,5 +292,12 @@
    "adding":"Adding...",
    "add_to_favorites": "Agregar a Favoritos",
     "remove_from_favorites": "Eliminar de Favoritos",
-    "app_name": "Revived by his word"
+    "app_name": "Revived by his word",
+    "select_union": "Select your Union",
+    "union_central": "Central Mexican Union",
+    "union_chiapas": "Chiapas Mexican Union",
+    "union_interoceanica": "Inter-Oceanic Mexican Union",
+    "union_norte": "North Mexican Union",
+    "union_sureste": "Southeast Mexican Union",
+    "union_none": "None"
 }

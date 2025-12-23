@@ -19,6 +19,19 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _messageController = TextEditingController();
 
+  // Variable to store the selected union key (e.g., 'union_central')
+  String? _selectedUnion;
+
+  // 1. MAP OF UNIONS AND THEIR EMAILS
+
+  final Map<String, String> _unionEmails = {
+    'union_central': 'central@example.com',
+    'union_chiapas': 'chiapas@example.com',
+    'union_interoceanica': 'interoceanica@example.com',
+    'union_norte': '1220072@unav.edu.mx',
+    'union_sureste': 'sureste@example.com',
+  };
+
   bool _isSending = false;
 
   @override
@@ -36,8 +49,10 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
         _isSending = true;
       });
 
+      // 1. Open Email App
       await _launchEmailApp();
 
+      // 2. Send to WordPress API
       await _sendToWordPressAPI();
 
       setState(() {
@@ -45,11 +60,16 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
       });
 
       if (mounted) {
+        // Clear the form
         _nameController.clear();
         _lastNameController.clear();
         _emailController.clear();
         _messageController.clear();
+        setState(() {
+          _selectedUnion = null; // Reset the dropdown
+        });
 
+        // Show success message
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('request_sent_success'.tr())),
         );
@@ -63,11 +83,26 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
     final emailUsuario = _emailController.text;
     final mensaje = _messageController.text;
 
-    const String destinatario = "1220072@unav.edu.mx";
+    // 2. LOGIC TO CHOOSE THE EMAIL RECIPIENT
+    String destinatario;
+
+    if (_selectedUnion != null && _unionEmails.containsKey(_selectedUnion)) {
+      // If a union was selected, use its specific email
+      destinatario = _unionEmails[_selectedUnion]!;
+    } else {
+      // If none selected ("None" or null), use the default email
+      destinatario = "afragoso@adventistasumn.org";
+    }
+
     final String asunto = "Nuevo Pedido de Oración: $nombre $apellido";
 
+    // Translate the union name for the email body so the recipient understands it
+    final String unionName =
+        _selectedUnion != null ? _selectedUnion!.tr() : 'union_none'.tr();
+
     final String cuerpo = "Nombre: $nombre $apellido\n"
-        "Email de contacto: $emailUsuario\n\n"
+        "Email de contacto: $emailUsuario\n"
+        "Unión: $unionName\n\n" // Include the union info
         "Pedido de Oración:\n$mensaje";
 
     final Uri emailLaunchUri = Uri(
@@ -82,7 +117,7 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
         await launchUrl(emailLaunchUri);
       }
     } catch (e) {
-      debugPrint("No se pudo abrir la app de correo: $e");
+      debugPrint("Could not launch email app: $e");
     }
   }
 
@@ -93,13 +128,18 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
       const String apiUrl =
           "https://rpsp.adventistasumn.org/wp-json/contact-form-7/v1/contact-forms/160/feedback";
 
+      final String unionName =
+          _selectedUnion != null ? _selectedUnion!.tr() : 'union_none'.tr();
+
+      final String mensajeCompleto =
+          "Unión seleccionada: $unionName\n\n${_messageController.text}";
+
       final formData = FormData.fromMap({
         "your-name": "${_nameController.text} ${_lastNameController.text}",
         "your-email": _emailController.text,
-        "your-message": _messageController.text,
-        "your-subject": "Petición desde App Móvil",
-        "_wpcf7_unit_tag":
-            "wpcf7-f160-p1-o1", // Ayuda a la validación interna de WP
+        "your-message": mensajeCompleto, // Message with union info
+        "your-subject": "Petición desde App Móvil ($unionName)",
+        "_wpcf7_unit_tag": "wpcf7-f160-p1-o1",
       });
 
       final response = await dio.post(
@@ -113,14 +153,14 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
       );
 
       if (response.statusCode == 200) {
-        print("✅ Datos guardados en WordPress correctamente: ${response.data}");
+        print("✅ Data sent to WordPress successfully: ${response.data}");
       } else {
         print(
-            "⚠️ WordPress recibió la petición pero respondió: ${response.statusCode}");
-        print("Respuesta: ${response.data}");
+            "⚠️ WordPress received the request but responded: ${response.statusCode}");
+        print("Response: ${response.data}");
       }
     } catch (e) {
-      print("❌ Error de conexión con la API: $e");
+      print("❌ Error connecting to API: $e");
     }
   }
 
@@ -143,6 +183,43 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
                     const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
+
+              // 3. UNION SELECTION DROPDOWN
+              DropdownButtonFormField<String>(
+                value: _selectedUnion,
+                decoration: InputDecoration(
+                  labelText: 'select_union'.tr(),
+                  border: const OutlineInputBorder(),
+                  prefixIcon: const Icon(Icons.church),
+                ),
+                items: [
+                  // Default "None" option
+                  DropdownMenuItem(
+                    value: null,
+                    child: Text('union_none'.tr()),
+                  ),
+                  ..._unionEmails.keys.map((String key) {
+                    return DropdownMenuItem(
+                      value: key,
+                      child: Text(
+                        key.tr(),
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontSize: 14),
+                      ),
+                    );
+                  }).toList(),
+                ],
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _selectedUnion = newValue;
+                  });
+                },
+                isExpanded: true,
+              ),
+
+              const SizedBox(height: 16),
+
+              // First Name Field
               TextFormField(
                 controller: _nameController,
                 decoration: InputDecoration(
@@ -152,6 +229,8 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
                 validator: AppValidators.required,
               ),
               const SizedBox(height: 16),
+
+              // Last Name Field
               TextFormField(
                 controller: _lastNameController,
                 decoration: InputDecoration(
@@ -161,6 +240,8 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
                 validator: AppValidators.required,
               ),
               const SizedBox(height: 16),
+
+              // Email Field
               TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
@@ -171,6 +252,8 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
                 validator: AppValidators.email,
               ),
               const SizedBox(height: 16),
+
+              // Message Field
               TextFormField(
                 controller: _messageController,
                 maxLines: 5,
@@ -182,6 +265,8 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
                 validator: AppValidators.required,
               ),
               const SizedBox(height: 24),
+
+              // Submit Button
               ElevatedButton(
                 onPressed: _isSending ? null : _submitForm,
                 style: ElevatedButton.styleFrom(
