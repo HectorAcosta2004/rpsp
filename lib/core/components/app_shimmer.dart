@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rpsp_iasd/utils/extensions.dart';
+import 'package:rpsp_iasd/core/utils/extensions.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../constants/constants.dart';
