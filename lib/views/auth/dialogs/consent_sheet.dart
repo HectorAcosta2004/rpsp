@@ -11,20 +11,33 @@ class CookieConsentSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final String langCode = Localizations.localeOf(context).languageCode;
+    final bool isEs = langCode == 'es';
+
+    final Map<String, String> texts = {
+      'title': isEs ? 'Uso de Cookies' : 'Cookie Usage',
+      'policyLink': isEs ? 'Políticas de Privacidad' : 'Privacy Policy',
+      'decline': isEs ? 'Rechazar' : 'Decline',
+      'accept': isEs ? 'Aceptar' : 'Accept',
+    };
+
     final privacyPolicy =
         ref.watch(configProvider).value?.privacyPolicyUrl ?? '';
 
-    final consentText =
-        ref.watch(configProvider).value?.cookieConsentText ?? '';
+    final String consentText = isEs
+        ? 'Utilizamos cookies propias y de terceros para mejorar nuestros servicios, personalizar el contenido y analizar el tráfico de la aplicación. Al hacer clic en "Aceptar", consientes el uso de estas tecnologías.'
+        : 'We use our own and third-party cookies to improve our services, personalize content, and analyze application traffic. By clicking "Accept", you consent to the use of these technologies.';
+    // ---------------------------------------------------------
+
     return Container(
       padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Text(
-            'Consentimiento Cookie ',
-            style: TextStyle(
+          Text(
+            texts['title']!,
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -32,18 +45,18 @@ class CookieConsentSheet extends ConsumerWidget {
           const SizedBox(height: 16),
           Text(
             consentText,
+            style: const TextStyle(fontSize: 15),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 10),
           InkWell(
             onTap: () {
               AppUtils.openLink(privacyPolicy);
             },
-            child: const Text(
-              'Politicas de Privacidad',
-              style: TextStyle(
-                color: Colors.blue, // Make the link text blue
-                decoration:
-                    TextDecoration.underline, // Add underline to the link text
+            child: Text(
+              texts['policyLink']!,
+              style: const TextStyle(
+                color: Colors.blue,
+                decoration: TextDecoration.underline,
               ),
             ),
           ),
@@ -56,15 +69,14 @@ class CookieConsentSheet extends ConsumerWidget {
                   Navigator.of(context).pop();
                   SystemNavigator.pop();
                 },
-                child: const Text('Rechazar'),
+                child: Text(texts['decline']!),
               ),
               TextButton(
                 onPressed: () {
-                  // Handle the 'Accept' action here
                   Navigator.of(context).pop();
                   OnboardingRepository().saveConsentDone();
                 },
-                child: const Text('Aceptar'),
+                child: Text(texts['accept']!),
               ),
             ],
           ),
