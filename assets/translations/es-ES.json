@@ -208,7 +208,7 @@
     "failed_repair_storage": "Error al reparar el almacenamiento",
     "retry": "Reintentar",
     "save_for_offline_reading": "Guardar para Lectura Sin Conexión",
-"login_failed": "Error al iniciar sesión. Verifica tus datos.",
+    "login_failed": "Error al iniciar sesión. Verifica tus datos.",
     "unexpected_error": "Ocurrió un error inesperado.",
     "account_issue": "No se pudo conectar con la cuenta.",
     "invalid_credentials": "El correo o la contraseña son incorrectos.",
@@ -256,6 +256,4 @@
     "union_norte": "Unión Mexicana del Norte",
     "union_sureste": "Unión Mexicana del Sureste",
     "union_none": "Ninguna"
-    "add_to_favorites": "Agregar a Favoritos",
-    "remove_from_favorites": "Eliminar de Favoritos",
 }
