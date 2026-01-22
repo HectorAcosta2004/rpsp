@@ -256,4 +256,6 @@
     "union_norte": "Unión Mexicana del Norte",
     "union_sureste": "Unión Mexicana del Sureste",
     "union_none": "Ninguna"
+    "add_to_favorites": "Agregar a Favoritos",
+    "remove_from_favorites": "Eliminar de Favoritos",
 }
