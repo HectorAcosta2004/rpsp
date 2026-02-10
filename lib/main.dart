@@ -9,7 +9,6 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'config/wp_config.dart';
 import 'core/localization/app_locales.dart';
 import 'core/models/notification_model.dart';
 import 'core/routes/app_routes.dart';

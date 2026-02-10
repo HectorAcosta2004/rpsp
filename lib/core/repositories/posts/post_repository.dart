@@ -108,8 +108,8 @@ class PostRepository extends PostRepoAbstract {
 
     // --- DEBUG: Imprime la información de la petición ---
     debugPrint(
-        "📢 [Categoría] Buscando posts para el ID de categoría: $categoryID");
-    debugPrint("🔗 [Categoría] URL consultada: $url");
+        '📢 [Categoría] Buscando posts para el ID de categoría: $categoryID');
+    debugPrint('🔗 [Categoría] URL consultada: $url');
     // ---
 
     try {
@@ -117,20 +117,20 @@ class PostRepository extends PostRepoAbstract {
 
       // --- DEBUG: Imprime la respuesta del servidor ---
       debugPrint(
-          "✅ [Categoría] Respuesta recibida. Código: ${response.statusCode}. Datos: ${response.data.toString()}");
+          '✅ [Categoría] Respuesta recibida. Código: ${response.statusCode}. Datos: ${response.data.toString()}');
       // ---
 
       final posts = _parseResponseData(response.data);
       articles = posts.map((e) => ArticleModel.fromMap(e)).toList();
 
       // --- DEBUG: Imprime el resultado final ---
-      debugPrint("📝 [Categoría] Se procesaron ${articles.length} artículos.");
+      debugPrint('📝 [Categoría] Se procesaron ${articles.length} artículos.');
       // ---
 
       return articles;
     } catch (e) {
       // --- DEBUG: Imprime si hubo un error ---
-      debugPrint("❌ [Categoría] ERROR al buscar posts: $e");
+      debugPrint('❌ [Categoría] ERROR al buscar posts: $e');
       // ---
       return [];
     }
@@ -203,8 +203,9 @@ class PostRepository extends PostRepoAbstract {
     final url = '$baseUrl/$postID';
     try {
       final response = await dio.get(url);
-      if (response.statusCode == 200)
+      if (response.statusCode == 200) {
         return ArticleModel.fromMap(response.data);
+      }
     } catch (e) {
       debugPrint(e.toString());
     }

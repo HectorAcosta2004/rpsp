@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:rpsp_iasd/core/components/mini_player.dart';
 
-import '../../config/wp_config.dart';
 import '../../core/components/app_logo.dart';
 import '../../core/constants/constants.dart';
 import '../../core/controllers/config/config_controllers.dart';

@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../core/utils/app_form_validattors.dart';
 
 class PrayerRequestPage extends StatefulWidget {
-  const PrayerRequestPage({Key? key}) : super(key: key);
+  const PrayerRequestPage({super.key});
 
   @override
   State<PrayerRequestPage> createState() => _PrayerRequestPageState();
@@ -91,19 +91,19 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
       destinatario = _unionEmails[_selectedUnion]!;
     } else {
       // If none selected ("None" or null), use the default email
-      destinatario = "afragoso@adventistasumn.org";
+      destinatario = 'afragoso@adventistasumn.org';
     }
 
-    final String asunto = "Nuevo Pedido de Oración: $nombre $apellido";
+    final String asunto = 'Nuevo Pedido de Oración: $nombre $apellido';
 
     // Translate the union name for the email body so the recipient understands it
     final String unionName =
         _selectedUnion != null ? _selectedUnion!.tr() : 'union_none'.tr();
 
-    final String cuerpo = "Nombre: $nombre $apellido\n"
-        "Email de contacto: $emailUsuario\n"
-        "Unión: $unionName\n\n" // Include the union info
-        "Pedido de Oración:\n$mensaje";
+    final String cuerpo = 'Nombre: $nombre $apellido\n'
+        'Email de contacto: $emailUsuario\n'
+        'Unión: $unionName\n\n' // Include the union info
+        'Pedido de Oración:\n$mensaje';
 
     final Uri emailLaunchUri = Uri(
       scheme: 'mailto',
@@ -117,7 +117,7 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
         await launchUrl(emailLaunchUri);
       }
     } catch (e) {
-      debugPrint("Could not launch email app: $e");
+      debugPrint('Could not launch email app: $e');
     }
   }
 
@@ -126,20 +126,20 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
       final dio = Dio();
 
       const String apiUrl =
-          "https://rpsp.adventistasumn.org/wp-json/contact-form-7/v1/contact-forms/160/feedback";
+          'https://rpsp.adventistasumn.org/wp-json/contact-form-7/v1/contact-forms/160/feedback';
 
       final String unionName =
           _selectedUnion != null ? _selectedUnion!.tr() : 'union_none'.tr();
 
       final String mensajeCompleto =
-          "Unión seleccionada: $unionName\n\n${_messageController.text}";
+          'Unión seleccionada: $unionName\n\n${_messageController.text}';
 
       final formData = FormData.fromMap({
-        "your-name": "${_nameController.text} ${_lastNameController.text}",
-        "your-email": _emailController.text,
-        "your-message": mensajeCompleto, // Message with union info
-        "your-subject": "Petición desde App Móvil ($unionName)",
-        "_wpcf7_unit_tag": "wpcf7-f160-p1-o1",
+        'your-name': '${_nameController.text} ${_lastNameController.text}',
+        'your-email': _emailController.text,
+        'your-message': mensajeCompleto, // Message with union info
+        'your-subject': 'Petición desde App Móvil ($unionName)',
+        '_wpcf7_unit_tag': 'wpcf7-f160-p1-o1',
       });
 
       final response = await dio.post(
@@ -147,20 +147,20 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
         data: formData,
         options: Options(
           headers: {
-            "Content-Type": "multipart/form-data",
+            'Content-Type': 'multipart/form-data',
           },
         ),
       );
 
       if (response.statusCode == 200) {
-        print("✅ Data sent to WordPress successfully: ${response.data}");
+        print('✅ Data sent to WordPress successfully: ${response.data}');
       } else {
         print(
-            "⚠️ WordPress received the request but responded: ${response.statusCode}");
-        print("Response: ${response.data}");
+            '⚠️ WordPress received the request but responded: ${response.statusCode}');
+        print('Response: ${response.data}');
       }
     } catch (e) {
-      print("❌ Error connecting to API: $e");
+      print('❌ Error connecting to API: $e');
     }
   }
 
@@ -207,7 +207,7 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
                         style: const TextStyle(fontSize: 14),
                       ),
                     );
-                  }).toList(),
+                  }),
                 ],
                 onChanged: (String? newValue) {
                   setState(() {
@@ -226,7 +226,7 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
                   labelText: 'first_name'.tr(),
                   border: const OutlineInputBorder(),
                 ),
-                validator: AppValidators.required,
+                validator: AppValidators.required.call,
               ),
               const SizedBox(height: 16),
 
@@ -237,7 +237,7 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
                   labelText: 'last_name'.tr(),
                   border: const OutlineInputBorder(),
                 ),
-                validator: AppValidators.required,
+                validator: AppValidators.required.call,
               ),
               const SizedBox(height: 16),
 
@@ -249,7 +249,7 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
                   labelText: 'email'.tr(),
                   border: const OutlineInputBorder(),
                 ),
-                validator: AppValidators.email,
+                validator: AppValidators.email.call,
               ),
               const SizedBox(height: 16),
 
@@ -262,7 +262,7 @@ class _PrayerRequestPageState extends State<PrayerRequestPage> {
                   border: const OutlineInputBorder(),
                   alignLabelWithHint: true,
                 ),
-                validator: AppValidators.required,
+                validator: AppValidators.required.call,
               ),
               const SizedBox(height: 24),
 

@@ -27,7 +27,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
 
   bool _isSearching = false;
   bool _isOnHistory = true;
-  List<ArticleModel> _searchedList = [];
+  final List<ArticleModel> _searchedList = [];
 
   final _formKey = GlobalKey<FormState>();
 

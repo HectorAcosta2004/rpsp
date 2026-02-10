@@ -53,6 +53,7 @@ class AdController {
             );
           }
         }
+        return null;
       },
     );
     final List<Widget> items =
