@@ -66,10 +66,10 @@ class SavePostButtonAlternative extends ConsumerWidget {
               AppSizedBox.w5,
               Text(
                 isSaving
-                    ? 'Adding...'.tr()
+                    ? 'adding'.tr()
                     : isSaved
                         ? 'saved'.tr()
-                        : 'Add To Favourites'.tr(),
+                        : 'add_to_favorites'.tr(),
                 style: Theme.of(context).textTheme.bodySmall,
               )
             ],

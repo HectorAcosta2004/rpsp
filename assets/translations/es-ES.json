@@ -255,5 +255,9 @@
     "union_interoceanica": "Unión Mexicana Interoceánica",
     "union_norte": "Unión Mexicana del Norte",
     "union_sureste": "Unión Mexicana del Sureste",
-    "union_none": "Ninguna"
+    "union_none": "Ninguna",
+    "error_get_author_data": "Ocurrió un error al obtener los datos del autor",
+    "error_fetching_user": "Error al obtener los datos del usuario",
+    "error_deleting_user": "Ocurrió un error al eliminar el usuario",
+    "user_deleted_success": "Usuario eliminado con éxito"
 }

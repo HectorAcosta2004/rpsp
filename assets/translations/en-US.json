@@ -299,5 +299,9 @@
     "union_interoceanica": "Inter-Oceanic Mexican Union",
     "union_norte": "North Mexican Union",
     "union_sureste": "Southeast Mexican Union",
-    "union_none": "None"
+    "union_none": "None",
+    "error_get_author_data": "An error occurred while obtaining author data",
+    "error_fetching_user": "Error while fetching user information",
+    "error_deleting_user": "An error occurred while deleting the user",
+    "user_deleted_success": "User deleted successfully"
 }

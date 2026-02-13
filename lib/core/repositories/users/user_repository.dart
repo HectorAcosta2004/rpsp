@@ -1,11 +1,10 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:uuid/uuid.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import '../../../config/wp_config.dart';
 import '../../controllers/dio/dio_provider.dart';
 import '../../models/author.dart';
@@ -30,10 +29,7 @@ class UserRepository {
         final author = AuthorData.fromMap(decodedData);
         return author;
       }
-    } catch (e) {
-      Fluttertoast.showToast(msg: 'Ocurrió un error al obtener los datos del autor');
-      return null;
-    }
+    } catch (e) {}
     return null;
   }
 
@@ -57,14 +53,9 @@ class UserRepository {
         return author;
       } else {
         debugPrint('Response code is ${response.statusCode}');
-        debugPrint('Response body ${response.data}');
         return null;
       }
-    } catch (e) {
-      debugPrint('User fetching error: $e');
-      Fluttertoast.showToast(msg: 'Error while fetching user');
-      return null;
-    }
+    } catch (e) {}
   }
 
   Future<AuthorData?> updateProfile(
@@ -90,17 +81,12 @@ class UserRepository {
       if (response.statusCode == 200) {
         final decodedData = response.data;
         final author = AuthorData.fromMap(decodedData);
-
         return author;
       } else {
         debugPrint('Response code is ${response.statusCode}');
         return null;
       }
-    } catch (e) {
-      debugPrint('User fetching error: $e');
-      Fluttertoast.showToast(msg: 'Error while fetching user');
-      return null;
-    }
+    } catch (e) {}
   }
 
   Future<void> deleteUsers(String token) async {
@@ -115,14 +101,10 @@ class UserRepository {
         ),
       );
       if (response.statusCode == 200) {
-        debugPrint('Usuario Eliminado con Exito');
-        debugPrint(response.data.toString());
-      } else {
-        debugPrint(response.statusCode.toString());
-        debugPrint(response.data.toString());
+        debugPrint('user_deleted_success'.tr());
       }
     } catch (e) {
-      Fluttertoast.showToast(msg: 'Ocurrio un Error al Eliminar el Usuario');
+      Fluttertoast.showToast(msg: 'error_deleting_user'.tr());
     }
   }
 
@@ -134,15 +116,11 @@ class UserRepository {
       if (response.statusCode == 200) {
         final decodedResponse = response.data as List;
         users = decodedResponse.map((e) => AuthorData.fromMap(e)).toList();
-        // debugPrint(users.toString());
-        return users;
-      } else {
-        debugPrint(response.statusMessage);
         return users;
       }
     } catch (e) {
       debugPrint(e.toString());
-      return users;
     }
+    return users;
   }
 }
